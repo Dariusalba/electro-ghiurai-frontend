@@ -86,25 +86,25 @@ const RegisterForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-  //   fetch('http://localhost:9191/customers', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify(values),
-  // })
-  // .then(response => {
-  //   if (response.status === 409) {
-  //     console.error('Username already exists');
-  //   } else if (response.status === 201) {
-  //     console.log('Data sent to server successfully:', response.json());
-  //   } else {
-  //     console.error('Error:', response.status);
-  //   }
-  // })
-  // .catch((error) => {
-  //   console.error('Error:', error);
-  // });
+    fetch('http://localhost:9191/customer/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(values),
+  })
+  .then(response => {
+    if (response.status === 409) {
+      console.error('Username already exists');
+    } else if (response.status === 201) {
+      console.log('Data sent to server successfully:', response.json());
+    } else {
+      console.error('Error:', response.status);
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
   console.log(values);
 }
 
@@ -126,7 +126,7 @@ const RegisterForm = () => {
             onChange={onChange}
           />
         ))}
-        <button onclick = {handleSubmit}>Register</button>
+        <button onClick = {handleSubmit}>Register</button>
         <p>Already have an account? <Link to="/login">Login</Link></p>
       </form>
     </div>
