@@ -97,7 +97,7 @@ const RegisterForm = () => {
     if (response.status === 409) {
       console.error('Username already exists');
     } else if (response.status === 201) {
-      console.log('Data sent to server successfully:', response.json());
+      console.log('Data sent to server successfully:', response.json().then((file) => console.log(file)));
     } else {
       console.error('Error:', response.status);
     }
