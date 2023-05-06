@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import RegisterForm from './pages/RegisterForm';
 import LoginForm from './pages/LoginForm';
 import Order from './pages/Order';
+import Account from './pages/Account';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/order" element={<Order />} />
+        <Route path="/account" element={<Account />} />
       </Routes>
     </Router>
   );

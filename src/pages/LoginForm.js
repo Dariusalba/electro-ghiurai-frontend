@@ -63,6 +63,7 @@ const LoginForm = () => {
     .catch((error) => {
       console.error('Error:', error);
     });
+    window.location.href = '/order';
   };
 
   const onChange = (e) => {
