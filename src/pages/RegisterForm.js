@@ -12,6 +12,7 @@ const RegisterForm = () => {
     firstName:"",
     lastName:"",
     dateOfBirth:"",
+    profilePicture:"",
   });
 
   const inputs = [
@@ -27,7 +28,7 @@ const RegisterForm = () => {
       required: true,
     },
     {
-      id: 6,
+      id: 2,
       name: "firstName",
       type: "text",
       placeholder: "Enter your First Name",
@@ -36,7 +37,7 @@ const RegisterForm = () => {
       required: true,
     },
     {
-      id: 7,
+      id: 3,
       name: "lastName",
       type: "text",
       placeholder: "Enter your Last Name",
@@ -45,7 +46,7 @@ const RegisterForm = () => {
       required: true,
     },
     {
-      id: 3,
+      id: 4,
       name: "dateOfBirth",
       type: "date",
       placeholder: "Date of Birth",
@@ -53,7 +54,7 @@ const RegisterForm = () => {
       required: true,
     },
     {
-      id: 4,
+      id: 5,
       name: "countryOfOrigin",
       type: "country",
       placeholder: "Country",
@@ -62,7 +63,7 @@ const RegisterForm = () => {
       required: true,
     },
     {
-      id: 2,
+      id: 6,
       name: "email",
       type: "email",
       placeholder: "Email",
@@ -71,7 +72,7 @@ const RegisterForm = () => {
       required: true,
     },
     {
-      id: 5,
+      id: 7,
       name: "password",
       type: "password",
       placeholder: "Password",
@@ -83,9 +84,19 @@ const RegisterForm = () => {
     },
   ];
 
+  const handleChooseFile = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(file);
+    reader.onloadend = () => {
+      const byteArray = new Uint8Array(reader.result);
+      setValues({ ...values, profilePicture: byteArray });
+    };
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    
     fetch('http://localhost:9191/customer/register', {
     method: 'POST',
     headers: {
@@ -126,6 +137,12 @@ const RegisterForm = () => {
             onChange={onChange}
           />
         ))}
+        <input
+        type="file"
+        name="profilePicture"
+        accept="image/*"
+        onChange={handleChooseFile}
+        />
         <button onClick = {handleSubmit}>Register</button>
         <p>Already have an account? <Link to="/login">Login</Link></p>
       </form>
