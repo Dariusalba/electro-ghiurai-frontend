@@ -47,6 +47,11 @@ const LoginForm = () => {
     .then(response => {
       if (response.status === 200) {
         console.log('Login successful');
+        response.json().then(data => {
+          const customerId = data.customerId;
+          sessionStorage.setItem('customerId', customerId);
+          window.location.href = '/order';
+        });
       } else if (response.status === 401) {
         console.error('Invalid username or password');
       } else if (response.status === 404) {
@@ -58,7 +63,6 @@ const LoginForm = () => {
     .catch((error) => {
       console.error('Error:', error);
     });
-      
   };
 
   const onChange = (e) => {
