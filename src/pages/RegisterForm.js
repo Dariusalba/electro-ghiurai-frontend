@@ -12,7 +12,7 @@ const RegisterForm = () => {
     firstName:"",
     lastName:"",
     dateOfBirth:"",
-    profilePicture:"",
+    image:"",
   });
 
   const inputs = [
@@ -84,49 +84,66 @@ const RegisterForm = () => {
     },
   ];
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  
+    fetch('http://localhost:9191/customer/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+      .then((response) => {
+        if (response.status === 409) {
+          console.error('Username already exists');
+        } else if (response.status === 201) {
+          console.log('Data sent to server successfully:', response.json());
+          const customerId = response.json().customerId;
+          const formData = new FormData();
+          formData.append('image', values.image, 'image');
+          fetch(`http://localhost:9191/customer/register/img/${customerId}`, {
+            method: 'POST',
+            body: formData,
+          })
+            .then((response) => {
+              if (response.status === 201) {
+                console.log('Image sent to server successfully');
+                window.location.href = '/order';
+              } else {
+                console.error('Error:', response.status);
+              }
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+        } else {
+          console.error('Error:', response.status);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+      console.log(values);
+  };
+
   const handleChooseFile = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsArrayBuffer(file);
     reader.onloadend = () => {
       const byteArray = new Uint8Array(reader.result);
-      setValues({ ...values, profilePicture: byteArray });
+      setValues({ ...values, image: byteArray });
     };
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    fetch('http://localhost:9191/customer/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(values),
-  })
-  .then(response => {
-    if (response.status === 409) {
-      console.error('Username already exists');
-    } else if (response.status === 201) {
-      console.log('Data sent to server successfully:', response.json());
-    } else {
-      console.error('Error:', response.status);
-    }
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
-  console.log(values);
-}
-
-
+  
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
 
   return (
-    <div className="app">
+    <div>
       <form onSubmit={handleSubmit}>
         <h1>Register</h1>
         {inputs.map((input) => (
@@ -139,7 +156,7 @@ const RegisterForm = () => {
         ))}
         <input
         type="file"
-        name="profilePicture"
+        name="image"
         accept="image/*"
         onChange={handleChooseFile}
         />
