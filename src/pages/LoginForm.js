@@ -36,6 +36,28 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(JSON.stringify(values));
+
+    fetch('http://localhost:9191/customer/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+    .then(response => {
+      if (response.status === 200) {
+        console.log('Login successful');
+      } else if (response.status === 401) {
+        console.error('Invalid username or password');
+      } else if (response.status === 404) {
+        console.error('User not found');
+      } else {
+        console.error('Error:', response.status);
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
       
   };
 
