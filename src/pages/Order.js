@@ -28,61 +28,54 @@ function OrderForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    const newOrder = {
-      customerId: customerId,
-      title: values.title,
-      description: values.description,
-      progress: 0,
-    };
+    const remarksArr = remarks.map((remark) => ({ orderId: 0, description: remark }));
+    const newValues = { ...values, remarks: remarksArr };
   
     fetch(`http://localhost:9191/customer/order/${customerId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newOrder),
+      body: JSON.stringify(newValues),
     })
-      .then((response) => {
-        if (response.status === 201) {
-          console.log("Order placed successfully");
-          response.json().then((data) => {
-            const orderId = data.orderId;
-            const remarksToSend = remarks.map((remark) => {
-              return { orderId: 0, description: remark };
-            });
-            remarksToSend.forEach((remark) => {
-              fetch(`http://localhost:9191/customer/order/remark/${orderId}`, {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(remark),
+    .then((response) => {
+      if (response.status === 201) {
+        console.log("Order placed successfully");
+        response.json().then((data) => {
+          const orderId = data.orderId;
+          remarks.forEach((remark) => {
+            fetch(`http://localhost:9191/customer/order/remark/${orderId}`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ orderId: 0, description: remark }),
+            })
+              .then((response) => {
+                if (response.status === 201) {
+                  console.log("Remark added successfully");
+                } else {
+                  console.error("Error: ", response.status);
+                }
               })
-                .then((response) => {
-                  if (response.status === 201) {
-                    console.log("Remark added successfully");
-                  } else {
-                    console.error("Error: ", response.status);
-                  }
-                })
-                .catch((error) => {
-                  console.error("Error: ", error);
-                });
-            });
+              .catch((error) => {
+                console.error("Error: ", error);
+              });
           });
-        } else {
-          console.error("Error: ", response.status);
-        }
-      })
-      .catch((error) => {
-        console.error("Error: ", error);
-      });
+        });
+      } else {
+        console.error("Error: ", response.status);
+      }
+    })
+    .catch((error) => {
+      console.error("Error: ", error);
+    });
   
     setValues({ title: "", description: "", remarks: [] });
     setRemarks([]);
-    console.log(values);
+    console.log(newValues);
     console.log(remarks);
-  };
+  }; 
   
 
   const handleChange = (e) => {
