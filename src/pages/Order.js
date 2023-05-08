@@ -23,13 +23,13 @@ function OrderForm() {
     setRemarks([...remarks, newRemark]);
     setValues({ ...values, remarks: [...values.remarks, newRemark] });
     setRemarkValue("");
-  };
+  };  
 
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    const remarksArr = remarks.map((remark) => ({ orderId: 0, description: remark }));
-    const newValues = { ...values, remarks: remarksArr };
+    const newValues = { ...values, remarks };
+    const remarksJson = JSON.stringify(remarks);
   
     fetch(`http://localhost:9191/customer/order/${customerId}`, {
       method: "POST",
@@ -38,22 +38,21 @@ function OrderForm() {
       },
       body: JSON.stringify(newValues),
     })
-    .then((response) => {
-      if (response.status === 201) {
-        console.log("Order placed successfully");
-        response.json().then((data) => {
-          const orderId = data.orderId;
-          remarks.forEach((remark) => {
+      .then((response) => {
+        if (response.status === 201) {
+          console.log("Order placed successfully");
+          response.json().then((data) => {
+            const orderId = data.orderId;
             fetch(`http://localhost:9191/customer/order/remark/${orderId}`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ orderId: 0, description: remark }),
+              body: remarksJson,
             })
               .then((response) => {
                 if (response.status === 201) {
-                  console.log("Remark added successfully");
+                  console.log("Remarks added successfully");
                 } else {
                   console.error("Error: ", response.status);
                 }
@@ -62,20 +61,19 @@ function OrderForm() {
                 console.error("Error: ", error);
               });
           });
-        });
-      } else {
-        console.error("Error: ", response.status);
-      }
-    })
-    .catch((error) => {
-      console.error("Error: ", error);
-    });
+        } else {
+          console.error("Error: ", response.status);
+        }
+      })
+      .catch((error) => {
+        console.error("Error: ", error);
+      });
   
     setValues({ title: "", description: "", remarks: [] });
     setRemarks([]);
-    console.log(newValues);
-    console.log(remarks);
-  }; 
+    console.log(values);
+    console.log(remarksJson);
+  };   
   
 
   const handleChange = (e) => {
