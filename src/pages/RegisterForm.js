@@ -199,7 +199,6 @@ const RegisterForm = () => {
       return;
     }
     
-    //check if first and last name are not empty
     if (!values.firstName || !values.lastName) {
       nameNotEntered();
       return;
