@@ -28,7 +28,6 @@ function OrderForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    // Append remarks to values object
     const newValues = { ...values, remarks };
   
     fetch(`http://localhost:9191/customer/order/${customerId}`, {

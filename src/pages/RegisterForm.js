@@ -114,7 +114,7 @@ const RegisterForm = () => {
 
 
   return (
-    <div>
+    <div className="app">
       <form onSubmit={handleSubmit}>
         <h1>Register</h1>
         {inputs.map((input) => (

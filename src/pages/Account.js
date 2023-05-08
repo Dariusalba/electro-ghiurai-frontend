@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 function AccountInfo() {
   const customerId = sessionStorage.getItem("customerId");
-  const orderId = sessionStorage.getItem("orderId");
   const [userInfo, setUserInfo] = useState({});
   const [orders, setOrders] = useState([]);
 
