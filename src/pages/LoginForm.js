@@ -35,19 +35,19 @@ const LoginForm = () => {
     },
   ];
 
-  const notifyInvalidUsernamePassword = () => 
-  toast.error('❌ Invalid username or password', {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "dark",
+  const notifyInvalidUsernamePassword = () =>
+    toast.error('❌ Invalid username or password', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
     });
-  
-    const notifyUserNotFound = () => 
+
+  const notifyUserNotFound = () =>
     toast.error('❌ User not found', {
       position: "top-right",
       autoClose: 5000,
@@ -57,7 +57,7 @@ const LoginForm = () => {
       draggable: true,
       progress: undefined,
       theme: "dark",
-      });
+    });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -70,27 +70,27 @@ const LoginForm = () => {
       },
       body: JSON.stringify(values),
     })
-    .then(response => {
-      if (response.status === 200) {
-        console.log('Login successful');
-        response.json().then(data => {
-          const customerId = data.customerId;
-          sessionStorage.setItem('customerId', customerId);
-          window.location.href = '/order';
-        });
-      } else if (response.status === 401) {
-        console.error('Invalid username or password');
-        notifyInvalidUsernamePassword();
-      } else if (response.status === 404) {
-        console.error('User not found');
-        notifyUserNotFound();
-      } else {
-        console.error('Error:', response.status);
-      }
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+      .then(response => {
+        if (response.status === 200) {
+          console.log('Login successful');
+          response.json().then(data => {
+            const customerId = data.customerId;
+            sessionStorage.setItem('customerId', customerId);
+            window.location.href = '/order';
+          });
+        } else if (response.status === 401) {
+          console.error('Invalid username or password');
+          notifyInvalidUsernamePassword();
+        } else if (response.status === 404) {
+          console.error('User not found');
+          notifyUserNotFound();
+        } else {
+          console.error('Error:', response.status);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
   const onChange = (e) => {
@@ -109,7 +109,7 @@ const LoginForm = () => {
             onChange={onChange}
           />
         ))}
-        <button onClick = {notifyUserNotFound}>Login</button>
+        <button onClick={notifyUserNotFound}>Login</button>
       </form>
       <ToastContainer />
     </div>
