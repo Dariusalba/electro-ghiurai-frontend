@@ -2,6 +2,8 @@ import { useState } from "react";
 import "../App.css";
 import FormInput from "../components/forminput.js";
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const RegisterForm = () => {
   const [values, setValues] = useState({
@@ -83,6 +85,18 @@ const RegisterForm = () => {
     },
   ];
 
+  const notifyUserExists = () => 
+  toast.error('❌ Username already exists!', {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+    });
+
   const handleSubmit = (e) => {
     e.preventDefault();
   
@@ -96,6 +110,7 @@ const RegisterForm = () => {
   .then(response => {
     if (response.status === 409) {
       console.error('Username already exists');
+      notifyUserExists();
     } else if (response.status === 201) {
       console.log('Data sent to server successfully:', response.json().then((file) => console.log(file)));
     } else {
@@ -128,6 +143,7 @@ const RegisterForm = () => {
         <button onClick = {handleSubmit}>Register</button>
         <p>Already have an account? <Link to="/login">Login</Link></p>
       </form>
+      <ToastContainer />
     </div>
   );
 };

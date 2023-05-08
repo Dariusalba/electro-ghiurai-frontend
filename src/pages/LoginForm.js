@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import "../App.css";
 import FormInput from "../components/forminput.js";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const LoginForm = () => {
   const [values, setValues] = useState({
@@ -33,6 +35,30 @@ const LoginForm = () => {
     },
   ];
 
+  const notifyInvalidUsernamePassword = () => 
+  toast.error('❌ Invalid username or password', {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+    });
+  
+    const notifyUserNotFound = () => 
+    toast.error('❌ User not found', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(JSON.stringify(values));
@@ -54,8 +80,10 @@ const LoginForm = () => {
         });
       } else if (response.status === 401) {
         console.error('Invalid username or password');
+        notifyInvalidUsernamePassword();
       } else if (response.status === 404) {
         console.error('User not found');
+        notifyUserNotFound();
       } else {
         console.error('Error:', response.status);
       }
@@ -63,7 +91,6 @@ const LoginForm = () => {
     .catch((error) => {
       console.error('Error:', error);
     });
-    window.location.href = '/order';
   };
 
   const onChange = (e) => {
@@ -82,8 +109,9 @@ const LoginForm = () => {
             onChange={onChange}
           />
         ))}
-        <button onClick = {handleSubmit}>Login</button>
+        <button onClick = {notifyUserNotFound}>Login</button>
       </form>
+      <ToastContainer />
     </div>
   );
 }
