@@ -35,7 +35,7 @@ function OrderForm() {
       progress: 0,
     };
   
-    fetch(`http://localhost:9191/customer/order`, {
+    fetch(`http://localhost:9191/customer/order/${customerId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
