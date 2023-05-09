@@ -6,39 +6,62 @@ function AccountInfo() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:9191/customer/${customerId}`)
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await fetch(`http://localhost:9191/customer/${customerId}`);
+        const data = await response.json();
         const { username, firstName, lastName, email, countryOfOrigin } = data;
         setUserInfo({ username, firstName, lastName, email, countryOfOrigin });
-      })
-      .catch((error) => console.error("Error: ", error));
-
-    fetch(`http://localhost:9191/customer/order/${customerId}`)
-      .then((response) => response.json())
-      .then((data) => setOrders(data))
-      .catch((error) => console.error("Error: ", error));
+      } catch (error) {
+        console.error("Error: ", error);
+      }
+    }
+  
+    const fetchOrders = async () => {
+      try {
+        const response = await fetch(`http://localhost:9191/customer/order/${customerId}`);
+        const data = await response.json();
+        setOrders(data);
+      } catch (error) {
+        console.error("Error: ", error);
+      }
+    }
+  
+    fetchUserInfo();
+    fetchOrders();
   }, [customerId]);
+  
 
   return (
     <div className="app">
       <h1>Account Information</h1>
       <h2>User Information:</h2>
-      <p className="account-p">Username: {userInfo.username}</p>
-      <p className="account-p">First Name: {userInfo.firstName}</p>
-      <p className="account-p">Last Name: {userInfo.lastName}</p>
-      <p className="account-p">Email: {userInfo.email}</p>
-      <p className="account-p">Country of Origin: {userInfo.countryOfOrigin}</p>
+      {Object.keys(userInfo).length > 0 ? (
+        <>
+          <p className="account-p">Username: {userInfo.username}</p>
+          <p className="account-p">First Name: {userInfo.firstName}</p>
+          <p className="account-p">Last Name: {userInfo.lastName}</p>
+          <p className="account-p">Email: {userInfo.email}</p>
+          <p className="account-p">Country of Origin: {userInfo.countryOfOrigin}</p>
+        </>
+      ) : (
+        <p>Loading user information...</p>
+      )}
       <h2>Current Orders:</h2>
-      {orders.map((order) => (
-        <div key={order.id}>
-          <p className="account-p">Order ID: {order.id}</p>
-          <p className="account-p">Title: {order.title}</p>
-          <p className="account-p">Description: {order.description}</p>
-        </div>
-      ))}
+      {orders.length > 0 ? (
+        orders.map((order) => (
+          <div key={order.id}>
+            <p className="account-p">Order ID: {order.id}</p>
+            <p className="account-p">Title: {order.title}</p>
+            <p className="account-p">Description: {order.description}</p>
+          </div>
+        ))
+      ) : (
+        <p>No orders found.</p>
+      )}
     </div>
   );
+  
 }
 
 export default AccountInfo;
