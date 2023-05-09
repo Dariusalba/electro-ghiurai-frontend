@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const customerId = sessionStorage.getItem("customerId");
 
@@ -123,6 +124,7 @@ function OrderForm() {
           </button>
         </div>
         <button type="submit">Submit</button>
+        <Link to="/account">Account Page</Link>
       </form>
     </div>
   );

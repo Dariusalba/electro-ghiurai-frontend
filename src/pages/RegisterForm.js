@@ -224,7 +224,6 @@ const RegisterForm = () => {
       .catch((error) => {
         console.error('Error:', error);
       });
-    console.log(values);
   }
 
   const onChange = (e) => {
