@@ -25,6 +25,14 @@ body{
 	overflow: hidden;
   }
 
+.app p {
+	margin-right: 100px;
+	color: white;
+	-webkit-text-stroke-width: 0.5px;
+	-webkit-text-stroke-color: black;
+	text-align: left;
+}
+
 .login{
 	position: relative;
 	width:100%;
@@ -77,11 +85,6 @@ button{
 }
 button:hover{
 	background: #6d44b8;
-}
-
-p {
-  margin-top: 20px;
-  text-align: center;
 }
 
 .formInput {

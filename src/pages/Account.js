@@ -18,7 +18,7 @@ function AccountInfo() {
   }, [customerId]);
 
   return (
-    <div>
+    <div className="app">
       <h1>Account Information</h1>
       <h2>User Information:</h2>
       <p>Username: {userInfo.username}</p>
