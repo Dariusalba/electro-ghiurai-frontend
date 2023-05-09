@@ -18,18 +18,18 @@ function AccountInfo() {
   }, [customerId]);
 
   return (
-    <div>
+    <div className="app">
       <h1>Account Information</h1>
       <h2>User Information:</h2>
-      <p>Username: {userInfo.username}</p>
-      <p>First Name: {userInfo.firstName}</p>
-      <p>Last Name: {userInfo.lastName}</p>
+      <p className="account-p">Username: {userInfo.username}</p>
+      <p className="account-p">First Name: {userInfo.firstName}</p>
+      <p className="account-p">Last Name: {userInfo.lastName}</p>
       <h2>Current Orders:</h2>
       {orders.map((order) => (
         <div key={order.id}>
-          <p>Order ID: {order.id}</p>
-          <p>Title: {order.title}</p>
-          <p>Description: {order.description}</p>
+          <p className="account-p">Order ID: {order.id}</p>
+          <p className="account-p">Title: {order.title}</p>
+          <p className="account-p">Description: {order.description}</p>
         </div>
       ))}
     </div>

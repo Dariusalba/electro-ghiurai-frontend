@@ -2,17 +2,23 @@ import { useState } from "react";
 import "../App.css";
 import FormInput from "../components/forminput.js";
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+
+import countries from "../countries.json"
 
 const RegisterForm = () => {
   const [values, setValues] = useState({
     username: "",
     email: "",
-    countryOfOrigin:"",
+    countryOfOrigin: "",
     password: "",
-    firstName:"",
-    lastName:"",
-    dateOfBirth:"",
+    firstName: "",
+    lastName: "",
+    dateOfBirth: "",
   });
+
+  const countryNames = countries.map((country) => country.english_name);
 
   const inputs = [
     {
@@ -81,33 +87,146 @@ const RegisterForm = () => {
       pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
       required: true,
     },
+    {
+      id: 8,
+      name: "confirmPassword",
+      type: "password",
+      placeholder: "Confirm Password",
+      errorMessage: "Passwords don't match!",
+      label: "Confirm Password",
+      pattern: values.password,
+      required: true,
+    }
   ];
+
+  const notifyUserExists = () =>
+    toast.error('❌ Username already exists!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  const emailNotValid = () =>
+    toast.error('❌ Please enter a valid email address!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
+  const passwordsNotMatching = () =>
+    toast.error('❌ Passwords do not match!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
+  const usernameNotEntered = () =>
+    toast.error('❌ Please enter a username!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
+  const countryNotValid = () =>
+    toast.error('❌ Please enter a valid country!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  
+    const nameNotEntered = () =>
+    toast.error('❌ Please enter your first and last name!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-    fetch('http://localhost:9191/customer/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(values),
-  })
-  .then(response => {
-    if (response.status === 409) {
-      console.error('Username already exists');
-    } else if (response.status === 201) {
-      console.log('Data sent to server successfully:', response.json().then((file) => console.log(file)));
-    } else {
-      console.error('Error:', response.status);
+
+    if (!isValidEmail(values.email)) {
+      emailNotValid();
+      return;
     }
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
-  console.log(values);
-}
-  
+
+    if (values.password !== values.confirmPassword) {
+      passwordsNotMatching();
+      return;
+    }
+
+    if (!values.username) {
+      usernameNotEntered();
+      return;
+    }
+    
+    if (!countryNames.includes(values.countryOfOrigin)) {
+      countryNotValid();
+      return;
+    }
+    
+    if (!values.firstName || !values.lastName) {
+      nameNotEntered();
+      return;
+    }
+
+    fetch('http://localhost:9191/customer/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+      .then(response => {
+        if (response.status === 409) {
+          console.error('Username already exists');
+          notifyUserExists();
+        } else if (response.status === 201) {
+          console.log('Data sent to server successfully:', response.json().then((file) => console.log(file)));
+        } else {
+          console.error('Error:', response.status);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    console.log(values);
+  }
+
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
@@ -125,9 +244,10 @@ const RegisterForm = () => {
             onChange={onChange}
           />
         ))}
-        <button onClick = {handleSubmit}>Register</button>
-        <p>Already have an account? <Link to="/login">Login</Link></p>
+        <button onClick={handleSubmit}>Register</button>
+        <p className="alr-logged">Already have an account? <Link to="/login">Login now</Link>!</p>
       </form>
+      <ToastContainer />
     </div>
   );
 };
