@@ -245,7 +245,7 @@ const RegisterForm = () => {
           />
         ))}
         <button onClick={handleSubmit}>Register</button>
-        <p>Already have an account? <Link to="/login">Login</Link></p>
+        <p className="alr-logged">Already have an account? <Link to="/login">Login now</Link>!</p>
       </form>
       <ToastContainer />
     </div>
