@@ -6,9 +6,12 @@ function AccountInfo() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:9191/customer/register/')
+    fetch(`http://localhost:9191/customer/${customerId}`)
       .then((response) => response.json())
-      .then((data) => setUserInfo(data))
+      .then((data) => {
+        const { username, firstName, lastName, email, countryOfOrigin } = data;
+        setUserInfo({ username, firstName, lastName, email, countryOfOrigin });
+      })
       .catch((error) => console.error("Error: ", error));
 
     fetch(`http://localhost:9191/customer/order/${customerId}`)
@@ -24,6 +27,8 @@ function AccountInfo() {
       <p className="account-p">Username: {userInfo.username}</p>
       <p className="account-p">First Name: {userInfo.firstName}</p>
       <p className="account-p">Last Name: {userInfo.lastName}</p>
+      <p className="account-p">Email: {userInfo.email}</p>
+      <p className="account-p">Country of Origin: {userInfo.countryOfOrigin}</p>
       <h2>Current Orders:</h2>
       {orders.map((order) => (
         <div key={order.id}>
