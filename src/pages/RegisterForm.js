@@ -176,6 +176,18 @@ const RegisterForm = () => {
       theme: "dark",
     });
 
+    const userRegistered = () => 
+    toast.success('✅ Registration successful! Redirecting to login page...', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -216,6 +228,10 @@ const RegisterForm = () => {
           console.error('Username already exists');
           notifyUserExists();
         } else if (response.status === 201) {
+          userRegistered();
+          setTimeout(() => {
+            window.location.href = '/login';
+          }, 2000);
           console.log('Data sent to server successfully:', response.json().then((file) => console.log(file)));
         } else {
           console.error('Error:', response.status);
