@@ -14,6 +14,7 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/order" element={<Order />} />
         <Route path="/account" element={<Account />} />
+        <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </Router>
   );
