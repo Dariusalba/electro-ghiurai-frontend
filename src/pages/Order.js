@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import '../components/remarkstyles.css';
 
 const customerId = sessionStorage.getItem("customerId");
 
@@ -24,14 +24,14 @@ function OrderForm() {
     setRemarks([...remarks, newRemark]);
     setValues({ ...values, remarks: [...values.remarks, newRemark] });
     setRemarkValue("");
-  };  
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     const newValues = { ...values, remarks };
     const remarksJson = JSON.stringify(remarks);
-  
+
     fetch(`http://localhost:9191/customer/order/${customerId}`, {
       method: "POST",
       headers: {
@@ -69,13 +69,15 @@ function OrderForm() {
       .catch((error) => {
         console.error("Error: ", error);
       });
-  
+
     setValues({ title: "", description: "", remarks: [] });
     setRemarks([]);
-    console.log(values);
-    console.log(remarksJson);
-  };   
-  
+  };
+
+  const accountRedirect = () => {
+    window.location.href = "/account";
+  };
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -85,7 +87,7 @@ function OrderForm() {
   return (
     <div className="app">
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="title-input">
           <label htmlFor="title">Title:</label>
           <input
             type="text"
@@ -95,7 +97,7 @@ function OrderForm() {
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div className="description-input">
           <label htmlFor="description">Description:</label>
           <input
             type="text"
@@ -105,26 +107,32 @@ function OrderForm() {
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div className="remarks">
           {remarks.map((remark, index) => (
-            <div key={index}>{remark.description}</div>
+            <div className="remark" key={index}>
+              {remark.description}
+            </div>
           ))}
         </div>
-        <div>
+        <div className="add-remark">
           <label htmlFor="remark">Remark:</label>
-          <input
-            type="text"
-            id="remark"
-            name="remark"
-            value={remarkValue}
-            onChange={handleRemarkChange}
-          />
-          <button type="button" onClick={handleAddRemark}>
+          <div className="add-remark-input">
+            <input
+              type="text"
+              id="remark"
+              name="remark"
+              value={remarkValue}
+              onChange={handleRemarkChange}
+              className="remark-input"
+            />
+            <button type="button" onClick={handleAddRemark} className="add-remark-button">
             Add Remark
           </button>
+          </div>
         </div>
-        <button type="submit">Submit</button>
-        <Link to="/account">Account Page</Link>
+        
+        <button type="submit" className="submit-button">Submit</button>
+        <button type="button" onClick={accountRedirect} className="account-button">Account Page</button>
       </form>
     </div>
   );
