@@ -190,6 +190,16 @@ const RegisterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    if (!values.username) {
+      usernameNotEntered();
+      return;
+    }
+
+    if (!values.firstName || !values.lastName) {
+      nameNotEntered();
+      return;
+    }
 
     if (!isValidEmail(values.email)) {
       emailNotValid();
@@ -200,19 +210,9 @@ const RegisterForm = () => {
       passwordsNotMatching();
       return;
     }
-
-    if (!values.username) {
-      usernameNotEntered();
-      return;
-    }
     
     if (!countryNames.includes(values.countryOfOrigin)) {
       countryNotValid();
-      return;
-    }
-    
-    if (!values.firstName || !values.lastName) {
-      nameNotEntered();
       return;
     }
 
