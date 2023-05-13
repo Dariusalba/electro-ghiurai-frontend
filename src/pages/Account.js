@@ -21,16 +21,13 @@ function AccountInfo() {
     const fetchOrders = async () => {
       try {
         const response = await fetch(`http://localhost:9191/customer/order/${customerId}`);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
         const data = await response.json();
-        setOrders(data);
+        const { orderId, title, description } = data;
+        setOrders({ orderId, title, description });
       } catch (error) {
-        console.error(`Error fetching orders for customer ${customerId}: `, error);
-        setOrders([]);
+        console.error("Error: ", error);
       }
-    };    
+    }
   
     fetchUserInfo();
     fetchOrders();
@@ -56,7 +53,7 @@ function AccountInfo() {
       {orders.length > 0 ? (
         orders.map((order) => (
           <div key={order.id}>
-            <p className="account-p">Order ID: {order.id}</p>
+            <p className="account-p">Order ID: {order.orderId}</p>
             <p className="account-p">Title: {order.title}</p>
             <p className="account-p">Description: {order.description}</p>
           </div>
