@@ -20,7 +20,7 @@ function AccountInfo() {
   
     const fetchOrders = async () => {
       try {
-        const response = await fetch(`http://localhost:9191/customer/order/${customerId}`);
+        const response = await fetch(`http://localhost:9191/customer/${customerId}/order`);
         const data = await response.json();
         const { orderId, title, description } = data;
         setOrders({ orderId, title, description });
