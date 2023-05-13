@@ -63,7 +63,7 @@ const ManagerDashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {acceptedOrders.map((order) => (
+              {pendingOrders.map((order) => (
                 <tr key={order.id}>
                   <td>{order.id}</td>
                   <td>{order.title}</td>
@@ -86,7 +86,7 @@ const ManagerDashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {pendingOrders.map((order) => (
+              {acceptedOrders.map((order) => (
                 <tr key={order.id}>
                   <td>{order.id}</td>
                   <td>{order.title}</td>
