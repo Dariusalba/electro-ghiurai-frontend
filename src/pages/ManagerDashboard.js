@@ -6,6 +6,7 @@ const ManagerDashboard = () => {
   const [showModal2, setShowModal2] = useState(false);
   const [showModal3, setShowModal3] = useState(false);
   const [pendingOrders, setPendingOrders] = useState([]);
+  const [acceptedOrders, setAcceptedOrders] = useState([]);
 
   const handleButtonClick1 = async () => {
     try {
@@ -22,8 +23,8 @@ const ManagerDashboard = () => {
     try {
         const response = await fetch('http://localhost:9191/mng/order/accepted');
         const data = await response.json();
-        setPendingOrders(data);
-        setShowModal1(true);
+        setAcceptedOrders(data);
+        setShowModal2(true);
       } catch (error) {
         console.error(error);
       }
@@ -62,7 +63,7 @@ const ManagerDashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {pendingOrders.map((order) => (
+              {acceptedOrders.map((order) => (
                 <tr key={order.id}>
                   <td>{order.id}</td>
                   <td>{order.title}</td>
