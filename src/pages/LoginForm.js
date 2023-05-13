@@ -3,6 +3,7 @@ import "../App.css";
 import FormInput from "../components/forminput.js";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from "react-router-dom";
 
 const LoginForm = () => {
   const [values, setValues] = useState({
@@ -109,7 +110,13 @@ const LoginForm = () => {
             onChange={onChange}
           />
         ))}
-        <button onClick={notifyUserNotFound}>Login</button>
+        <button>Login</button>
+        <Link to="/employeelogin">
+        <button>Login as Employee</button>
+        </Link>
+        <Link to="/manager">
+        <button>Login as Manager</button>
+      </Link>
       </form>
       <ToastContainer />
     </div>
