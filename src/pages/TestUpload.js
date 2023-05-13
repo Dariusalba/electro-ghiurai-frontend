@@ -48,7 +48,7 @@ class TestUpload extends Component {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'file.txt';
+        a.download = '';
         document.body.appendChild(a);
         a.click();
         a.remove();
