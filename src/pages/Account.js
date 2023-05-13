@@ -50,15 +50,13 @@ function AccountInfo() {
         <p>Loading user information...</p>
       )}
       <h2>Current Orders:</h2>
-      {orders.length > 0 ? (
-        orders.map((order) => (
-          <div key={order.id}>
-            <p className="account-p">Order ID: {order.orderId}</p>
-            <p className="account-p">Title: {order.title}</p>
-            <p className="account-p">Description: {order.description}</p>
-          </div>
-        ))
-      ) : (
+      {Object.keys(orders).length > 0 ? (
+          <>
+            <p className="account-p">Order ID: {orders.orderId}</p>
+            <p className="account-p">Title: {orders.title}</p>
+            <p className="account-p">Description: {orders.description}</p>
+          </>
+        ) : (
         <p>No orders found.</p>
       )}
       <Link to="/order">
