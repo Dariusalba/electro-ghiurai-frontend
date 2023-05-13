@@ -22,8 +22,7 @@ function AccountInfo() {
       try {
         const response = await fetch(`http://localhost:9191/customer/${customerId}/order`);
         const data = await response.json();
-        const { orderId, title, description } = data;
-        setOrders({ orderId, title, description });
+        setOrders(data);
       } catch (error) {
         console.error("Error: ", error);
       }
@@ -47,16 +46,18 @@ function AccountInfo() {
           <p className="account-p">Country of Origin: {userInfo.countryOfOrigin}</p>
         </>
       ) : (
-        <p>Loading user information...</p>
+        <p>Failed to load user information.</p>
       )}
       <h2>Current Orders:</h2>
-      {Object.keys(orders).length > 0 ? (
-          <>
-            <p className="account-p">Order ID: {orders.orderId}</p>
-            <p className="account-p">Title: {orders.title}</p>
-            <p className="account-p">Description: {orders.description}</p>
-          </>
-        ) : (
+      {orders.length > 0 ? (
+        orders.map((order) => (
+          <div key={order.orderId}>
+            <p>Order ID: {order.orderId}</p>
+            <p>Title: {order.title}</p>
+            <p>Description: {order.description}</p>
+          </div>
+        ))
+      ) : (
         <p>No orders found.</p>
       )}
       <Link to="/order">
