@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function AccountInfo() {
   const customerId = sessionStorage.getItem("customerId");
@@ -20,12 +21,16 @@ function AccountInfo() {
     const fetchOrders = async () => {
       try {
         const response = await fetch(`http://localhost:9191/customer/order/${customerId}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
         const data = await response.json();
         setOrders(data);
       } catch (error) {
-        console.error("Error: ", error);
+        console.error(`Error fetching orders for customer ${customerId}: `, error);
+        setOrders([]);
       }
-    }
+    };    
   
     fetchUserInfo();
     fetchOrders();
@@ -59,9 +64,11 @@ function AccountInfo() {
       ) : (
         <p>No orders found.</p>
       )}
+      <Link to="/order">
+        <button>Create Order</button>
+      </Link>
     </div>
   );
-  
 }
 
 export default AccountInfo;

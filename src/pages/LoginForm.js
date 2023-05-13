@@ -76,7 +76,7 @@ const LoginForm = () => {
           response.json().then(data => {
             const customerId = data.customerId;
             sessionStorage.setItem('customerId', customerId);
-            window.location.href = '/order';
+            window.location.href = '/account';
           });
         } else if (response.status === 401) {
           console.error('Invalid username or password');
