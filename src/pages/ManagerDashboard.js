@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Modal from '../components/Modal';
+import { Link } from "react-router-dom";
 
 const ManagerDashboard = () => {
   const [showModal1, setShowModal1] = useState(false);
@@ -99,8 +100,10 @@ const ManagerDashboard = () => {
       )}
       {showModal3 && (
         <Modal onClose={handleModalClose3}>
-          <h2>Modal 3 Content</h2>
-          <p>This is the content of Modal 3.</p>
+            <h2>Other Services</h2>
+            <Link to='/manager/employeeaccount'>
+                <button>Create Employee Account</button>
+            </Link>
         </Modal>
       )}
     </div>

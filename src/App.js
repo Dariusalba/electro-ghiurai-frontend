@@ -7,6 +7,7 @@ import Account from './pages/Account';
 import ManagerLogin from './pages/ManagerLogin';
 import ManagerDashboard from './pages/ManagerDashboard';
 import TestUpload from './pages/TestUpload';
+import EmployeeAccountCreation from './pages/EmployeeAccountCreation'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/manager" element={<ManagerLogin />} />
         <Route path="/manager/dashboard" element={<ManagerDashboard />} />
         <Route path="/manager/testupload" element={<TestUpload />} />
+        <Route path="/manager/employeeaccount" element={<EmployeeAccountCreation />} />
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </Router>
