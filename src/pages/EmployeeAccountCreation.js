@@ -11,7 +11,6 @@ const EmployeeAccountCreation = () => {
   const [values, setValues] = useState({
     email: "",
     countryOfOrigin: "",
-    password: "",
     firstName: "",
     lastName: "",
     dateOfBirth: "",
@@ -62,17 +61,6 @@ const EmployeeAccountCreation = () => {
       placeholder: "Email",
       errorMessage: "Please enter a valid email address.",
       label: "Email",
-      required: true,
-    },
-    {
-      id: 6,
-      name: "password",
-      type: "password",
-      placeholder: "Password",
-      errorMessage:
-        "Password should be 8-16 characters long and should contain a letter, number and a special character.",
-      label: "Password",
-      pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
       required: true,
     },
   ];
