@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from '../components/Modal';
 import { Link } from "react-router-dom";
+import "../App.css";
 
 const ManagerDashboard = () => {
   const [showModal1, setShowModal1] = useState(false);
@@ -49,6 +50,7 @@ const ManagerDashboard = () => {
 
   return (
     <div>
+      <h1>Manager Dashboard</h1>
       <button onClick={handleButtonClick1}>View Pending Orders</button>
       <button onClick={handleButtonClick2}>View Current Orders</button>
       <button onClick={handleButtonClick3}>Other Services</button>
@@ -65,8 +67,8 @@ const ManagerDashboard = () => {
             </thead>
             <tbody>
               {pendingOrders.map((order) => (
-                <tr key={order.id}>
-                  <td>{order.id}</td>
+                <tr key={order.orderId}>
+                  <td>{order.orderId}</td>
                   <td>{order.title}</td>
                   <td>{order.description}</td>
                 </tr>
@@ -88,8 +90,8 @@ const ManagerDashboard = () => {
             </thead>
             <tbody>
               {acceptedOrders.map((order) => (
-                <tr key={order.id}>
-                  <td>{order.id}</td>
+                <tr key={order.orderId}>
+                  <td>{order.orderId}</td>
                   <td>{order.title}</td>
                   <td>{order.description}</td>
                 </tr>
