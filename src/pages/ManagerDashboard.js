@@ -60,9 +60,9 @@ const ManagerDashboard = () => {
           <table>
             <thead>
               <tr>
-                <th>Order ID</th>
-                <th>Order Title</th>
-                <th>Order Description</th>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Client</th>
               </tr>
             </thead>
             <tbody>
@@ -70,7 +70,10 @@ const ManagerDashboard = () => {
                 <tr key={order.orderId}>
                   <td>{order.orderId}</td>
                   <td>{order.title}</td>
-                  <td>{order.description}</td>
+                  <td>{order.firstName + order.lastName}</td>
+                  <td>
+                    <button>View</button>
+                  </td>
                 </tr>
               ))}
             </tbody>
