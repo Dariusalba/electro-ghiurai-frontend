@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from '../components/Modal';
 import { Link } from "react-router-dom";
+import "../App.css";
 
 const ManagerDashboard = () => {
   const [showModal1, setShowModal1] = useState(false);
@@ -8,6 +9,9 @@ const ManagerDashboard = () => {
   const [showModal3, setShowModal3] = useState(false);
   const [pendingOrders, setPendingOrders] = useState([]);
   const [acceptedOrders, setAcceptedOrders] = useState([]);
+  const [customerDetails, setCustomerDetails] = useState({});
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [orderRemarks, setOrderRemarks] = useState([]);
 
   const handleButtonClick1 = async () => {
     try {
@@ -47,28 +51,91 @@ const ManagerDashboard = () => {
     setShowModal3(false);
   };
 
+  const handleCloseOrderModal = () => {
+    setSelectedOrder(null);
+  };
+
+  const fetchCustomerDetails = async (orderId) => {
+    try {
+      const response = await fetch(`http://localhost:9191/customer/order/${orderId}`);
+      const data = await response.json();
+      const customerId = data.customerId;
+
+      const customerResponse = await fetch(`http://localhost:9191/customer/${customerId}`);
+      const customerData = await customerResponse.json();
+      const customerFullName = `${customerData.firstName} ${customerData.lastName}`;
+
+      return customerFullName;
+    } catch (error) {
+      console.error(error);
+      return '';
+    }
+  };
+
+  const fetchOrderRemarks = async (orderId) => {
+    try {
+      const response = await fetch(`http://localhost:9191/customer/order/remark/${orderId}`);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    const fetchCustomerInfo = async () => {
+      const customerInfo = {};
+      for (const order of pendingOrders) {
+        const customerFullName = await fetchCustomerDetails(order.orderId);
+        customerInfo[order.orderId] = customerFullName;
+      }
+      setCustomerDetails(customerInfo);
+    };
+
+    fetchCustomerInfo();
+  }, [pendingOrders]);
+
+  const handleViewOrder = async (orderId) => {
+    try {
+      const remarks = await fetchOrderRemarks(orderId);
+      const customerInfo = await fetchCustomerDetails(orderId);
+      setOrderRemarks(remarks);
+      setSelectedOrder(orderId);
+      setCustomerDetails({ [orderId]: customerInfo });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
+      <h1>Manager Dashboard</h1>
       <button onClick={handleButtonClick1}>View Pending Orders</button>
       <button onClick={handleButtonClick2}>View Current Orders</button>
       <button onClick={handleButtonClick3}>Other Services</button>
       {showModal1 && (
         <Modal onClose={handleModalClose1}>
           <h2>Pending Orders</h2>
-          <table>
+          <table className="order-table">
             <thead>
               <tr>
-                <th>Order ID</th>
-                <th>Order Title</th>
-                <th>Order Description</th>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Client</th>
               </tr>
             </thead>
             <tbody>
               {pendingOrders.map((order) => (
-                <tr key={order.id}>
-                  <td>{order.id}</td>
+                <tr key={order.orderId}>
+                  <td>{order.orderId}</td>
                   <td>{order.title}</td>
-                  <td>{order.description}</td>
+                  <td>{customerDetails[order.orderId]}</td>
+                  <td>
+                    <button className="view-button" onClick={() => handleViewOrder(order.orderId)}>
+                      View
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -88,24 +155,39 @@ const ManagerDashboard = () => {
             </thead>
             <tbody>
               {acceptedOrders.map((order) => (
-                <tr key={order.id}>
-                  <td>{order.id}</td>
+                <tr key={order.orderId}>
+                  <td>{order.orderId}</td>
                   <td>{order.title}</td>
                   <td>{order.description}</td>
                 </tr>
               ))}
             </tbody>
-            </table>
+          </table>
         </Modal>
       )}
       {showModal3 && (
         <Modal onClose={handleModalClose3}>
-            <h2>Other Services</h2>
-            <Link to='/manager/employeeaccount'>
-                <button>Create Employee Account</button>
-            </Link>
+          <h2>Other Services</h2>
+          <Link to="/manager/employeeaccount">
+            <button>Create Employee Account</button>
+          </Link>
         </Modal>
       )}
+      {selectedOrder && (
+      <Modal onClose={handleCloseOrderModal}>
+        <h2>Order Details</h2>
+        <h3>Order ID: {selectedOrder.orderId}</h3>
+        <h3>Title: {selectedOrder.title}</h3>
+        <h3>Description: {selectedOrder.description}</h3>
+        <h3>Remarks:</h3>
+        <ul>
+          {orderRemarks.map((remark) => (
+            <li key={remark.remarkId}>{remark.remark}</li>
+          ))}
+        </ul>
+        <h3>Client: {`${customerDetails[selectedOrder.orderId]?.firstName} ${customerDetails[selectedOrder.orderId]?.lastName}`}</h3>
+      </Modal>
+    )}
     </div>
   );
 };
