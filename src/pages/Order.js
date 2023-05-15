@@ -94,7 +94,7 @@ function OrderForm() {
       </div>
       <div className="order-app">
         <h1 className="app-h1">Create an order</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} id="order-form">
           <div className="form-input">
             <label htmlFor="title">Title:</label>
             <input
@@ -107,14 +107,14 @@ function OrderForm() {
           </div>
           <div className="form-input">
             <label htmlFor="description">Description:</label>
-            <input
-              type="text"
+            <textarea
+              form="order-form"
               id="description"
               name="description"
               className="description-input"
               value={values.description}
-              onChange={handleChange}
-            />
+              onChange={handleChange}>
+            </textarea>
           </div>
           <div className="form-input">
             <label htmlFor="remark">Remark:</label>
