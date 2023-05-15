@@ -26,13 +26,13 @@ const ManagerDashboard = () => {
 
   const handleButtonClick2 = async () => {
     try {
-      const response = await fetch('http://localhost:9191/mng/order/accepted');
-      const data = await response.json();
-      setAcceptedOrders(data);
-      setShowModal2(true);
-    } catch (error) {
-      console.error(error);
-    }
+        const response = await fetch('http://localhost:9191/mng/order/accepted');
+        const data = await response.json();
+        setAcceptedOrders(data);
+        setShowModal2(true);
+      } catch (error) {
+        console.error(error);
+      }
   };
 
   const handleButtonClick3 = () => {
@@ -49,6 +49,10 @@ const ManagerDashboard = () => {
 
   const handleModalClose3 = () => {
     setShowModal3(false);
+  };
+
+  const handleCloseOrderModal = () => {
+    setSelectedOrder(null);
   };
 
   const fetchCustomerDetails = async (orderId) => {
@@ -126,7 +130,7 @@ const ManagerDashboard = () => {
                 <tr key={order.orderId}>
                   <td>{order.orderId}</td>
                   <td>{order.title}</td>
-                  <td>{`${customerDetails[order.orderId]?.firstName} ${customerDetails[order.orderId]?.lastName}`}</td>
+                  <td>{customerDetails[order.orderId]}</td>
                   <td>
                     <button className="view-button" onClick={() => handleViewOrder(order.orderId)}>
                       View
@@ -138,23 +142,6 @@ const ManagerDashboard = () => {
           </table>
         </Modal>
       )}
-
-      {selectedOrder && (
-        <Modal onClose={handleModalClose1}>
-          <h2>Order Details</h2>
-          <p>Order ID: {selectedOrder}</p>
-          <h3>Order Remarks</h3>
-          <ul>
-            {orderRemarks.map((remark) => (
-              <li key={remark.remarkId}>{remark.remark}</li>
-            ))}
-          </ul>
-          <h3>Client Details</h3>
-          <p>First Name: {customerDetails[selectedOrder]?.firstName}</p>
-          <p>Last Name: {customerDetails[selectedOrder]?.lastName}</p>
-        </Modal>
-      )}
-
       {showModal2 && (
         <Modal onClose={handleModalClose2}>
           <h2>Accepted Orders</h2>
@@ -178,7 +165,6 @@ const ManagerDashboard = () => {
           </table>
         </Modal>
       )}
-
       {showModal3 && (
         <Modal onClose={handleModalClose3}>
           <h2>Other Services</h2>
@@ -187,6 +173,21 @@ const ManagerDashboard = () => {
           </Link>
         </Modal>
       )}
+      {selectedOrder && (
+      <Modal onClose={handleCloseOrderModal}>
+        <h2>Order Details</h2>
+        <h3>Order ID: {selectedOrder.orderId}</h3>
+        <h3>Title: {selectedOrder.title}</h3>
+        <h3>Description: {selectedOrder.description}</h3>
+        <h3>Remarks:</h3>
+        <ul>
+          {orderRemarks.map((remark) => (
+            <li key={remark.remarkId}>{remark.remark}</li>
+          ))}
+        </ul>
+        <h3>Client: {`${customerDetails[selectedOrder.orderId]?.firstName} ${customerDetails[selectedOrder.orderId]?.lastName}`}</h3>
+      </Modal>
+    )}
     </div>
   );
 };
