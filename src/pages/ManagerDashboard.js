@@ -83,6 +83,17 @@ const ManagerDashboard = () => {
     }
   };
 
+  const fetchOrderDetails = async(orderId) => {
+    try{
+      const response = await fetch(`http://localhost:9191/customer/order/${orderId}`);
+      const data = await response.json();
+      return data;
+    } catch(error){
+      console.error(error);
+      return {};
+    }
+  }
+
   useEffect(() => {
     const fetchCustomerInfo = async () => {
       const customerInfo = {};
@@ -100,11 +111,14 @@ const ManagerDashboard = () => {
     try {
       const remarks = await fetchOrderRemarks(orderId);
       const customerFullName = await fetchCustomerDetails(orderId);
-  
+      const order = await fetchOrderDetails(orderId);
+      
       setOrderRemarks(remarks);
       setSelectedOrder({
         orderId: orderId,
         remarks: remarks,
+        title: order.title,
+        description: order.description,
         customerFullName: customerFullName
       });
     } catch (error) {
