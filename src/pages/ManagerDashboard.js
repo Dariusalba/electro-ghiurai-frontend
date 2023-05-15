@@ -88,7 +88,7 @@ const ManagerDashboard = () => {
       {showModal1 && (
         <Modal onClose={handleModalClose1}>
           <h2>Pending Orders</h2>
-          <table>
+          <table className='order-table'>
             <thead>
               <tr>
                 <th>ID</th>
@@ -103,7 +103,7 @@ const ManagerDashboard = () => {
                   <td>{order.title}</td>
                   <td>{customerDetails[order.orderId]}</td>
                   <td>
-                    <button>View</button>
+                    <button className='view-button'>View</button>
                   </td>
                 </tr>
               ))}
