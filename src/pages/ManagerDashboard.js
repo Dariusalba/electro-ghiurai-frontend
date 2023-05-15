@@ -26,13 +26,13 @@ const ManagerDashboard = () => {
 
   const handleButtonClick2 = async () => {
     try {
-        const response = await fetch('http://localhost:9191/mng/order/accepted');
-        const data = await response.json();
-        setAcceptedOrders(data);
-        setShowModal2(true);
-      } catch (error) {
-        console.error(error);
-      }
+      const response = await fetch('http://localhost:9191/mng/order/accepted');
+      const data = await response.json();
+      setAcceptedOrders(data);
+      setShowModal2(true);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleButtonClick3 = () => {
@@ -83,6 +83,17 @@ const ManagerDashboard = () => {
     }
   };
 
+  const fetchOrderDetails = async (orderId) => {
+    try {
+      const response = await fetch(`http://localhost:9191/customer/order/${orderId}`);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      return {};
+    }
+  }
+
   useEffect(() => {
     const fetchCustomerInfo = async () => {
       const customerInfo = {};
@@ -100,13 +111,29 @@ const ManagerDashboard = () => {
     try {
       const remarks = await fetchOrderRemarks(orderId);
       const customerFullName = await fetchCustomerDetails(orderId);
-  
+      const order = await fetchOrderDetails(orderId);
+
       setOrderRemarks(remarks);
       setSelectedOrder({
         orderId: orderId,
         remarks: remarks,
+        title: order.title,
+        description: order.description,
         customerFullName: customerFullName
       });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleAcceptOrder = async () => {
+    try {
+      await fetch(`http://localhost:9191/mng/order/accept/${selectedOrder.orderId}`, {
+        method: 'POST',
+      });
+      setAcceptedOrders([...acceptedOrders, selectedOrder]);
+      setPendingOrders(pendingOrders.filter((order) => order.orderId !== selectedOrder.orderId));
+      handleCloseOrderModal();
     } catch (error) {
       console.error(error);
     }
@@ -149,7 +176,7 @@ const ManagerDashboard = () => {
       )}
       {showModal2 && (
         <Modal onClose={handleModalClose2}>
-          <h2>Accepted Orders</h2>
+          <h2>Current Orders</h2>
           <table>
             <thead>
               <tr>
@@ -179,19 +206,24 @@ const ManagerDashboard = () => {
         </Modal>
       )}
       {selectedOrder && (
-      <Modal onClose={handleCloseOrderModal}>
-        <h2>Order Details</h2>
-        <h3>Order ID: {selectedOrder.orderId}</h3>
-        <h3>Title: {selectedOrder.title}</h3>
-        <h3>Description: {selectedOrder.description}</h3>
-        <h3>Remarks:</h3>
-        <ul>
-          {orderRemarks.map((remark) => (
-            <li key={remark.remarkId}>{remark.description}</li>
-          ))}
-        </ul>
-      </Modal>
-    )}
+        <Modal onClose={handleCloseOrderModal}>
+          <h2>Order Details</h2>
+          <h3>Order ID: {selectedOrder.orderId}</h3>
+          <h3>Title: {selectedOrder.title}</h3>
+          <h3>Description: {selectedOrder.description}</h3>
+          <h3>Remarks:</h3>
+          {orderRemarks.length === 0 ? (
+            <p>No remarks added</p>
+          ) : (
+            <ul>
+              {orderRemarks.map((remark) => (
+                <li key={remark.remarkId}>{remark.description}</li>
+              ))}
+            </ul>
+          )}
+          <button onClick={handleAcceptOrder}>Accept</button>
+        </Modal>
+      )}
     </div>
   );
 };
