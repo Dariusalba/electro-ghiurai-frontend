@@ -12,7 +12,6 @@ const ManagerDashboard = () => {
   const [customerDetails, setCustomerDetails] = useState({});
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [orderRemarks, setOrderRemarks] = useState([]);
-  const [selectedAcceptedOrder, setSelectedAcceptedOrder] = useState(null);
   const [showSecondModal, setShowSecondModal] = useState(false);
   const [selectedOrderDetails, setSelectedOrderDetails] = useState(null);
 
@@ -234,13 +233,13 @@ const ManagerDashboard = () => {
               ))}
             </tbody>
           </table>
-          {selectedAcceptedOrder && (
+          {selectedOrderDetails && (
             <div>
               <h2>Order Details</h2>
-              <h3>Order ID: {selectedAcceptedOrder.orderId}</h3>
-              <h3>Title: {selectedAcceptedOrder.title}</h3>
-              <h3>Description: {selectedAcceptedOrder.description}</h3>
-              <h3>Status: {selectedAcceptedOrder.internalStatus}</h3>
+              <h3>Order ID: {selectedOrderDetails.orderId}</h3>
+              <h3>Title: {selectedOrderDetails.title}</h3>
+              <h3>Description: {selectedOrderDetails.description}</h3>
+              <h3>Status: {selectedOrderDetails.internalStatus}</h3>
 
               <h3>Remarks:</h3>
               {orderRemarks.length === 0 ? (
