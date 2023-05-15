@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Home.css'
-import './Animations'
+import '../components/Home.css'
+import '../components/Animations.js'
+
+function scroll_top() {
+  window.scroll({top: 0, behavior: "smooth"});
+}
 
 function scroll_bottom() {
   window.scroll({top: 3100, behavior: "smooth"});
@@ -42,11 +46,11 @@ const Home = () => {
         <div className='welcome-app5 reveal4'>
           <h1 className='about-h1-1'>What are you waiting for?<br></br> Join right now!</h1>
           <Link className='rl-ref' to="/register">
-            <button className='rl-button'>Register</button>
+            <button className='rl-button' onClick={scroll_top}>Register</button>
           </Link>
           <p className='about-p1'>or</p>
           <Link className='rl-ref' to="/login">
-            <button className='rl-button'>Login</button>
+            <button className='rl-button' onClick={scroll_top}>Login</button>
           </Link>
         </div>
         <div className='footer'>

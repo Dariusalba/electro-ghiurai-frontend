@@ -4,8 +4,7 @@ html {
 
 body{
     min-height: auto;
-	background-image: url('https://wallpapercave.com/wp/wp3998752.jpg');
-	background-size: cover;
+	background-image: url('components/background.png');
 }
 
 .app {
