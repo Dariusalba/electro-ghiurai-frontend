@@ -26,13 +26,13 @@ const ManagerDashboard = () => {
 
   const handleButtonClick2 = async () => {
     try {
-        const response = await fetch('http://localhost:9191/mng/order/accepted');
-        const data = await response.json();
-        setAcceptedOrders(data);
-        setShowModal2(true);
-      } catch (error) {
-        console.error(error);
-      }
+      const response = await fetch('http://localhost:9191/mng/order/accepted');
+      const data = await response.json();
+      setAcceptedOrders(data);
+      setShowModal2(true);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleButtonClick3 = () => {
@@ -70,7 +70,7 @@ const ManagerDashboard = () => {
 
   const fetchOrderRemarks = async (orderId) => {
     try {
-      const response = await fetch(`http://localhost:9191/order/remark/${orderId}`);
+      const response = await fetch(`http://localhost:9191/customer/order/remark/${orderId}`);
       const data = await response.json();
       return data;
     } catch (error) {
@@ -126,7 +126,7 @@ const ManagerDashboard = () => {
                 <tr key={order.orderId}>
                   <td>{order.orderId}</td>
                   <td>{order.title}</td>
-                  <td>{customerDetails[order.orderId]}</td>
+                  <td>{`${customerDetails[order.orderId]?.firstName} ${customerDetails[order.orderId]?.lastName}`}</td>
                   <td>
                     <button className="view-button" onClick={() => handleViewOrder(order.orderId)}>
                       View
