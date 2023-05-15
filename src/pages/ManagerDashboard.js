@@ -61,7 +61,7 @@ const ManagerDashboard = () => {
   };
 
   const handleCloseAcceptedOrderModal = () => {
-    setSelectedAcceptedOrder(null);
+    setShowSecondModal(null);
   };
 
   const fetchCustomerDetails = async (orderId) => {
@@ -175,8 +175,6 @@ const ManagerDashboard = () => {
     }
   };
 
-
-
   return (
     <div>
       <h1>Manager Dashboard</h1>
@@ -218,8 +216,6 @@ const ManagerDashboard = () => {
             <thead>
               <tr>
                 <th>Order ID</th>
-                <th>Client Name</th>
-                <th>Order Status</th>
                 <th>Title</th>
                 <th>Action</th>
               </tr>
@@ -228,8 +224,6 @@ const ManagerDashboard = () => {
               {acceptedOrders.map((order) => (
                 <tr key={order.orderId}>
                   <td>{order.orderId}</td>
-                  <td>{customerDetails[order.orderId]}</td>
-                  <td>{order.internalStatus}</td>
                   <td>{order.title}</td>
                   <td>
                     <button className="view-button" onClick={() => handleViewAcceptedOrder(order.orderId)}>
@@ -300,12 +294,11 @@ const ManagerDashboard = () => {
           <h3>Order ID: {selectedOrderDetails.orderId}</h3>
           <h3>Title: {selectedOrderDetails.title}</h3>
           <h3>Description: {selectedOrderDetails.description}</h3>
-          <h3>Status: {selectedOrderDetails.status}</h3>
           <h3>Internal Status: {selectedOrderDetails.internalStatus}</h3>
-          <button>Assign Function</button>
-          <button>Assign Developer</button>
-          <button>Assign Reviewer</button>
-          <button>Download Code</button>
+          <h3>Function: </h3><button>Assign Function</button>
+          <h3>Developer: </h3><button>Assign Developer</button>
+          <h3>Reviewer: </h3><button>Assign Reviewer</button>
+          <h3>Download: </h3><button>Download Code</button>
           <button>Finish Order</button>
         </Modal>
       )}
