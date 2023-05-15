@@ -13,6 +13,9 @@ const ManagerDashboard = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [orderRemarks, setOrderRemarks] = useState([]);
   const [selectedAcceptedOrder, setSelectedAcceptedOrder] = useState(null);
+  const [showSecondModal, setShowSecondModal] = useState(false);
+  const [selectedOrderDetails, setSelectedOrderDetails] = useState(null);
+
 
 
   const handleButtonClick1 = async () => {
@@ -55,6 +58,10 @@ const ManagerDashboard = () => {
 
   const handleCloseOrderModal = () => {
     setSelectedOrder(null);
+  };
+
+  const handleCloseAcceptedOrderModal = () => {
+    setSelectedAcceptedOrder(null);
   };
 
   const fetchCustomerDetails = async (orderId) => {
@@ -146,14 +153,14 @@ const ManagerDashboard = () => {
       const remarks = await fetchOrderRemarks(orderId);
       const customerFullName = await fetchCustomerDetails(orderId);
       const order = await fetchOrderDetails(orderId);
-  
+
       setOrderRemarks(remarks);
-  
+
       const internalStatusResponse = await fetch(`http://localhost:9191/mng/order/internal/${orderId}`);
       const internalStatusData = await internalStatusResponse.json();
       const internalStatus = internalStatusData.internalStatus;
-  
-      setSelectedAcceptedOrder({
+
+      setSelectedOrderDetails({
         orderId: orderId,
         remarks: remarks,
         title: order.title,
@@ -162,7 +169,7 @@ const ManagerDashboard = () => {
         status: order.status,
         internalStatus: internalStatus,
       });
-      setShowModal2(true);
+      setShowSecondModal(true);
     } catch (error) {
       console.error(error);
     }
@@ -285,6 +292,21 @@ const ManagerDashboard = () => {
             </ul>
           )}
           <button onClick={handleAcceptOrder}>Accept</button>
+        </Modal>
+      )}
+      {showSecondModal && (
+        <Modal onClose={() => handleCloseAcceptedOrderModal(false)}>
+          <h2>Order Details</h2>
+          <h3>Order ID: {selectedOrderDetails.orderId}</h3>
+          <h3>Title: {selectedOrderDetails.title}</h3>
+          <h3>Description: {selectedOrderDetails.description}</h3>
+          <h3>Status: {selectedOrderDetails.status}</h3>
+          <h3>Internal Status: {selectedOrderDetails.internalStatus}</h3>
+          <button>Assign Function</button>
+          <button>Assign Developer</button>
+          <button>Assign Reviewer</button>
+          <button>Download Code</button>
+          <button>Finish Order</button>
         </Modal>
       )}
     </div>
