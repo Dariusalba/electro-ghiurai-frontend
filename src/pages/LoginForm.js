@@ -192,6 +192,7 @@ const LoginForm = () => {
             </label>
           </div>
           <button className='app-button'>Login</button>
+          <p>Don't have an account? <Link to="/register">Register now</Link>!</p>
         </form>
         <ToastContainer />
       </div>

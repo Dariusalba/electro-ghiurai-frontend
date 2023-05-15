@@ -35,7 +35,7 @@ function AccountInfo() {
 
   return (
     <div>
-      <div className="welcome2">
+      <div className="welcome1">
         <h1 className='welcome-h1'>ElectroGhiurai</h1>
         <Link to="/login">
           <button className="welcome-button">Sign Out</button>
