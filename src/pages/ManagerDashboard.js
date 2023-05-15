@@ -126,6 +126,19 @@ const ManagerDashboard = () => {
     }
   };
 
+  const handleAcceptOrder = async () => {
+    try {
+      await fetch(`http://localhost:9191/mng/order/accept/${selectedOrder.orderId}`, {
+        method: 'POST',
+      });
+      setAcceptedOrders([...acceptedOrders, selectedOrder]);
+      setPendingOrders(pendingOrders.filter((order) => order.orderId !== selectedOrder.orderId));
+      handleCloseOrderModal();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
 
   return (
     <div>
@@ -163,7 +176,7 @@ const ManagerDashboard = () => {
       )}
       {showModal2 && (
         <Modal onClose={handleModalClose2}>
-          <h2>Accepted Orders</h2>
+          <h2>Current Orders</h2>
           <table>
             <thead>
               <tr>
@@ -199,15 +212,16 @@ const ManagerDashboard = () => {
           <h3>Title: {selectedOrder.title}</h3>
           <h3>Description: {selectedOrder.description}</h3>
           <h3>Remarks:</h3>
-            {orderRemarks.length === 0 ? (
-              <p>No remarks added</p>
-            ) : (
-              <ul>
-                {orderRemarks.map((remark) => (
-                  <li key={remark.remarkId}>{remark.description}</li>
-                ))}
-              </ul>
-            )}
+          {orderRemarks.length === 0 ? (
+            <p>No remarks added</p>
+          ) : (
+            <ul>
+              {orderRemarks.map((remark) => (
+                <li key={remark.remarkId}>{remark.description}</li>
+              ))}
+            </ul>
+          )}
+          <button onClick={handleAcceptOrder}>Accept</button>
         </Modal>
       )}
     </div>
