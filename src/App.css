@@ -10,9 +10,8 @@ body{
 
 .app {
 	width: 600px;
-	position: fixed;
-    top: 0;
-    left: 37%;
+    margin: auto;
+    margin-top: 150px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
