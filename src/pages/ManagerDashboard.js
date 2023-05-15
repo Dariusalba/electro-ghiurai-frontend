@@ -93,9 +93,15 @@ const ManagerDashboard = () => {
   }, [pendingOrders]);
 
   const handleViewOrder = async (orderId) => {
-    setSelectedOrder(orderId);
-    const remarks = await fetchOrderRemarks(orderId);
-    setOrderRemarks(remarks);
+    try {
+      const remarks = await fetchOrderRemarks(orderId);
+      const customerInfo = await fetchCustomerDetails(orderId);
+      setOrderRemarks(remarks);
+      setSelectedOrder(orderId);
+      setCustomerDetails({ [orderId]: customerInfo });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
