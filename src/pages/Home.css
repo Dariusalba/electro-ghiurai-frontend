@@ -1,0 +1,218 @@
+body {
+	min-height: 3100px;
+}
+
+.welcome1 {
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	width: 100%;
+	box-shadow: 5px 20px 50px #000;
+	background-color: #FFF;
+}
+
+.welcome-h1 {
+	float: left;
+	display: block;
+	transform: translateX(0px) translateY(8px);
+	opacity: 0%;
+	color: black;
+	font-family: 'Lucida Grande', monospace;
+	animation: welcome-appear1 1s forwards;
+}
+
+.welcome-app {
+	width: 900px;
+	position: absolute;
+	top: 150px;
+	left: 120px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #fff;
+	border-radius: 30px;
+	box-shadow: 5px 20px 50px #000;
+	padding: 20px;
+	box-sizing: border-box;
+	overflow-y: scroll;
+	overflow: hidden;
+	opacity: 0%;
+	animation: appear 0.5s both;
+	transition: 0.5s all ease;
+  }
+
+.welcome-app2 {
+	width: 900px;
+	position: absolute;
+	top: 550px;
+	right: 120px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #fff;
+	border-radius: 30px;
+	box-shadow: 5px 20px 50px #000;
+	padding: 20px;
+	box-sizing: border-box;
+	overflow-y: scroll;
+	overflow: hidden;
+	opacity: 0%;
+  }
+
+.welcome-app3 {
+	width: 900px;
+	position: absolute;
+	top: 650px;
+	left: 120px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #fff;
+	border-radius: 30px;
+	box-shadow: 5px 20px 50px #000;
+	padding: 20px;
+	box-sizing: border-box;
+	overflow-y: scroll;
+	overflow: hidden;
+	opacity: 0%;
+  }
+
+.welcome-app4 {
+	width: 900px;
+	position: absolute;
+	top: 850px;
+	right: 120px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #fff;
+	border-radius: 30px;
+	box-shadow: 5px 20px 50px #000;
+	padding: 20px;
+	box-sizing: border-box;
+	overflow-y: scroll;
+	overflow: hidden;
+	opacity: 0%;
+}
+
+.welcome-app5 {
+	width: 70%;
+	height: 500px;
+	position: absolute;
+	left: 15%;
+	top: 2090px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #fff;
+	border-radius: 30px;
+	box-shadow: 5px 20px 50px #000;
+	padding: 20px;
+	box-sizing: border-box;
+	overflow-y: scroll;
+	overflow: hidden;
+	opacity: 0%;
+  }
+
+.footer {
+	position: absolute;
+	left: 0;
+	top: 3110px;
+	width: 100%;
+	background-color: #ffffffc6;
+	text-align: center;
+}
+.about-h1 {
+	text-align: left;
+}
+
+.about-h1-1 {
+	text-align: center;
+}
+
+.about-p {
+	font-weight: lighter;
+	text-align: left;
+}
+
+.about-p1 {
+	font-size: large;
+	text-align: center;
+}
+
+.welcome-button {
+	float: right;
+	display: block;
+	z-index: 1;
+	transform: translateX(0px) translateY(15px);
+	opacity: 0%;
+	width: 10%;
+	animation: welcome-appear2 1s forwards;
+}
+
+.rl-ref {
+	width: 20%;
+	margin-left: 40%;
+}
+
+.rl-button {
+	width: 100%;
+}
+
+.reveal1{
+	top: 700px;
+	opacity: 0;
+  }
+  
+.reveal1.active{
+	top: 800px;
+	opacity: 1;
+	transition: 0.5s all ease;
+}
+
+.reveal2{
+	top: 1300px;
+	opacity: 0;
+  }
+  
+.reveal2.active{
+	top: 1400px;
+	opacity: 1;
+	transition: 0.5s all ease;
+}
+
+.reveal3{
+	top: 1900px;
+	opacity: 0;
+  }
+  
+.reveal3.active{
+	top: 2000px;
+	opacity: 1;
+	transition: 0.5s all ease;
+}
+
+.reveal4{
+	top: 2500px;
+	opacity: 0;
+  }
+  
+.reveal4.active{
+	top: 2600px;
+	opacity: 1;
+	transition: 0.5s all ease;
+}
+
+@keyframes welcome-appear1 {
+	to {
+		transform: translateX(50px) translateY(8px);
+		opacity: 100%;
+	}
+}
+
+@keyframes welcome-appear2 {
+	to {
+		transform: translateX(-50px) translateY(15px);
+		opacity: 100%;
+	}
+}

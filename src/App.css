@@ -1,288 +1,61 @@
+html {
+	scroll-behavior: smooth;
+}
+
 body{
-	margin: 0;
-	padding: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
-	font-family: 'Jost', sans-serif;
-	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    min-height: auto;
+	background-image: url('https://wallpapercave.com/wp/wp3998752.jpg');
+	background-size: cover;
 }
 
 .app {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/cover;
-	border-radius: 10px;
-	box-shadow: 5px 20px 50px #000;
-	padding: 20px;
-	box-sizing: border-box;
-	overflow-y: scroll;
-	overflow: hidden;
-  }
-
-.app p {
-	text-align: center;
-	margin-left: 10px;
-}
-
-.alr-logged {
-	color: white;
-}
-
-.account-p {
-	margin-right: 110px;
-	color: white;
-	-webkit-text-stroke-width: 0.5px;
-	-webkit-text-stroke-color: black;
-	text-align: left;
-}
-
-.login{
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-
-.welcome-app {
 	width: 600px;
-	position: absolute;
-	top: 250px;
-	left: 230px;
+	position: fixed;
+    top: 0;
+    left: 37%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	background-color: #6a63bc;
+    align-items: center;
+	background-color: #fff;
 	border-radius: 30px;
 	box-shadow: 5px 20px 50px #000;
 	padding: 20px;
 	box-sizing: border-box;
 	overflow-y: scroll;
 	overflow: hidden;
-	animation: appear 1s forwards;
-  }
-
-.welcome-app2 {
-	width: 600px;
-	position: absolute;
-	top: 550px;
-	right: 130px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	background-color: #6a63bc;
-	border-radius: 30px;
-	box-shadow: 5px 20px 50px #000;
-	padding: 20px;
-	box-sizing: border-box;
-	overflow-y: scroll;
-	overflow: hidden;
-	animation: appear2 1s 0.5s forwards;
 	opacity: 0%;
+	animation: appear 0.5s both;
+	transition: 0.5s all ease;
   }
-
-.welcome-app3 {
-	width: 600px;
-	position: absolute;
-	top: 850px;
-	left: 130px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	background-color: #6a63bc;
-	border-radius: 30px;
-	box-shadow: 5px 20px 50px #000;
-	padding: 20px;
-	box-sizing: border-box;
-	overflow-y: scroll;
-	overflow: hidden;
-	animation: appear3 1s 1s forwards;
-	opacity: 0%;
-  }
-
-.welcome-app4 {
-	width: 600px;
-	position: absolute;
-	top: 1150px;
-	right: 230px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	background-color: #6a63bc;
-	border-radius: 30px;
-	box-shadow: 5px 20px 50px #000;
-	padding: 20px;
-	box-sizing: border-box;
-	overflow-y: scroll;
-	overflow: hidden;
-	animation: appear4 1s 1.5s forwards;
-	opacity: 0%;
-  }
-
-.welcome-app5 {
-	width: 400px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	background-color: #6a63bc;
-	border-radius: 100px;
-	box-shadow: 5px 20px 50px #000;
-	padding: 20px;
-	box-sizing: border-box;
-	overflow-y: scroll;
-	overflow: hidden;
-	animation: appear5 1.5s 2.5s forwards;
-	opacity: 0%;
-  }
-
-.welcome-h1 {
-	position: absolute;
-	top: 8px;
-	left: 50px;
-	text-align: left;
-}
-
-.about-img {
-	width: 240px;
-	height: 240px;
-}
-
-.about-h1 {
-	text-align: left;
-	color: black;
-	font-family: 'comic sans ms', cursive;
-}
-
-.about-h1-1 {
-	text-align: center;
-	color: black;
-	font-family: 'comic sans ms', cursive;
-}
-
-.about-p {
-	font-size: large;
-	text-align: left;
-}
-
-.about-p1 {
-	font-size: large;
-	text-align: center;
-}
-
-h1 {
-  color: #fff;
-  text-align: center;
-}
-
-label{
-	color: #fff;
-	font-size: 2.3em;
-  	justify-content: center;
-  	padding: 10px;
-	display: flex;
-	font-weight: bold;
-}
-
-input{
-	width: 60%;
-	height: 10px;
-	background: #e0dede;
-	justify-content: center;
-	display: flex;
-	margin: 20px auto;
-	padding: 10px;
-	border: none;
-	outline: none;
-	border-radius: 5px;
-}
 
 button{
-	width: 60%;
+	width: 20%;
 	height: 40px;
 	margin: 10px auto;
 	justify-content: center;
 	display: block;
-	color: #fff;
-	background: #573b8a;
+	color: #000;
+	background: #fff;
 	font-size: 1em;
 	font-weight: bold;
 	margin-top: 5px;
 	outline: none;
-	border: none;
-	border-radius: 5px;
+	border-color: #000;
+	border-radius: 10px;
+	border-width: 1.5px;
 	transition: .2s ease-in;
 	cursor: pointer;
 }
-button:hover{
-	background: #6d44b8;
-}
 
-.formInput {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	margin-bottom: 20px;
-  }
+button:hover{
+	background: #000;
+	color: #fff;
+}
 
 @keyframes appear {
-	from {
+	to {
 		top: 250px;
-		opacity: 0%;
-	}
-
-	to {
-		top: 150px;
-		opacity: 100%;
-	}
-}
-
-@keyframes appear2 {
-	from {
-		top: 550px;
-		opacity: 0%;
-	}
-
-	to {
-		top: 450px;
-		opacity: 100%;
-	}
-}
-
-@keyframes appear3 {
-	from {
-		top: 750px;
-		opacity: 0%;
-	}
-
-	to {
-		top: 650px;
-		opacity: 100%;
-	}
-}
-
-@keyframes appear4 {
-	from {
-		top: 950px;
-		opacity: 0%;
-	}
-
-	to {
-		top: 850px;
-		opacity: 100%;
-	}
-}
-
-@keyframes appear5 {
-	from {
-		opacity: 0%;
-	}
-
-	to {
 		opacity: 100%;
 	}
 }
