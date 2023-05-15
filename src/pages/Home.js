@@ -4,7 +4,7 @@ import './Home.css'
 import './Animations'
 
 function scroll_bottom() {
-  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  window.scroll({top: 3100, behavior: "smooth"});
 }
 
 const Home = () => {
