@@ -3,7 +3,6 @@ import "../App.css";
 import FormInput from "../components/forminput.js";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Link } from "react-router-dom";
 
 const LoginForm = () => {
   const [values, setValues] = useState({
@@ -63,7 +62,7 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(JSON.stringify(values));
-
+    
     fetch('http://localhost:9191/customer/login', {
       method: 'POST',
       headers: {
@@ -94,13 +93,56 @@ const LoginForm = () => {
       });
   };
 
+  const handleSubmitManager = (e) => {
+    e.preventDefault();
+    console.log(JSON.stringify(values));
+
+    fetch('http://localhost:9191/mng/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+      .then(response => {
+        if (response.status === 200) {
+            console.log('Login successful');
+            window.location.href = '/manager/dashboard';
+        } else if (response.status === 401) {
+          console.error('Invalid username or password');
+          notifyInvalidUsernamePassword();
+        } else if (response.status === 404) {
+          console.error('User not found');
+          notifyUserNotFound();
+        } else {
+          console.error('Error:', response.status);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
+  const onUserTypeChange = (e) => {
+    setValues({ ...values, userType: e.target.value });
+  };
+
+  let x;
+  if (values.userType === "manager") {
+    x = handleSubmitManager
+  } else if (values.userType === "employee") {
+    x = handleSubmit
+  } else {
+    x = handleSubmit
+  }
+
   return (
     <div className="app">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={x}>
         <h1>Login</h1>
         {inputs.map((input) => (
           <FormInput
@@ -110,17 +152,43 @@ const LoginForm = () => {
             onChange={onChange}
           />
         ))}
+        <div className='radio-group'>
+          <label>
+            <input
+              type="radio"
+              name="userType"
+              value="manager"
+              checked={values.userType === "manager"}
+              onChange={onUserTypeChange}
+            />
+            Manager
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="userType"
+              value="employee"
+              checked={values.userType === "employee"}
+              onChange={onUserTypeChange}
+            />
+            Employee
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="userType"
+              value="customer"
+              checked={values.userType === "customer"}
+              onChange={onUserTypeChange}
+            />
+            Customer
+          </label>
+        </div>
         <button>Login</button>
-        <Link to="/employeelogin">
-        <button>Login as Employee</button>
-        </Link>
-        <Link to="/manager">
-        <button>Login as Manager</button>
-      </Link>
       </form>
       <ToastContainer />
     </div>
   );
-}
+};
 
 export default LoginForm;

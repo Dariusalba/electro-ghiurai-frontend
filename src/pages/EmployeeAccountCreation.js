@@ -107,7 +107,7 @@ const EmployeeAccountCreation = () => {
     });
   
     const nameNotEntered = () =>
-    toast.error('❌ Please enter your first and last name!', {
+    toast.error('❌ Please the employees first and last name!', {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
