@@ -139,6 +139,27 @@ const ManagerDashboard = () => {
     }
   };
 
+  const handleViewAcceptedOrder = async (orderId) => {
+    try {
+      const remarks = await fetchOrderRemarks(orderId);
+      const customerFullName = await fetchCustomerDetails(orderId);
+      const order = await fetchOrderDetails(orderId);
+
+      setOrderRemarks(remarks);
+      setSelectedOrder({
+        orderId: orderId,
+        remarks: remarks,
+        title: order.title,
+        description: order.description,
+        customerFullName: customerFullName,
+        status: order.status,
+      });
+      setShowModal2(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   return (
     <div>
@@ -195,7 +216,7 @@ const ManagerDashboard = () => {
                   <td>{order.status}</td>
                   <td>{order.title}</td>
                   <td>
-                    <button className="view-button" onClick={() => handleViewOrder(order.orderId)}>
+                    <button className="view-button" onClick={() => handleViewAcceptedOrder(order.orderId)}>
                       View
                     </button>
                   </td>
