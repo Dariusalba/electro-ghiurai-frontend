@@ -12,6 +12,8 @@ const ManagerDashboard = () => {
   const [customerDetails, setCustomerDetails] = useState({});
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [orderRemarks, setOrderRemarks] = useState([]);
+  const [selectedAcceptedOrder, setSelectedAcceptedOrder] = useState(null);
+
 
   const handleButtonClick1 = async () => {
     try {
@@ -144,21 +146,28 @@ const ManagerDashboard = () => {
       const remarks = await fetchOrderRemarks(orderId);
       const customerFullName = await fetchCustomerDetails(orderId);
       const order = await fetchOrderDetails(orderId);
-
+  
       setOrderRemarks(remarks);
-      setSelectedOrder({
+  
+      const internalStatusResponse = await fetch(`http://localhost:9191/mng/order/internal/${orderId}`);
+      const internalStatusData = await internalStatusResponse.json();
+      const internalStatus = internalStatusData.internalStatus;
+  
+      setSelectedAcceptedOrder({
         orderId: orderId,
         remarks: remarks,
         title: order.title,
         description: order.description,
         customerFullName: customerFullName,
         status: order.status,
+        internalStatus: internalStatus,
       });
       setShowModal2(true);
     } catch (error) {
       console.error(error);
     }
   };
+
 
 
   return (
@@ -213,7 +222,7 @@ const ManagerDashboard = () => {
                 <tr key={order.orderId}>
                   <td>{order.orderId}</td>
                   <td>{customerDetails[order.orderId]}</td>
-                  <td>{order.status}</td>
+                  <td>{order.internalStatus}</td>
                   <td>{order.title}</td>
                   <td>
                     <button className="view-button" onClick={() => handleViewAcceptedOrder(order.orderId)}>
@@ -224,6 +233,31 @@ const ManagerDashboard = () => {
               ))}
             </tbody>
           </table>
+          {selectedAcceptedOrder && (
+            <div>
+              <h2>Order Details</h2>
+              <h3>Order ID: {selectedAcceptedOrder.orderId}</h3>
+              <h3>Title: {selectedAcceptedOrder.title}</h3>
+              <h3>Description: {selectedAcceptedOrder.description}</h3>
+              <h3>Status: {selectedAcceptedOrder.internalStatus}</h3>
+
+              <h3>Remarks:</h3>
+              {orderRemarks.length === 0 ? (
+                <p>No remarks added</p>
+              ) : (
+                <ul>
+                  {orderRemarks.map((remark) => (
+                    <li key={remark.remarkId}>{remark.description}</li>
+                  ))}
+                </ul>
+              )}
+              <button>Assign Function</button>
+              <button>Assign Developer</button>
+              <button>Assign Reviewer</button>
+              <button>Download Code</button>
+              <button>Finish Order</button>
+            </div>
+          )}
         </Modal>
       )}
       {showModal3 && (
