@@ -99,14 +99,19 @@ const ManagerDashboard = () => {
   const handleViewOrder = async (orderId) => {
     try {
       const remarks = await fetchOrderRemarks(orderId);
-      const customerInfo = await fetchCustomerDetails(orderId);
+      const customerFullName = await fetchCustomerDetails(orderId);
+  
       setOrderRemarks(remarks);
-      setSelectedOrder(orderId);
-      setCustomerDetails({ [orderId]: customerInfo });
+      setSelectedOrder({
+        orderId: orderId,
+        remarks: remarks,
+        customerFullName: customerFullName
+      });
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   return (
     <div>
@@ -182,10 +187,9 @@ const ManagerDashboard = () => {
         <h3>Remarks:</h3>
         <ul>
           {orderRemarks.map((remark) => (
-            <li key={remark.remarkId}>{remark.remark}</li>
+            <li key={remark.remarkId}>{remark.description}</li>
           ))}
         </ul>
-        <h3>Client: {`${customerDetails[selectedOrder.orderId]?.firstName} ${customerDetails[selectedOrder.orderId]?.lastName}`}</h3>
       </Modal>
     )}
     </div>
