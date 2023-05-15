@@ -10,6 +10,8 @@ const ManagerDashboard = () => {
   const [pendingOrders, setPendingOrders] = useState([]);
   const [acceptedOrders, setAcceptedOrders] = useState([]);
   const [customerDetails, setCustomerDetails] = useState({});
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [orderRemarks, setOrderRemarks] = useState([]);
 
   const handleButtonClick1 = async () => {
     try {
@@ -66,6 +68,17 @@ const ManagerDashboard = () => {
     }
   };
 
+  const fetchOrderRemarks = async (orderId) => {
+    try {
+      const response = await fetch(`http://localhost:9191/order/remark/${orderId}`);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  };
+
   useEffect(() => {
     const fetchCustomerInfo = async () => {
       const customerInfo = {};
@@ -79,6 +92,12 @@ const ManagerDashboard = () => {
     fetchCustomerInfo();
   }, [pendingOrders]);
 
+  const handleViewOrder = async (orderId) => {
+    setSelectedOrder(orderId);
+    const remarks = await fetchOrderRemarks(orderId);
+    setOrderRemarks(remarks);
+  };
+
   return (
     <div>
       <h1>Manager Dashboard</h1>
@@ -88,7 +107,7 @@ const ManagerDashboard = () => {
       {showModal1 && (
         <Modal onClose={handleModalClose1}>
           <h2>Pending Orders</h2>
-          <table className='order-table'>
+          <table className="order-table">
             <thead>
               <tr>
                 <th>ID</th>
@@ -103,7 +122,9 @@ const ManagerDashboard = () => {
                   <td>{order.title}</td>
                   <td>{customerDetails[order.orderId]}</td>
                   <td>
-                    <button className='view-button'>View</button>
+                    <button className="view-button" onClick={() => handleViewOrder(order.orderId)}>
+                      View
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -111,6 +132,23 @@ const ManagerDashboard = () => {
           </table>
         </Modal>
       )}
+
+      {selectedOrder && (
+        <Modal onClose={handleModalClose1}>
+          <h2>Order Details</h2>
+          <p>Order ID: {selectedOrder}</p>
+          <h3>Order Remarks</h3>
+          <ul>
+            {orderRemarks.map((remark) => (
+              <li key={remark.remarkId}>{remark.remark}</li>
+            ))}
+          </ul>
+          <h3>Client Details</h3>
+          <p>First Name: {customerDetails[selectedOrder]?.firstName}</p>
+          <p>Last Name: {customerDetails[selectedOrder]?.lastName}</p>
+        </Modal>
+      )}
+
       {showModal2 && (
         <Modal onClose={handleModalClose2}>
           <h2>Accepted Orders</h2>
@@ -131,15 +169,16 @@ const ManagerDashboard = () => {
                 </tr>
               ))}
             </tbody>
-            </table>
+          </table>
         </Modal>
       )}
+
       {showModal3 && (
         <Modal onClose={handleModalClose3}>
-            <h2>Other Services</h2>
-            <Link to='/manager/employeeaccount'>
-                <button>Create Employee Account</button>
-            </Link>
+          <h2>Other Services</h2>
+          <Link to="/manager/employeeaccount">
+            <button>Create Employee Account</button>
+          </Link>
         </Modal>
       )}
     </div>
