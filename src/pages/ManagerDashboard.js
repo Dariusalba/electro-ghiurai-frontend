@@ -12,6 +12,11 @@ const ManagerDashboard = () => {
   const [customerDetails, setCustomerDetails] = useState({});
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [orderRemarks, setOrderRemarks] = useState([]);
+  const [selectedAcceptedOrder, setSelectedAcceptedOrder] = useState(null);
+  const [showSecondModal, setShowSecondModal] = useState(false);
+  const [selectedOrderDetails, setSelectedOrderDetails] = useState(null);
+
+
 
   const handleButtonClick1 = async () => {
     try {
@@ -53,6 +58,10 @@ const ManagerDashboard = () => {
 
   const handleCloseOrderModal = () => {
     setSelectedOrder(null);
+  };
+
+  const handleCloseAcceptedOrderModal = () => {
+    setShowSecondModal(null);
   };
 
   const fetchCustomerDetails = async (orderId) => {
@@ -138,7 +147,33 @@ const ManagerDashboard = () => {
       console.error(error);
     }
   };
-  
+
+  const handleViewAcceptedOrder = async (orderId) => {
+    try {
+      const remarks = await fetchOrderRemarks(orderId);
+      const customerFullName = await fetchCustomerDetails(orderId);
+      const order = await fetchOrderDetails(orderId);
+
+      setOrderRemarks(remarks);
+
+      const internalStatusResponse = await fetch(`http://localhost:9191/mng/order/internal/${orderId}`);
+      const internalStatusData = await internalStatusResponse.json();
+      const internalStatus = internalStatusData.internalStatus;
+
+      setSelectedOrderDetails({
+        orderId: orderId,
+        remarks: remarks,
+        title: order.title,
+        description: order.description,
+        customerFullName: customerFullName,
+        status: order.status,
+        internalStatus: internalStatus,
+      });
+      setShowSecondModal(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
@@ -181,8 +216,8 @@ const ManagerDashboard = () => {
             <thead>
               <tr>
                 <th>Order ID</th>
-                <th>Order Title</th>
-                <th>Order Description</th>
+                <th>Title</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -190,11 +225,40 @@ const ManagerDashboard = () => {
                 <tr key={order.orderId}>
                   <td>{order.orderId}</td>
                   <td>{order.title}</td>
-                  <td>{order.description}</td>
+                  <td>
+                    <button className="view-button" onClick={() => handleViewAcceptedOrder(order.orderId)}>
+                      View
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          {selectedAcceptedOrder && (
+            <div>
+              <h2>Order Details</h2>
+              <h3>Order ID: {selectedAcceptedOrder.orderId}</h3>
+              <h3>Title: {selectedAcceptedOrder.title}</h3>
+              <h3>Description: {selectedAcceptedOrder.description}</h3>
+              <h3>Status: {selectedAcceptedOrder.internalStatus}</h3>
+
+              <h3>Remarks:</h3>
+              {orderRemarks.length === 0 ? (
+                <p>No remarks added</p>
+              ) : (
+                <ul>
+                  {orderRemarks.map((remark) => (
+                    <li key={remark.remarkId}>{remark.description}</li>
+                  ))}
+                </ul>
+              )}
+              <button>Assign Function</button>
+              <button>Assign Developer</button>
+              <button>Assign Reviewer</button>
+              <button>Download Code</button>
+              <button>Finish Order</button>
+            </div>
+          )}
         </Modal>
       )}
       {showModal3 && (
@@ -222,6 +286,20 @@ const ManagerDashboard = () => {
             </ul>
           )}
           <button onClick={handleAcceptOrder}>Accept</button>
+        </Modal>
+      )}
+      {showSecondModal && (
+        <Modal onClose={() => handleCloseAcceptedOrderModal(false)}>
+          <h2>Order Details</h2>
+          <h3>Order ID: {selectedOrderDetails.orderId}</h3>
+          <h3>Title: {selectedOrderDetails.title}</h3>
+          <h3>Description: {selectedOrderDetails.description}</h3>
+          <h3>Internal Status: {selectedOrderDetails.internalStatus}</h3>
+          <h3>Function: </h3><button>Assign Function</button>
+          <h3>Developer: </h3><button>Assign Developer</button>
+          <h3>Reviewer: </h3><button>Assign Reviewer</button>
+          <h3>Download: </h3><button>Download Code</button>
+          <button>Finish Order</button>
         </Modal>
       )}
     </div>
