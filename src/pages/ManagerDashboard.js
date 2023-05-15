@@ -12,7 +12,7 @@ const ManagerDashboard = () => {
   const [customerDetails, setCustomerDetails] = useState({});
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [orderRemarks, setOrderRemarks] = useState([]);
-  const [selectedAcceptedOrder, setSelectedAcceptedOrder] = useState(null);
+  const [selectedAcceptedOrder] = useState(null);
   const [showSecondModal, setShowSecondModal] = useState(false);
   const [selectedOrderDetails, setSelectedOrderDetails] = useState(null);
 
@@ -148,6 +148,34 @@ const ManagerDashboard = () => {
     }
   };
 
+  const formatString = (str) => {
+    switch(str) {
+      case 1:
+        return "SPEC NEEDS ASSIGNMENT"
+      case 2:
+        return "SPEC IN PROGRESS"
+      case 3:
+        return "SPEC COMPLETED"
+      case 4:
+        return "CODE NEEDS ASSIGNMENT"
+      case 5:
+        return "CODE IN PROGRESS"
+      case 6:
+        return "CODE COMPLETED"
+      case 7:
+        return "REVIEW NEEDS ASSIGNMENT"
+      case 8:
+        return "REVIEW DONE"
+      case 9:
+        return "SPEC ERROR"
+      case 10:
+        return "CODE ERROR"
+      default:
+        return "ERROR"
+    }
+      
+  };
+
   const handleViewAcceptedOrder = async (orderId) => {
     try {
       const remarks = await fetchOrderRemarks(orderId);
@@ -234,13 +262,13 @@ const ManagerDashboard = () => {
               ))}
             </tbody>
           </table>
-          {selectedAcceptedOrder && (
+          {showSecondModal && (
             <div>
               <h2>Order Details</h2>
               <h3>Order ID: {selectedAcceptedOrder.orderId}</h3>
               <h3>Title: {selectedAcceptedOrder.title}</h3>
               <h3>Description: {selectedAcceptedOrder.description}</h3>
-              <h3>Status: {selectedAcceptedOrder.internalStatus}</h3>
+              <h3>Status: {formatString(selectedAcceptedOrder.internalStatus)}</h3>
 
               <h3>Remarks:</h3>
               {orderRemarks.length === 0 ? (
