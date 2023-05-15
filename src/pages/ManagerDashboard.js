@@ -138,7 +138,7 @@ const ManagerDashboard = () => {
       console.error(error);
     }
   };
-  
+
 
   return (
     <div>
@@ -181,16 +181,24 @@ const ManagerDashboard = () => {
             <thead>
               <tr>
                 <th>Order ID</th>
-                <th>Order Title</th>
-                <th>Order Description</th>
+                <th>Client Name</th>
+                <th>Order Status</th>
+                <th>Title</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {acceptedOrders.map((order) => (
                 <tr key={order.orderId}>
                   <td>{order.orderId}</td>
+                  <td>{customerDetails[order.orderId]}</td>
+                  <td>{order.status}</td>
                   <td>{order.title}</td>
-                  <td>{order.description}</td>
+                  <td>
+                    <button className="view-button" onClick={() => handleViewOrder(order.orderId)}>
+                      View
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
