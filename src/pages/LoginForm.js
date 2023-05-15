@@ -143,7 +143,7 @@ const LoginForm = () => {
 
   return (
     <div>
-      <div className="welcome1">
+      <div className="welcome2">
         <Link to="/">
           <h1 className='welcome-h1'>ElectroGhiurai</h1>
         </Link>
@@ -185,7 +185,7 @@ const LoginForm = () => {
                 type="radio"
                 name="userType"
                 value="customer"
-                checked={values.userType === "customer"}
+                checked={values.userType !== "manager" && values.userType !== "employee"}
                 onChange={onUserTypeChange}
               />
               Customer

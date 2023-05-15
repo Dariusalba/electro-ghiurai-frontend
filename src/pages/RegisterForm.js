@@ -249,7 +249,7 @@ const RegisterForm = () => {
 
   return (
     <div>
-      <div className="welcome1">
+      <div className="welcome2">
         <Link to="/">
           <h1 className='welcome-h1'>ElectroGhiurai</h1>
         </Link>
@@ -266,7 +266,7 @@ const RegisterForm = () => {
             />
           ))}
           <button className="app-button" onClick={handleSubmit}>Register</button>
-          <p className="alr-logged">Already have an account? <Link to="/login">Login now</Link>!</p>
+          <p>Already have an account? <Link to="/login">Login now</Link>!</p>
         </form>
         <ToastContainer />
       </div>

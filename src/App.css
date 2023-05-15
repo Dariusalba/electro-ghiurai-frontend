@@ -16,6 +16,14 @@ body{
 	background-color: #FFF;
 }
 
+.welcome2 {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	box-shadow: 5px 20px 50px #000;
+	background-color: #FFF;
+}
+
 .welcome-h1 {
 	float: left;
 	display: block;
