@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from '../components/Modal';
 import { Link } from "react-router-dom";
 import "../App.css";
@@ -9,6 +9,7 @@ const ManagerDashboard = () => {
   const [showModal3, setShowModal3] = useState(false);
   const [pendingOrders, setPendingOrders] = useState([]);
   const [acceptedOrders, setAcceptedOrders] = useState([]);
+  const [customerDetails, setCustomerDetails] = useState({});
 
   const handleButtonClick1 = async () => {
     try {
@@ -65,6 +66,19 @@ const ManagerDashboard = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchCustomerInfo = async () => {
+      const customerInfo = {};
+      for (const order of pendingOrders) {
+        const customerFullName = await fetchCustomerDetails(order.orderId);
+        customerInfo[order.orderId] = customerFullName;
+      }
+      setCustomerDetails(customerInfo);
+    };
+
+    fetchCustomerInfo();
+  }, [pendingOrders]);
+
   return (
     <div>
       <h1>Manager Dashboard</h1>
@@ -83,19 +97,16 @@ const ManagerDashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {pendingOrders.map(async (order) => {
-                const customerFullName = await fetchCustomerDetails(order.orderId);
-                return (
-                  <tr key={order.orderId}>
-                    <td>{order.orderId}</td>
-                    <td>{order.title}</td>
-                    <td>{customerFullName}</td>
-                    <td>
-                      <button>View</button>
-                    </td>
-                  </tr>
-                );
-              })}
+              {pendingOrders.map((order) => (
+                <tr key={order.orderId}>
+                  <td>{order.orderId}</td>
+                  <td>{order.title}</td>
+                  <td>{customerDetails[order.orderId]}</td>
+                  <td>
+                    <button>View</button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </Modal>
