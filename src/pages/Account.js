@@ -34,35 +34,43 @@ function AccountInfo() {
   
 
   return (
-    <div className="app">
-      <h1>Account Information</h1>
-      <h2>User Information:</h2>
-      {Object.keys(userInfo).length > 0 ? (
-        <>
-          <p className="account-p">Username: {userInfo.username}</p>
-          <p className="account-p">First Name: {userInfo.firstName}</p>
-          <p className="account-p">Last Name: {userInfo.lastName}</p>
-          <p className="account-p">Email: {userInfo.email}</p>
-          <p className="account-p">Country of Origin: {userInfo.countryOfOrigin}</p>
-        </>
-      ) : (
-        <p>Failed to load user information.</p>
-      )}
-      <h2>Current Orders:</h2>
-      {orders.length > 0 ? (
-        orders.map((order) => (
-          <div key={order.orderId}>
-            <p>Order ID: {order.orderId}</p>
-            <p>Title: {order.title}</p>
-            <p>Description: {order.description}</p>
-          </div>
-        ))
-      ) : (
-        <p>No orders found.</p>
-      )}
-      <Link to="/order">
-        <button>Create Order</button>
-      </Link>
+    <div>
+      <div className="welcome2">
+        <h1 className='welcome-h1'>ElectroGhiurai</h1>
+        <Link to="/login">
+          <button className="welcome-button">Sign Out</button>
+        </Link>
+      </div>
+      <div className="app">
+        <h1>Account Information</h1>
+        <h2>User Information:</h2>
+        {Object.keys(userInfo).length > 0 ? (
+          <>
+            <p className="account-p">Username: {userInfo.username}</p>
+            <p className="account-p">First Name: {userInfo.firstName}</p>
+            <p className="account-p">Last Name: {userInfo.lastName}</p>
+            <p className="account-p">Email: {userInfo.email}</p>
+            <p className="account-p">Country of Origin: {userInfo.countryOfOrigin}</p>
+          </>
+        ) : (
+          <p>Failed to load user information.</p>
+        )}
+        <h2>Current Orders:</h2>
+        {orders.length > 0 ? (
+          orders.map((order) => (
+            <div key={order.orderId}>
+              <p>Order ID: {order.orderId}</p>
+              <p>Title: {order.title}</p>
+              <p>Description: {order.description}</p>
+            </div>
+          ))
+        ) : (
+          <p>No orders found.</p>
+        )}
+        <Link to="/order">
+          <button className="app-button">Create Order</button>
+        </Link>
+      </div>
     </div>
   );
 }

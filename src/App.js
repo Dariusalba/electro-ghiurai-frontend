@@ -20,7 +20,7 @@ function App() {
         <Route path="/manager/dashboard" element={<ManagerDashboard />} />
         <Route path="/manager/testupload" element={<TestUpload />} />
         <Route path="/manager/employeeaccount" element={<EmployeeAccountCreation />} />
-        <Route path="*" element={<h1>Not Found</h1>} />
+        <Route path="*" element={<h1 className='not-found'>Not Found</h1>} />
       </Routes>
     </Router>
   );
