@@ -7,10 +7,39 @@ body{
 	background-image: url('components/background.png');
 }
 
+.welcome1 {
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	width: 100%;
+	box-shadow: 5px 20px 50px #000;
+	background-color: #FFF;
+}
+
+.welcome-h1 {
+	float: left;
+	display: block;
+	transform: translateX(0px) translateY(8px);
+	opacity: 0%;
+	color: black;
+	font-family: 'Lucida Grande', monospace;
+	animation: welcome-appear1 1s forwards;
+}
+
+.welcome-button {
+	float: right;
+	display: block;
+	z-index: 1;
+	transform: translateX(0px) translateY(15px);
+	opacity: 0%;
+	width: 5%;
+	animation: welcome-appear2 1s forwards;
+}
+
 .app {
 	width: 600px;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 150px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -26,6 +55,14 @@ body{
 	animation: appear 0.5s both;
 	transition: 0.5s all ease;
   }
+
+.app-h1 {
+    text-align: center;
+}
+
+.app-button {
+    width: 100%;
+}
 
 button{
 	width: 20%;

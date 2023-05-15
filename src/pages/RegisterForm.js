@@ -248,21 +248,28 @@ const RegisterForm = () => {
 
 
   return (
-    <div className="app">
-      <form onSubmit={handleSubmit}>
-        <h1>Register</h1>
-        {inputs.map((input) => (
-          <FormInput
-            key={input.id}
-            {...input}
-            value={values[input.name]}
-            onChange={onChange}
-          />
-        ))}
-        <button onClick={handleSubmit}>Register</button>
-        <p className="alr-logged">Already have an account? <Link to="/login">Login now</Link>!</p>
-      </form>
-      <ToastContainer />
+    <div>
+      <div className="welcome1">
+        <Link to="/">
+          <h1 className='welcome-h1'>ElectroGhiurai</h1>
+        </Link>
+      </div>
+      <div className="app">
+        <form onSubmit={handleSubmit}>
+          <h1 className="app-h1">Register</h1>
+          {inputs.map((input) => (
+            <FormInput
+              key={input.id}
+              {...input}
+              value={values[input.name]}
+              onChange={onChange}
+            />
+          ))}
+          <button className="app-button" onClick={handleSubmit}>Register</button>
+          <p className="alr-logged">Already have an account? <Link to="/login">Login now</Link>!</p>
+        </form>
+        <ToastContainer />
+      </div>
     </div>
   );
 };

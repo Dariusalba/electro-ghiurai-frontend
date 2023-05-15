@@ -2,25 +2,6 @@ body {
 	min-height: 3100px;
 }
 
-.welcome1 {
-	position: fixed;
-	z-index: 1000;
-	top: 0;
-	width: 100%;
-	box-shadow: 5px 20px 50px #000;
-	background-color: #FFF;
-}
-
-.welcome-h1 {
-	float: left;
-	display: block;
-	transform: translateX(0px) translateY(8px);
-	opacity: 0%;
-	color: black;
-	font-family: 'Lucida Grande', monospace;
-	animation: welcome-appear1 1s forwards;
-}
-
 .welcome-app {
 	width: 900px;
 	position: absolute;
@@ -140,19 +121,9 @@ body {
 	text-align: center;
 }
 
-.welcome-button {
-	float: right;
-	display: block;
-	z-index: 1;
-	transform: translateX(0px) translateY(15px);
-	opacity: 0%;
-	width: 10%;
-	animation: welcome-appear2 1s forwards;
-}
-
 .rl-ref {
-	width: 20%;
-	margin-left: 40%;
+	width: 10%;
+	margin-left: 45%;
 }
 
 .rl-button {

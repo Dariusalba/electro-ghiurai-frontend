@@ -13,10 +13,10 @@ function scroll_bottom() {
 
 const Home = () => {
   return (
-    <div className='chenar'>
-      <div className="welcome1 change-color">
+    <div>
+      <div className="welcome1">
         <h1 className='welcome-h1'>ElectroGhiurai</h1>
-          <button onClick={scroll_bottom} className='welcome-button'>Register</button>
+        <button onClick={scroll_bottom} className='welcome-button'>Join us</button>
       </div>
       <div>
         <div className='welcome-app'>

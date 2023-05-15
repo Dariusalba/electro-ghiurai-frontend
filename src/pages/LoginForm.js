@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "../App.css";
+import { Link } from 'react-router-dom';
 import FormInput from "../components/forminput.js";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -141,52 +142,59 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="app">
-      <form onSubmit={x}>
-        <h1>Login</h1>
-        {inputs.map((input) => (
-          <FormInput
-            key={input.id}
-            {...input}
-            value={values[input.name]}
-            onChange={onChange}
-          />
-        ))}
-        <div className='radio-group'>
-          <label>
-            <input
-              type="radio"
-              name="userType"
-              value="manager"
-              checked={values.userType === "manager"}
-              onChange={onUserTypeChange}
+    <div>
+      <div className="welcome1">
+        <Link to="/">
+          <h1 className='welcome-h1'>ElectroGhiurai</h1>
+        </Link>
+      </div>
+      <div className="app">
+        <form onSubmit={x}>
+          <h1 className='app-h1'>Login</h1>
+          {inputs.map((input) => (
+            <FormInput
+              key={input.id}
+              {...input}
+              value={values[input.name]}
+              onChange={onChange}
             />
-            Manager
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="userType"
-              value="employee"
-              checked={values.userType === "employee"}
-              onChange={onUserTypeChange}
-            />
-            Employee
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="userType"
-              value="customer"
-              checked={values.userType === "customer"}
-              onChange={onUserTypeChange}
-            />
-            Customer
-          </label>
-        </div>
-        <button>Login</button>
-      </form>
-      <ToastContainer />
+          ))}
+          <div className='radio-group'>
+            <label>
+              <input
+                type="radio"
+                name="userType"
+                value="manager"
+                checked={values.userType === "manager"}
+                onChange={onUserTypeChange}
+              />
+              Manager
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="userType"
+                value="employee"
+                checked={values.userType === "employee"}
+                onChange={onUserTypeChange}
+              />
+              Employee
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="userType"
+                value="customer"
+                checked={values.userType === "customer"}
+                onChange={onUserTypeChange}
+              />
+              Customer
+            </label>
+          </div>
+          <button className='app-button'>Login</button>
+        </form>
+        <ToastContainer />
+      </div>
     </div>
   );
 };
