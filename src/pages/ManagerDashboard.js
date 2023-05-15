@@ -48,6 +48,23 @@ const ManagerDashboard = () => {
     setShowModal3(false);
   };
 
+  const fetchCustomerDetails = async (orderId) => {
+    try {
+      const response = await fetch(`http://localhost:9191/customer/order/${orderId}`);
+      const data = await response.json();
+      const customerId = data.customerId;
+
+      const customerResponse = await fetch(`http://localhost:9191/customer/${customerId}`);
+      const customerData = await customerResponse.json();
+      const customerFullName = `${customerData.firstName} ${customerData.lastName}`;
+
+      return customerFullName;
+    } catch (error) {
+      console.error(error);
+      return '';
+    }
+  };
+
   return (
     <div>
       <h1>Manager Dashboard</h1>
@@ -66,16 +83,19 @@ const ManagerDashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {pendingOrders.map((order) => (
-                <tr key={order.orderId}>
-                  <td>{order.orderId}</td>
-                  <td>{order.title}</td>
-                  <td>{order.firstName + order.lastName}</td>
-                  <td>
-                    <button>View</button>
-                  </td>
-                </tr>
-              ))}
+              {pendingOrders.map(async (order) => {
+                const customerFullName = await fetchCustomerDetails(order.orderId);
+                return (
+                  <tr key={order.orderId}>
+                    <td>{order.orderId}</td>
+                    <td>{order.title}</td>
+                    <td>{customerFullName}</td>
+                    <td>
+                      <button>View</button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </Modal>
