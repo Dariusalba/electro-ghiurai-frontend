@@ -265,10 +265,10 @@ const ManagerDashboard = () => {
           {showSecondModal && (
             <div>
               <h2>Order Details</h2>
-              <h3>Order ID: {selectedAcceptedOrder.orderId}</h3>
-              <h3>Title: {selectedAcceptedOrder.title}</h3>
-              <h3>Description: {selectedAcceptedOrder.description}</h3>
-              <h3>Status: {formatString(selectedAcceptedOrder.internalStatus)}</h3>
+              <h3>Order ID: {selectedOrderDetails.orderId}</h3>
+              <h3>Title: {selectedOrderDetails.title}</h3>
+              <h3>Description: {selectedOrderDetails.description}</h3>
+              <h3>Status: {formatString(selectedOrderDetails.internalStatus)}</h3>
 
               <h3>Remarks:</h3>
               {orderRemarks.length === 0 ? (
@@ -322,7 +322,7 @@ const ManagerDashboard = () => {
           <h3>Order ID: {selectedOrderDetails.orderId}</h3>
           <h3>Title: {selectedOrderDetails.title}</h3>
           <h3>Description: {selectedOrderDetails.description}</h3>
-          <h3>Internal Status: {selectedOrderDetails.internalStatus}</h3>
+          <h3>Internal Status: {formatString(selectedOrderDetails.internalStatus)}</h3>
           <h3>Function: </h3><button>Assign Function</button>
           <h3>Developer: </h3><button>Assign Developer</button>
           <h3>Reviewer: </h3><button>Assign Reviewer</button>
