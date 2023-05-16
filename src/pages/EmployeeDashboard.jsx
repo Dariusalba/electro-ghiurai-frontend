@@ -106,7 +106,7 @@ function EmployeeDashboard() {
                 {orderRemarks ? (
                   <ul>
                     {orderRemarks.map(remark => (
-                      <li key={remark.remarkId}>{remark.remark}</li>
+                      <li key={remark.remarkId}>{remark.description}</li>
                     ))}
                   </ul>
                 ) : (

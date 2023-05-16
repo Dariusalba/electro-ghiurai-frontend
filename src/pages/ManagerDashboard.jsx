@@ -87,7 +87,7 @@ const ManagerDashboard = () => {
 
   const handleDownloadSpec = async () => {
     try {
-      const response = await fetch(`http://localhost:9191/emp/download/spec/${selectedOrder.orderId}`);
+      const response = await fetch(`http://localhost:9191/mng/download/spec/${selectedOrder.orderId}`);
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
 
