@@ -1,6 +1,7 @@
 import { useState } from "react";
 import '../components/Order.css';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const customerId = sessionStorage.getItem("customerId");
 
@@ -27,6 +28,18 @@ function OrderForm() {
     setRemarkValue("");
   };
 
+  const orderPlaced = () => 
+    toast.success('✅ Order placed successfully', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -42,6 +55,7 @@ function OrderForm() {
     })
       .then((response) => {
         if (response.status === 201) {
+          orderPlaced();
           console.log("Order placed successfully");
           response.json().then((data) => {
             const orderId = data.orderId;
@@ -145,6 +159,7 @@ function OrderForm() {
           <button type="submit" className="app-button">Submit</button>
           <button type="button" onClick={accountRedirect} className="app-button">Go Back</button>
         </form>
+        <ToastContainer />
       </div>
     </div>
   );

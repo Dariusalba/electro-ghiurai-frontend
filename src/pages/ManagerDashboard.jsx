@@ -85,6 +85,24 @@ const ManagerDashboard = () => {
     }
   };
 
+  const handleDownloadSpec = async () => {
+    try {
+      const response = await fetch(`http://localhost:9191/mng/download/spec/${selectedOrder.orderId}`);
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `spec-${selectedOrder.orderId}.pdf`;
+
+      link.click();
+
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const fetchOrderRemarks = async (orderId) => {
     try {
       const response = await fetch(`http://localhost:9191/customer/order/remark/${orderId}`);
@@ -405,7 +423,7 @@ const ManagerDashboard = () => {
             )}
             {selectedOrderDetails.internalStatus === 3 && (
               <div>
-                <button>Download Spec</button>
+                <button onClick={handleDownloadSpec}>Download Spec</button>
                 <h3>Developer: </h3><button>Assign Developer</button>
               </div>
             )}
