@@ -180,23 +180,31 @@ const EmployeeAccountCreation = () => {
 
 
   return (
-    <div className="app">
-      <form onSubmit={handleSubmit}>
-        <h1>Create Emp Acc</h1>
-        {inputs.map((input) => (
-          <FormInput
-            key={input.id}
-            {...input}
-            value={values[input.name]}
-            onChange={onChange}
-          />
-        ))}
-        <button onClick={handleSubmit}>Create Employee Account</button>
-        <p>
-            <Link to="/manager/dashboard">Back to dashboard</Link>
-        </p>
-      </form>
+    <div>
+      <div className="welcome1">
+        <Link to="/manager/dashboard">
+          <h1 className='welcome-h1'>ElectroGhiurai</h1>
+        </Link>
+      </div>
+      <div className="app">
+        <form onSubmit={handleSubmit}>
+          <h1 className="app-h1">Create Employee Account</h1>
+            {inputs.map((input) => (
+            <FormInput
+              key={input.id}
+              {...input}
+              value={values[input.name]}
+              onChange={onChange}
+            />
+          ))}
+          <br></br>
+          <button className="app-button" onClick={handleSubmit}>Create Employee Account</button>
+          <Link to="/manager/dashboard">
+              <button className="app-button">Back to dashboard</button>
+          </Link>
+        </form>
       <ToastContainer />
+      </div>
     </div>
   );
 };

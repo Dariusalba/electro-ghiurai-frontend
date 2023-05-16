@@ -5,7 +5,6 @@ import LoginForm from './pages/LoginForm';
 import Order from './pages/Order';
 import Account from './pages/Account';
 import ManagerDashboard from './pages/ManagerDashboard';
-import TestUpload from './pages/TestUpload';
 import EmployeeAccountCreation from './pages/EmployeeAccountCreation'
 
 function App() {
@@ -18,7 +17,6 @@ function App() {
         <Route path="/order" element={<Order />} />
         <Route path="/account" element={<Account />} />
         <Route path="/manager/dashboard" element={<ManagerDashboard />} />
-        <Route path="/manager/testupload" element={<TestUpload />} />
         <Route path="/manager/employeeaccount" element={<EmployeeAccountCreation />} />
         <Route path="*" element={<h1 className='not-found'>Not Found</h1>} />
       </Routes>

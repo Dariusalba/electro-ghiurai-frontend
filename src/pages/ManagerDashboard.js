@@ -205,131 +205,141 @@ const ManagerDashboard = () => {
 
   return (
     <div>
-      <h1>Manager Dashboard</h1>
-      <button onClick={handleButtonClick1}>View Pending Orders</button>
-      <button onClick={handleButtonClick2}>View Current Orders</button>
-      <button onClick={handleButtonClick3}>Other Services</button>
-      {showModal1 && (
-        <Modal onClose={handleModalClose1}>
-          <h2>Pending Orders</h2>
-          <table className="order-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Client</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pendingOrders.map((order) => (
-                <tr key={order.orderId}>
-                  <td>{order.orderId}</td>
-                  <td>{order.title}</td>
-                  <td>{customerDetails[order.orderId]}</td>
-                  <td>
-                    <button className="view-button" onClick={() => handleViewOrder(order.orderId)}>
-                      View
-                    </button>
-                  </td>
+      <div className="welcome1">
+        <Link to="/">
+          <h1 className='welcome-h1'>ElectroGhiurai</h1>
+        </Link>
+        <Link to="/login">
+          <button className="welcome-button">Sign Out</button>
+        </Link>
+      </div>
+      <div className='app'>
+        <h1 className='app-h1'>Manager Dashboard</h1>
+        <button className='app-button' onClick={handleButtonClick1}>View Pending Orders</button>
+        <button className='app-button' onClick={handleButtonClick2}>View Current Orders</button>
+        <button className='app-button' onClick={handleButtonClick3}>Other Services</button>
+        {showModal1 && (
+          <Modal onClose={handleModalClose1}>
+            <h2>Pending Orders</h2>
+            <table className="order-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Title</th>
+                  <th>Client</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </Modal>
-      )}
-      {showModal2 && (
-        <Modal onClose={handleModalClose2}>
-          <h2>Current Orders</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Order ID</th>
-                <th>Title</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {acceptedOrders.map((order) => (
-                <tr key={order.orderId}>
-                  <td>{order.orderId}</td>
-                  <td>{order.title}</td>
-                  <td>
-                    <button className="view-button" onClick={() => handleViewAcceptedOrder(order.orderId)}>
-                      View
-                    </button>
-                  </td>
+              </thead>
+              <tbody>
+                {pendingOrders.map((order) => (
+                  <tr key={order.orderId}>
+                    <td>{order.orderId}</td>
+                    <td>{order.title}</td>
+                    <td>{customerDetails[order.orderId]}</td>
+                    <td>
+                      <button className="view-button" onClick={() => handleViewOrder(order.orderId)}>
+                        View
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Modal>
+        )}
+        {showModal2 && (
+          <Modal onClose={handleModalClose2}>
+            <h2>Current Orders</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Title</th>
+                  <th>Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          {showSecondModal && (
-            <div>
-              <h2>Order Details</h2>
-              <h3>Order ID: {selectedOrderDetails.orderId}</h3>
-              <h3>Title: {selectedOrderDetails.title}</h3>
-              <h3>Description: {selectedOrderDetails.description}</h3>
-              <h3>Status: {formatString(selectedOrderDetails.internalStatus)}</h3>
+              </thead>
+              <tbody>
+                {acceptedOrders.map((order) => (
+                  <tr key={order.orderId}>
+                    <td>{order.orderId}</td>
+                    <td>{order.title}</td>
+                    <td>
+                      <button className="view-button" onClick={() => handleViewAcceptedOrder(order.orderId)}>
+                        View
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {showSecondModal && (
+              <div>
+                <h2>Order Details</h2>
+                <h3>Order ID: {selectedOrderDetails.orderId}</h3>
+                <h3>Title: {selectedOrderDetails.title}</h3>
+                <h3>Description: {selectedOrderDetails.description}</h3>
+                <h3>Status: {formatString(selectedOrderDetails.internalStatus)}</h3>
 
-              <h3>Remarks:</h3>
-              {orderRemarks.length === 0 ? (
-                <p>No remarks added</p>
-              ) : (
-                <ul>
-                  {orderRemarks.map((remark) => (
-                    <li key={remark.remarkId}>{remark.description}</li>
-                  ))}
-                </ul>
-              )}
-              <button>Assign Function</button>
-              <button>Assign Developer</button>
-              <button>Assign Reviewer</button>
-              <button>Download Code</button>
-              <button>Finish Order</button>
-            </div>
-          )}
-        </Modal>
-      )}
-      {showModal3 && (
-        <Modal onClose={handleModalClose3}>
-          <h2>Other Services</h2>
-          <Link to="/manager/employeeaccount">
-            <button>Create Employee Account</button>
-          </Link>
-        </Modal>
-      )}
-      {selectedOrder && (
-        <Modal onClose={handleCloseOrderModal}>
-          <h2>Order Details</h2>
-          <h3>Order ID: {selectedOrder.orderId}</h3>
-          <h3>Title: {selectedOrder.title}</h3>
-          <h3>Description: {selectedOrder.description}</h3>
-          <h3>Remarks:</h3>
-          {orderRemarks.length === 0 ? (
-            <p>No remarks added</p>
-          ) : (
-            <ul>
-              {orderRemarks.map((remark) => (
-                <li key={remark.remarkId}>{remark.description}</li>
-              ))}
-            </ul>
-          )}
-          <button onClick={handleAcceptOrder}>Accept</button>
-        </Modal>
-      )}
-      {showSecondModal && (
-        <Modal onClose={() => handleCloseAcceptedOrderModal(false)}>
-          <h2>Order Details</h2>
-          <h3>Order ID: {selectedOrderDetails.orderId}</h3>
-          <h3>Title: {selectedOrderDetails.title}</h3>
-          <h3>Description: {selectedOrderDetails.description}</h3>
-          <h3>Internal Status: {formatString(selectedOrderDetails.internalStatus)}</h3>
-          <h3>Function: </h3><button>Assign Function</button>
-          <h3>Developer: </h3><button>Assign Developer</button>
-          <h3>Reviewer: </h3><button>Assign Reviewer</button>
-          <h3>Download: </h3><button>Download Code</button>
-          <button>Finish Order</button>
-        </Modal>
-      )}
+                <h3>Remarks:</h3>
+                {orderRemarks.length === 0 ? (
+                  <p>No remarks added</p>
+                ) : (
+                  <ul>
+                    {orderRemarks.map((remark) => (
+                      <li key={remark.remarkId}>{remark.description}</li>
+                    ))}
+                  </ul>
+                )}
+                <button>Assign Function</button>
+                <button>Assign Developer</button>
+                <button>Assign Reviewer</button>
+                <button>Download Code</button>
+                <button>Finish Order</button>
+              </div>
+            )}
+          </Modal>
+        )}
+        {showModal3 && (
+          <Modal onClose={handleModalClose3}>
+            <h2>Other Services</h2>
+            <Link to="/manager/employeeaccount">
+              <button className='app-button'>Create Employee Account</button>
+            </Link>
+          </Modal>
+        )}
+        {selectedOrder && (
+          <Modal onClose={handleCloseOrderModal}>
+            <h2>Order Details</h2>
+            <h3>Order ID: {selectedOrder.orderId}</h3>
+            <h3>Title: {selectedOrder.title}</h3>
+            <h3>Description: {selectedOrder.description}</h3>
+            <h3>Remarks:</h3>
+            {orderRemarks.length === 0 ? (
+              <p>No remarks added</p>
+            ) : (
+              <ul>
+                {orderRemarks.map((remark) => (
+                  <li key={remark.remarkId}>{remark.description}</li>
+                ))}
+              </ul>
+            )}
+            <button onClick={handleAcceptOrder}>Accept</button>
+          </Modal>
+        )}
+        {showSecondModal && (
+          <Modal onClose={() => handleCloseAcceptedOrderModal(false)}>
+            <h2>Order Details</h2>
+            <h3>Order ID: {selectedOrderDetails.orderId}</h3>
+            <h3>Title: {selectedOrderDetails.title}</h3>
+            <h3>Description: {selectedOrderDetails.description}</h3>
+            <h3>Internal Status: {formatString(selectedOrderDetails.internalStatus)}</h3>
+            <h3>Function: </h3><button>Assign Function</button>
+            <h3>Developer: </h3><button>Assign Developer</button>
+            <h3>Reviewer: </h3><button>Assign Reviewer</button>
+            <h3>Download: </h3><button>Download Code</button>
+            <button>Finish Order</button>
+          </Modal>
+        )}
+      </div>
     </div>
   );
 };
