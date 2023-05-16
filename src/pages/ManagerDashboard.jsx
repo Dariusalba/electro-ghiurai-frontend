@@ -197,15 +197,17 @@ const ManagerDashboard = () => {
 
   const handleAssignFunction = async () => {
     try {
-      if (selectedJuniorDeveloper) {
-        const response = await fetch(`http://localhost:9191/mng/order/internal/${selectedOrderDetails.orderId}`, {
-          method: 'PUT',
-          body: JSON.stringify({ functionDev: selectedJuniorDeveloper }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
+      if (selectedJuniorDeveloper && selectedOrder) {
+        const response = await fetch(
+          `http://localhost:9191/mng/order/${selectedOrder.orderId}/function/${selectedJuniorDeveloper.employeeId}`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+  
         if (response.ok) {
           console.log('Junior developer assigned successfully');
         } else {
@@ -381,8 +383,8 @@ const ManagerDashboard = () => {
                 ) : (
                   <ul>
                     {juniorDevelopers.map((juniorDeveloper) => (
-                      <li key={juniorDeveloper.id}>
-                        {juniorDeveloper.name}
+                      <li key={juniorDeveloper.employeeId}>
+                        {juniorDeveloper.firstName} {juniorDeveloper.lastName}
                         <button onClick={() => handleSelectJuniorDeveloper(juniorDeveloper)}>Select</button>
                       </li>
                     ))}
