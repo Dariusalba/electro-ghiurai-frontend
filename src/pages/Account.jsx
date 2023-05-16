@@ -31,7 +31,6 @@ function AccountInfo() {
     fetchUserInfo();
     fetchOrders();
   }, [customerId]);
-  
 
   return (
     <div>
@@ -59,13 +58,24 @@ function AccountInfo() {
         )}
         <h2>Current Orders:</h2>
         {orders.length > 0 ? (
-          orders.map((order) => (
-            <div key={order.orderId}>
-              <p>Order ID: {order.orderId}</p>
-              <p>Title: {order.title}</p>
-              <p>Description: {order.description}</p>
-            </div>
-          ))
+          <table className="order-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Title</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map((order) => (
+                <tr key={order.orderId}>
+                  <td>{order.orderId}</td>
+                  <td>{order.title}</td>
+                  <td>{order.description}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         ) : (
           <p>No orders found.</p>
         )}
