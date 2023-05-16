@@ -137,7 +137,7 @@ function EmployeeDashboard() {
                                 ) : (
                                     <p>No remarks available</p>
                                 )}
-                                <Link to='/employee/docedit'>
+                                <Link to='/employee/doceditor'>
                                   <button className='app-button' >Open SpecDoc</button>
                                 </Link>
                                 <input type="file" accept=".pdf" onChange={handleFileChange} />
