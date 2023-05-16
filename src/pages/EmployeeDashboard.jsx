@@ -29,7 +29,7 @@ function EmployeeDashboard() {
 
   const openModal = (task) => {
     setSelectedTask(task);
-    fetch(`http://localhost:9191/customer/order/${task.internalOrder}`)
+    fetch(`http://localhost:9191/emp/order-details/${task.internalOrder}`)
       .then(response => response.json())
       .then(data => setOrderDetails(data))
       .catch(error => console.log(error));
