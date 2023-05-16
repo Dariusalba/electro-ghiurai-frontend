@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../App.css";
-import FormInput from "../components/forminput.js";
+import FormInput from "../components/forminput.jsx";
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
