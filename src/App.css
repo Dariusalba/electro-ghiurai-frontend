@@ -195,6 +195,7 @@ button:hover{
 	color: white;
 	border: none;
 	cursor: pointer;
+	width: 100%;
   }
   
   .view-button:hover {
