@@ -6,6 +6,7 @@ import Order from './pages/Order';
 import Account from './pages/Account';
 import ManagerDashboard from './pages/ManagerDashboard';
 import EmployeeAccountCreation from './pages/EmployeeAccountCreation'
+import EmployeeDashboard from './pages/EmployeeDashboard';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/account" element={<Account />} />
         <Route path="/manager/dashboard" element={<ManagerDashboard />} />
         <Route path="/manager/employeeaccount" element={<EmployeeAccountCreation />} />
+        <Route path="/employee/dashboard" element={<EmployeeDashboard />} />
         <Route path="*" element={<h1 className='not-found'>Not Found</h1>} />
       </Routes>
     </Router>

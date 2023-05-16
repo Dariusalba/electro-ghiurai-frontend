@@ -94,6 +94,39 @@ const LoginForm = () => {
       });
   };
 
+  const handleSubmitEmployee = (e) => {
+    e.preventDefault();
+    console.log(JSON.stringify(values));
+    
+    fetch('http://localhost:9191/emp/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+      .then(response => {
+        if (response.status === 200) {
+          console.log('Login successful');
+          response.json().then(data => {
+            const employeeId = data.employeeId;
+            sessionStorage.setItem('employeeId', employeeId);
+            window.location.href = '/employee/dashboard';
+          });
+        } else if (response.status === 401) {
+          console.error('Invalid username or password');
+          notifyInvalidUsernamePassword();
+        } else if (response.status === 404) {
+          console.error('User not found');
+          notifyUserNotFound();
+        } else {
+          console.error('Error:', response.status);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
   const handleSubmitManager = (e) => {
     e.preventDefault();
     console.log(JSON.stringify(values));
@@ -136,7 +169,7 @@ const LoginForm = () => {
   if (values.userType === "manager") {
     x = handleSubmitManager
   } else if (values.userType === "employee") {
-    x = handleSubmit
+    x = handleSubmitEmployee
   } else {
     x = handleSubmit
   }

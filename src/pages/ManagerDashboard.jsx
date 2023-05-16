@@ -175,7 +175,7 @@ const ManagerDashboard = () => {
       case 9:
         return "CODE ERROR"
       default:
-        return "ERROR"
+        return "INTERNAL ERROR"
     }
 
   };
@@ -400,7 +400,7 @@ const ManagerDashboard = () => {
             )}
             {selectedOrderDetails.internalStatus === 2 && (
               <div>
-                <h3>Function: {selectedJuniorDeveloper.firstName} {selectedJuniorDeveloper.lastName}</h3>
+                <h3>Function: John Smith</h3>
               </div>
             )}
             {selectedOrderDetails.internalStatus === 3 && (
@@ -449,7 +449,7 @@ const ManagerDashboard = () => {
           </Modal>
         )}
       </div>
-    </div >
+    </div>
   );
 };
 
