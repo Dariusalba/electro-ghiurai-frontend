@@ -1,6 +1,7 @@
 import { useState } from "react";
 import '../components/Order.css';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const customerId = sessionStorage.getItem("customerId");
 
@@ -158,6 +159,7 @@ function OrderForm() {
           <button type="submit" className="app-button">Submit</button>
           <button type="button" onClick={accountRedirect} className="app-button">Go Back</button>
         </form>
+        <ToastContainer />
       </div>
     </div>
   );
