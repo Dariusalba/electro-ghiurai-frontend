@@ -6,6 +6,8 @@ function EmployeeDashboard() {
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
   const [orderDetails, setOrderDetails] = useState(null);
+  const [orderRemarks, setOrderRemarks] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
     fetch(`http://localhost:9191/emp/tasks/${employeeId}`)
@@ -31,11 +33,39 @@ function EmployeeDashboard() {
       .then(response => response.json())
       .then(data => setOrderDetails(data))
       .catch(error => console.log(error));
+
+    fetch(`http://localhost:9191/emp/order-remarks/${task.internalOrder}`)
+      .then(response => response.json())
+      .then(data => setOrderRemarks(data))
+      .catch(error => console.log(error));
   };
 
   const closeModal = () => {
     setSelectedTask(null);
     setOrderDetails(null);
+    setOrderRemarks(null);
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+  };
+
+  const uploadSpecDoc = () => {
+    if (selectedFile && selectedTask) {
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+
+      fetch(`http://localhost:9191/emp/spec/${selectedTask.taskNr}`, {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('File uploaded:', data);
+        })
+        .catch(error => console.log(error));
+    }
   };
 
   return (
@@ -63,7 +93,6 @@ function EmployeeDashboard() {
           ))}
         </tbody>
       </table>
-
       {selectedTask && (
         <div className="modal">
           <div className="modal-content">
@@ -73,8 +102,19 @@ function EmployeeDashboard() {
                 <p>Order #{selectedTask.internalOrder}</p>
                 <p>Order title: {orderDetails.title}</p>
                 <p>Order description: {orderDetails.description}</p>
+                <p>Remarks:</p>
+                {orderRemarks ? (
+                  <ul>
+                    {orderRemarks.map(remark => (
+                      <li key={remark.remarkId}>{remark.remark}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No remarks available</p>
+                )}
                 <button>Open SpecDoc</button>
-                <button>Upload Spec</button>
+                <input type="file" accept=".pdf" onChange={handleFileChange} />
+                <button onClick={uploadSpecDoc}>Upload Spec</button>
               </div>
             ) : (
               <p>Failed to load order details</p>
@@ -86,5 +126,4 @@ function EmployeeDashboard() {
     </div>
   );
 }
-
 export default EmployeeDashboard;
