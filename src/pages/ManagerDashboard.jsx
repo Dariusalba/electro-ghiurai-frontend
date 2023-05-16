@@ -16,6 +16,7 @@ const ManagerDashboard = () => {
   const [selectedOrderDetails, setSelectedOrderDetails] = useState(null);
   const [juniorDevelopers, setJuniorDevelopers] = useState([]);
   const [selectedJuniorDeveloper, setSelectedJuniorDeveloper] = useState(null);
+  const [showDevelopers, setShowDevelopers] = useState(true);
 
 
 
@@ -197,22 +198,21 @@ const ManagerDashboard = () => {
 
   const handleAssignFunction = async () => {
     try {
-      if (selectedJuniorDeveloper && selectedOrder) {
-        const response = await fetch(
-          `http://localhost:9191/mng/order/${selectedOrder.orderId}/function/${selectedJuniorDeveloper.employeeId}`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-  
-        if (response.ok) {
-          console.log('Junior developer assigned successfully');
-        } else {
-          console.error('Failed to assign junior developer');
+      const response = await fetch(
+        `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedJuniorDeveloper.employeeId}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
+      );
+
+      if (response.ok) {
+        console.log('Junior developer assigned successfully');
+        setShowDevelopers(false);
+      } else {
+        console.error('Failed to assign junior developer');
       }
     } catch (error) {
       console.error(error);
@@ -230,6 +230,7 @@ const ManagerDashboard = () => {
       const internalStatusResponse = await fetch(`http://localhost:9191/mng/order/internal/${orderId}`);
       const internalStatusData = await internalStatusResponse.json();
       const internalStatus = internalStatusData.internalStatus;
+      const internalOrder = internalStatusData.internalOrder;
 
       await fetchJuniorDevelopers();
 
@@ -241,6 +242,7 @@ const ManagerDashboard = () => {
         customerFullName: customerFullName,
         status: order.status,
         internalStatus: internalStatus,
+        internalOrder: internalOrder
       });
       setShowSecondModal(true);
     } catch (error) {
@@ -378,7 +380,9 @@ const ManagerDashboard = () => {
             <h3>Description: {selectedOrderDetails.description}</h3>
             <h3>Internal Status: {formatString(selectedOrderDetails.internalStatus)}</h3>
             <h3>Function: </h3>
-            {juniorDevelopers.length === 0 ? (
+            {showDevelopers && (
+              <div>
+                {juniorDevelopers.length === 0 ? (
                   <p>No junior developers available</p>
                 ) : (
                   <ul>
@@ -390,6 +394,8 @@ const ManagerDashboard = () => {
                     ))}
                   </ul>
                 )}
+                </div>
+              )}
             {selectedJuniorDeveloper && (
               <p>Selected Junior Developer: {selectedJuniorDeveloper.name}</p>
             )}
