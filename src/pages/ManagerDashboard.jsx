@@ -159,22 +159,20 @@ const ManagerDashboard = () => {
       case 1:
         return "SPEC NEEDS ASSIGNMENT"
       case 2:
-        return "SPEC IN PROGRESS"
+        return "SPEC PENDING"
       case 3:
         return "SPEC COMPLETED"
       case 4:
-        return "CODE NEEDS ASSIGNMENT"
+        return "CODE PENDING"
       case 5:
-        return "CODE IN PROGRESS"
-      case 6:
         return "CODE COMPLETED"
+      case 6:
+        return "REVIEW PENDING"
       case 7:
-        return "REVIEW NEEDS ASSIGNMENT"
+        return "COMPLETED"
       case 8:
-        return "REVIEW DONE"
-      case 9:
         return "SPEC ERROR"
-      case 10:
+      case 9:
         return "CODE ERROR"
       default:
         return "ERROR"
@@ -379,7 +377,7 @@ const ManagerDashboard = () => {
             <h3>Title: {selectedOrderDetails.title}</h3>
             <h3>Description: {selectedOrderDetails.description}</h3>
             <h3>Internal Status: {formatString(selectedOrderDetails.internalStatus)}</h3>
-            {selectedOrderDetails.internalStatus === 1 && showDevelopers &&(
+            {selectedOrderDetails.internalStatus === 1 && showDevelopers && (
               <div>
                 <h3>List of Developers</h3>
                 {juniorDevelopers.length === 0 ? (
@@ -392,26 +390,33 @@ const ManagerDashboard = () => {
                         <button onClick={() => handleSelectJuniorDeveloper(juniorDeveloper)}>Select</button>
                       </li>
                     ))}
+                    <button onClick={handleAssignFunction}>Assign Function</button>
                   </ul>
                 )}
                 {selectedJuniorDeveloper && (
-                  <p>Selected Junior Developer: {selectedJuniorDeveloper.name}</p>
+                  <p>Selected Junior Developer: {selectedJuniorDeveloper.firstName} {selectedJuniorDeveloper.lastName}</p>
                 )}
               </div>
             )}
             {selectedOrderDetails.internalStatus === 2 && (
               <div>
-                <h3>Function: {selectedOrderDetails.internalOrder}</h3>
+                <h3>Function: {selectedJuniorDeveloper.firstName} {selectedJuniorDeveloper.lastName}</h3>
               </div>
             )}
-        <button onClick={handleAssignFunction}>Assign Function</button>
-        <h3>Developer: </h3><button>Assign Developer</button>
-        <h3>Reviewer: </h3><button>Assign Reviewer</button>
-        <h3>Download: </h3><button>Download Code</button>
-        <button>Finish Order</button>
-      </Modal>
+            {selectedOrderDetails.internalStatus === 3 && (
+              <div>
+                <button>Download Spec</button>
+                <h3>Developer: </h3><button>Assign Developer</button>
+              </div>
+            )}
+            {selectedOrderDetails.internalStatus === 4 && (
+              <div>
+                <h3>Developer: John Johnson</h3>
+              </div>
+            )}
+          </Modal>
         )}
-    </div>
+      </div>
     </div >
   );
 };
