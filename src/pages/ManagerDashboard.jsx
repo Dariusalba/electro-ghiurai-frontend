@@ -379,9 +379,9 @@ const ManagerDashboard = () => {
             <h3>Title: {selectedOrderDetails.title}</h3>
             <h3>Description: {selectedOrderDetails.description}</h3>
             <h3>Internal Status: {formatString(selectedOrderDetails.internalStatus)}</h3>
-            <h3>Function: </h3>
-            {showDevelopers && (
+            {selectedOrderDetails.internalStatus === 1 && showDevelopers &&(
               <div>
+                <h3>List of Developers</h3>
                 {juniorDevelopers.length === 0 ? (
                   <p>No junior developers available</p>
                 ) : (
@@ -394,20 +394,25 @@ const ManagerDashboard = () => {
                     ))}
                   </ul>
                 )}
-                </div>
-              )}
-            {selectedJuniorDeveloper && (
-              <p>Selected Junior Developer: {selectedJuniorDeveloper.name}</p>
+                {selectedJuniorDeveloper && (
+                  <p>Selected Junior Developer: {selectedJuniorDeveloper.name}</p>
+                )}
+              </div>
             )}
-            <button onClick={handleAssignFunction}>Assign Function</button>
-            <h3>Developer: </h3><button>Assign Developer</button>
-            <h3>Reviewer: </h3><button>Assign Reviewer</button>
-            <h3>Download: </h3><button>Download Code</button>
-            <button>Finish Order</button>
-          </Modal>
+            {selectedOrderDetails.internalStatus === 2 && (
+              <div>
+                <h3>Function: {selectedOrderDetails.internalOrder}</h3>
+              </div>
+            )}
+        <button onClick={handleAssignFunction}>Assign Function</button>
+        <h3>Developer: </h3><button>Assign Developer</button>
+        <h3>Reviewer: </h3><button>Assign Reviewer</button>
+        <h3>Download: </h3><button>Download Code</button>
+        <button>Finish Order</button>
+      </Modal>
         )}
-      </div>
     </div>
+    </div >
   );
 };
 
