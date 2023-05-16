@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { toast, ToastContainer } from 'react-toastify/dist/components';
+import { toast, ToastContainer } from 'react-toastify';
 
 const employeeId = sessionStorage.getItem('employeeId');
 
