@@ -86,7 +86,7 @@ function EmployeeDashboard() {
 
     return (
       <div>
-        <div className="welcome1">
+        <div className="welcome2">
           <Link to="/">
             <h1 className='welcome-h1'>ElectroGhiurai</h1>
           </Link>
@@ -137,14 +137,14 @@ function EmployeeDashboard() {
                                 ) : (
                                     <p>No remarks available</p>
                                 )}
-                                <button>Open SpecDoc</button>
+                                <button className='app-button' >Open SpecDoc</button>
                                 <input type="file" accept=".pdf" onChange={handleFileChange} />
-                                <button onClick={uploadSpecDoc}>Upload Spec</button>
+                                <button className='app-button' onClick={uploadSpecDoc}>Upload Spec</button>
                             </div>
                         ) : (
                             <p>Failed to load order details</p>
                         )}
-                        <button onClick={closeModal}>Close</button>
+                        <button className='app-button' onClick={closeModal}>Close</button>
                     </div>
                 </div>
             )}
