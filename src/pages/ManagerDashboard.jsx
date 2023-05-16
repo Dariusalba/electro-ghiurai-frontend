@@ -332,25 +332,13 @@ const ManagerDashboard = () => {
                     ))}
                   </ul>
                 )}
-                <h3>Function:</h3>
-                {juniorDevelopers.length === 0 ? (
-                  <p>No junior developers available</p>
-                ) : (
-                  <ul>
-                    {juniorDevelopers.map((juniorDeveloper) => (
-                      <li key={juniorDeveloper.id}>
-                        {juniorDeveloper.name}
-                        <button onClick={() => handleSelectJuniorDeveloper(juniorDeveloper)}>Select</button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                <button>Assign Function</button>
+                <button>Assign Developer</button>
+                <button>Assign Reviewer</button>
+                <button>Download Code</button>
+                <button>Finish Order</button>
               </div>
             )}
-            {selectedJuniorDeveloper && (
-              <p>Selected Junior Developer: {selectedJuniorDeveloper.name}</p>
-            )}
-            <button onClick={handleAssignFunction}>Assign Function</button>
           </Modal>
         )}
         {showModal3 && (
@@ -387,7 +375,23 @@ const ManagerDashboard = () => {
             <h3>Title: {selectedOrderDetails.title}</h3>
             <h3>Description: {selectedOrderDetails.description}</h3>
             <h3>Internal Status: {formatString(selectedOrderDetails.internalStatus)}</h3>
-            <h3>Function: </h3><button>Assign Function</button>
+            <h3>Function: </h3>
+            {juniorDevelopers.length === 0 ? (
+                  <p>No junior developers available</p>
+                ) : (
+                  <ul>
+                    {juniorDevelopers.map((juniorDeveloper) => (
+                      <li key={juniorDeveloper.id}>
+                        {juniorDeveloper.name}
+                        <button onClick={() => handleSelectJuniorDeveloper(juniorDeveloper)}>Select</button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+            {selectedJuniorDeveloper && (
+              <p>Selected Junior Developer: {selectedJuniorDeveloper.name}</p>
+            )}
+            <button onClick={handleAssignFunction}>Assign Function</button>
             <h3>Developer: </h3><button>Assign Developer</button>
             <h3>Reviewer: </h3><button>Assign Reviewer</button>
             <h3>Download: </h3><button>Download Code</button>
