@@ -109,6 +109,14 @@ button:hover{
 	}
 }
 
+.doc-app {
+	width: 1500px;
+}
+
+.doc-edit span {
+	width: 80px;
+}
+
 .radio-group {
 	display: flex;
 	flex-direction: column;

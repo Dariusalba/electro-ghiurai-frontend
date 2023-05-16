@@ -21,7 +21,7 @@ function App() {
         <Route path="/manager/dashboard" element={<ManagerDashboard />} />
         <Route path="/manager/employeeaccount" element={<EmployeeAccountCreation />} />
         <Route path="/employee/dashboard" element={<EmployeeDashboard />} />
-        <Route path="/test" element={<DocEditorTest />} />
+        <Route path="/employee/doceditor" element={<DocEditorTest />} />
         <Route path="*" element={<h1 className='not-found'>Not Found</h1>} />
       </Routes>
     </Router>
