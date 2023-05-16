@@ -188,7 +188,7 @@ const EmployeeAccountCreation = () => {
       </div>
       <div className="app">
         <form onSubmit={handleSubmit}>
-          <h1 className="app-h1">Create Employee Account</h1>
+          <h1 className="app-h1">Register Employee</h1>
             {inputs.map((input) => (
             <FormInput
               key={input.id}
