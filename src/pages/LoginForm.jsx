@@ -31,7 +31,7 @@ const LoginForm = () => {
       errorMessage:
         "Password should be 8-16 characters long and should contain a letter, number and a special character.",
       label: "Password",
-      pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
+      pattern: `(.*?)`,
       required: true,
     },
   ];
