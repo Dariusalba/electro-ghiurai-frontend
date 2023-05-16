@@ -51,6 +51,18 @@ function EmployeeDashboard() {
     setSelectedFile(file);
   };
 
+  const specUploaded = () => 
+    toast.success('✅ Spec uploaded successfully', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+
   const uploadSpecDoc = () => {
     if (selectedFile && selectedTask) {
       const formData = new FormData();
@@ -65,6 +77,7 @@ function EmployeeDashboard() {
           console.log('File uploaded:', data);
         })
         .catch(error => console.log(error));
+        specUploaded();
     }
   };
 

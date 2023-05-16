@@ -27,6 +27,18 @@ function OrderForm() {
     setRemarkValue("");
   };
 
+  const orderPlaced = () => 
+    toast.success('✅ Order placed successfully', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -42,6 +54,7 @@ function OrderForm() {
     })
       .then((response) => {
         if (response.status === 201) {
+          orderPlaced();
           console.log("Order placed successfully");
           response.json().then((data) => {
             const orderId = data.orderId;
