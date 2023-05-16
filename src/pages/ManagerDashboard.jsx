@@ -12,9 +12,12 @@ const ManagerDashboard = () => {
   const [customerDetails, setCustomerDetails] = useState({});
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [orderRemarks, setOrderRemarks] = useState([]);
-  const [selectedAcceptedOrder] = useState(null);
   const [showSecondModal, setShowSecondModal] = useState(false);
   const [selectedOrderDetails, setSelectedOrderDetails] = useState(null);
+  const [juniorDevelopers, setJuniorDevelopers] = useState([]);
+  const [selectedJuniorDeveloper, setSelectedJuniorDeveloper] = useState(null);
+
+
 
 
 
@@ -135,6 +138,8 @@ const ManagerDashboard = () => {
     }
   };
 
+
+
   const handleAcceptOrder = async () => {
     try {
       await fetch(`http://localhost:9191/mng/order/accept/${selectedOrder.orderId}`, {
@@ -149,7 +154,7 @@ const ManagerDashboard = () => {
   };
 
   const formatString = (str) => {
-    switch(str) {
+    switch (str) {
       case 1:
         return "SPEC NEEDS ASSIGNMENT"
       case 2:
@@ -173,7 +178,43 @@ const ManagerDashboard = () => {
       default:
         return "ERROR"
     }
-      
+
+  };
+
+  const fetchJuniorDevelopers = async () => {
+    try {
+      const response = await fetch('http://localhost:9191/mng/junior');
+      const data = await response.json();
+      setJuniorDevelopers(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSelectJuniorDeveloper = (juniorDeveloper) => {
+    setSelectedJuniorDeveloper(juniorDeveloper);
+  };
+
+  const handleAssignFunction = async () => {
+    try {
+      if (selectedJuniorDeveloper) {
+        const response = await fetch(`http://localhost:9191/mng/order/internal/${selectedOrderDetails.orderId}`, {
+          method: 'PUT',
+          body: JSON.stringify({ functionDev: selectedJuniorDeveloper }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          console.log('Junior developer assigned successfully');
+        } else {
+          console.error('Failed to assign junior developer');
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleViewAcceptedOrder = async (orderId) => {
@@ -187,6 +228,8 @@ const ManagerDashboard = () => {
       const internalStatusResponse = await fetch(`http://localhost:9191/mng/order/internal/${orderId}`);
       const internalStatusData = await internalStatusResponse.json();
       const internalStatus = internalStatusData.internalStatus;
+
+      await fetchJuniorDevelopers();
 
       setSelectedOrderDetails({
         orderId: orderId,
@@ -289,13 +332,25 @@ const ManagerDashboard = () => {
                     ))}
                   </ul>
                 )}
-                <button>Assign Function</button>
-                <button>Assign Developer</button>
-                <button>Assign Reviewer</button>
-                <button>Download Code</button>
-                <button>Finish Order</button>
+                <h3>Function:</h3>
+                {juniorDevelopers.length === 0 ? (
+                  <p>No junior developers available</p>
+                ) : (
+                  <ul>
+                    {juniorDevelopers.map((juniorDeveloper) => (
+                      <li key={juniorDeveloper.id}>
+                        {juniorDeveloper.name}
+                        <button onClick={() => handleSelectJuniorDeveloper(juniorDeveloper)}>Select</button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             )}
+            {selectedJuniorDeveloper && (
+              <p>Selected Junior Developer: {selectedJuniorDeveloper.name}</p>
+            )}
+            <button onClick={handleAssignFunction}>Assign Function</button>
           </Modal>
         )}
         {showModal3 && (
