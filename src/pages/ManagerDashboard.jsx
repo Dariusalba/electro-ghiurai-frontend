@@ -411,7 +411,39 @@ const ManagerDashboard = () => {
             )}
             {selectedOrderDetails.internalStatus === 4 && (
               <div>
+                <h3>Function: Johnny Johnson</h3>
+                <button>Download Spec</button>
                 <h3>Developer: John Johnson</h3>
+              </div>
+            )}
+            {selectedOrderDetails.internalStatus === 5 && (
+              <div>
+                <h3>Function: Johnny Johnson</h3>
+                <button>Download Spec</button>
+                <h3>Developer: John Johnson</h3>
+                <button>Download Code</button>
+                <button>Assign Reviewer</button>
+              </div>
+            )}
+            {selectedOrderDetails.internalStatus === 6 && (
+              <div>
+                <h3>Function: Johnny Johnson</h3>
+                <button>Download Spec</button>
+                <h3>Developer: John Johnson</h3>
+                <button>Download Code</button>
+                <h3>Reviewer: Jonathan Johnson</h3>
+              </div>
+            )}
+            {selectedOrderDetails.internalStatus === 7 && (
+              <div>
+                <h3>Function: Johnny Johnson</h3>
+                <button>Download Spec</button>
+                <h3>Developer: John Johnson</h3>
+                <button>Download Code</button>
+                <h3>Reviewer: Jonathan Johnson</h3>
+                <button>Download Final Code</button>
+                <h3>Upload Code: </h3>
+                <button>Finish Order</button>
               </div>
             )}
           </Modal>
