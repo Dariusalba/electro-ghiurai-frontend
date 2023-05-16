@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 
 const employeeId = sessionStorage.getItem('employeeId');
@@ -84,6 +85,15 @@ function EmployeeDashboard() {
     };
 
     return (
+      <div>
+        <div className="welcome1">
+          <Link to="/">
+            <h1 className='welcome-h1'>ElectroGhiurai</h1>
+          </Link>
+          <Link to="/login">
+            <button className="welcome-button">Sign Out</button>
+          </Link>
+        </div>
         <div className='app'>
             <h1>Employee Dashboard</h1>
             <table className='order-table'>
@@ -102,7 +112,7 @@ function EmployeeDashboard() {
                             <td>{task.taskNr}</td>
                             <td>{getTaskTypeName(task.taskType)}</td>
                             <td>
-                                <button onClick={() => openModal(task)}>View</button>
+                                <button className='app-button' onClick={() => openModal(task)}>View</button>
                             </td>
                         </tr>
                     ))}
@@ -140,6 +150,7 @@ function EmployeeDashboard() {
             )}
             <ToastContainer />
         </div>
+      </div>
     );
 }
 export default EmployeeDashboard;

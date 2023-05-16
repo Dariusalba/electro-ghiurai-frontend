@@ -101,7 +101,7 @@ function OrderForm() {
 
   return (
     <div>
-      <div className="welcome1">
+      <div className="welcome2">
         <Link to="/account">
           <h1 className='welcome-h1'>ElectroGhiurai</h1>
         </Link>
