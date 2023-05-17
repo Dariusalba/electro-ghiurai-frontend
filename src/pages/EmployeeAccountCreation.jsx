@@ -181,7 +181,7 @@ const EmployeeAccountCreation = () => {
 
   return (
     <div>
-      <div className="welcome1">
+      <div className="welcome2">
         <Link to="/manager/dashboard">
           <h1 className='welcome-h1'>ElectroGhiurai</h1>
         </Link>
