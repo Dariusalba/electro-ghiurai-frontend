@@ -15,7 +15,9 @@ const ManagerDashboard = () => {
   const [showSecondModal, setShowSecondModal] = useState(false);
   const [selectedOrderDetails, setSelectedOrderDetails] = useState(null);
   const [juniorDevelopers, setJuniorDevelopers] = useState([]);
+  const [seniorDevelopers, setSeniorDevelopers] = useState([]);
   const [selectedJuniorDeveloper, setSelectedJuniorDeveloper] = useState(null);
+  const [selectedSeniorDeveloper, setSelectedSeniorDeveloper] = useState(null);
   const [showDevelopers, setShowDevelopers] = useState(true);
 
 
@@ -208,8 +210,22 @@ const ManagerDashboard = () => {
     }
   };
 
+  const fetchSeniorDevelopers = async () => {
+    try {
+      const response = await fetch('http://localhost:9191/mng/senior');
+      const data = await response.json();
+      setSeniorDevelopers(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleSelectJuniorDeveloper = (juniorDeveloper) => {
     setSelectedJuniorDeveloper(juniorDeveloper);
+  };
+
+  const handleSelectSeniorDeveloper = (seniorDeveloper) => {
+    setSelectedSeniorDeveloper(seniorDeveloper);
   };
 
   const handleAssignFunction = async () => {
@@ -235,6 +251,29 @@ const ManagerDashboard = () => {
     }
   };
 
+  const handleAssignDeveloper = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedSeniorDeveloper.employeeId}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (response.ok) {
+        console.log('Senior developer assigned successfully');
+        setShowDevelopers(false);
+      } else {
+        console.error('Failed to assign senior developer');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleViewAcceptedOrder = async (orderId) => {
     try {
       const remarks = await fetchOrderRemarks(orderId);
@@ -249,6 +288,7 @@ const ManagerDashboard = () => {
       const internalOrder = internalStatusData.internalOrder;
 
       await fetchJuniorDevelopers();
+      await fetchSeniorDevelopers();
 
       setSelectedOrderDetails({
         orderId: orderId,
@@ -421,16 +461,32 @@ const ManagerDashboard = () => {
                 <h3>Function: John Smith</h3>
               </div>
             )}
-            {selectedOrderDetails.internalStatus === 3 && (
+            {selectedOrderDetails.internalStatus === 3 && showDevelopers && (
               <div>
-                <button onClick={handleDownloadSpec}>Download Spec</button>
-                <h3>Developer: </h3><button>Assign Developer</button>
+                <h3>List of Senior Developers</h3>
+                {seniorDevelopers.length === 0 ? (
+                  <p>No senior developers available</p>
+                ) : (
+                  <ul>
+                    {seniorDevelopers.map((seniorDeveloper) => (
+                      <li key={seniorDeveloper.employeeId}>
+                        {seniorDeveloper.firstName} {seniorDeveloper.lastName}
+                        <button onClick={() => handleSelectSeniorDeveloper(seniorDeveloper)}>Select</button>
+                      </li>
+                    ))}
+                    <button onClick={handleAssignDeveloper}>Assign Developer</button>
+                    <button onClick={handleDownloadSpec}>Download Spec</button>
+                  </ul>
+                )}
+                {selectedSeniorDeveloper && (
+                  <p>Selected Senior Developer: {selectedSeniorDeveloper.firstName} {selectedSeniorDeveloper.lastName}</p>
+                )}
               </div>
             )}
             {selectedOrderDetails.internalStatus === 4 && (
               <div>
                 <h3>Function: Johnny Johnson</h3>
-                <button>Download Spec</button>
+                <button onClick={handleDownloadSpec}>Download Spec</button>
                 <h3>Developer: John Johnson</h3>
               </div>
             )}
