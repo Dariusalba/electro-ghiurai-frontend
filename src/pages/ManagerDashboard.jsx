@@ -441,15 +441,17 @@ const ManagerDashboard = () => {
                 {juniorDevelopers.length === 0 ? (
                   <p>No junior developers available</p>
                 ) : (
-                  <ul>
-                    {juniorDevelopers.map((juniorDeveloper) => (
-                      <li key={juniorDeveloper.employeeId}>
-                        {juniorDeveloper.firstName} {juniorDeveloper.lastName}
-                        <button onClick={() => handleSelectJuniorDeveloper(juniorDeveloper)}>Select</button>
-                      </li>
-                    ))}
+                  <div>
+                    <select onChange={handleSelectJuniorDeveloper}>
+                      <option value="">Select a junior developer</option>
+                      {juniorDevelopers.map((juniorDeveloper) => (
+                        <option key={juniorDeveloper.employeeId} value={juniorDeveloper.employeeId}>
+                          {juniorDeveloper.firstName} {juniorDeveloper.lastName}
+                        </option>
+                      ))}
+                    </select>
                     <button onClick={handleAssignFunction}>Assign Function</button>
-                  </ul>
+                  </div>
                 )}
                 {selectedJuniorDeveloper && (
                   <p>Selected Junior Developer: {selectedJuniorDeveloper.firstName} {selectedJuniorDeveloper.lastName}</p>
@@ -467,16 +469,18 @@ const ManagerDashboard = () => {
                 {seniorDevelopers.length === 0 ? (
                   <p>No senior developers available</p>
                 ) : (
-                  <ul>
-                    {seniorDevelopers.map((seniorDeveloper) => (
-                      <li key={seniorDeveloper.employeeId}>
-                        {seniorDeveloper.firstName} {seniorDeveloper.lastName}
-                        <button onClick={() => handleSelectSeniorDeveloper(seniorDeveloper)}>Select</button>
-                      </li>
-                    ))}
+                  <div>
+                    <select onChange={handleSelectSeniorDeveloper}>
+                      <option value="">Select a senior developer</option>
+                      {seniorDevelopers.map((seniorDeveloper) => (
+                        <option key={seniorDeveloper.employeeId} value={seniorDeveloper.employeeId}>
+                          {seniorDeveloper.firstName} {seniorDeveloper.lastName}
+                        </option>
+                      ))}
+                    </select>
                     <button onClick={handleAssignDeveloper}>Assign Developer</button>
                     <button onClick={handleDownloadSpec}>Download Spec</button>
-                  </ul>
+                  </div>
                 )}
                 {selectedSeniorDeveloper && (
                   <p>Selected Senior Developer: {selectedSeniorDeveloper.firstName} {selectedSeniorDeveloper.lastName}</p>
