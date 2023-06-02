@@ -63,7 +63,7 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(JSON.stringify(values));
-    
+
     fetch('http://localhost:9191/user/login', {
       method: 'POST',
       headers: {
@@ -75,9 +75,17 @@ const LoginForm = () => {
         if (response.status === 200) {
           console.log('Login successful');
           response.json().then(data => {
-            const customerId = data.customerId;
-            sessionStorage.setItem('customerId', customerId);
-            window.location.href = '/account';
+            const userId = data.userId;
+            sessionStorage.setItem('userId', userId);
+            if (data.userPosition === 1) {
+              window.location.href = '/account';
+            } else if (data.userPosition === 2 || data.userPosition === 3) {
+              window.location.href = '/employee/dashboard'
+            } else if (data.userPosition === 4) {
+              window.location.href = '/manager/dashboard';
+            } else {
+              console.error('User position is invalid or fetched incorrectly.');
+            }
           });
         } else if (response.status === 401) {
           console.error('Invalid username or password');
@@ -93,86 +101,10 @@ const LoginForm = () => {
         console.error('Error:', error);
       });
   };
-
-  // const handleSubmitEmployee = (e) => {
-  //   e.preventDefault();
-  //   console.log(JSON.stringify(values));
-    
-  //   fetch('http://localhost:9191/user/login', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(values),
-  //   })
-  //     .then(response => {
-  //       if (response.status === 200) {
-  //         console.log('Login successful');
-  //         response.json().then(data => {
-  //           const employeeId = data.employeeId;
-  //           sessionStorage.setItem('employeeId', employeeId);
-  //           window.location.href = '/employee/dashboard';
-  //         });
-  //       } else if (response.status === 401) {
-  //         console.error('Invalid username or password');
-  //         notifyInvalidUsernamePassword();
-  //       } else if (response.status === 404) {
-  //         console.error('User not found');
-  //         notifyUserNotFound();
-  //       } else {
-  //         console.error('Error:', response.status);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error:', error);
-  //     });
-  // };
-  // const handleSubmitManager = (e) => {
-  //   e.preventDefault();
-  //   console.log(JSON.stringify(values));
-
-  //   fetch('http://localhost:9191/mng/login', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(values),
-  //   })
-  //     .then(response => {
-  //       if (response.status === 200) {
-  //           console.log('Login successful');
-  //           window.location.href = '/manager/dashboard';
-  //       } else if (response.status === 401) {
-  //         console.error('Invalid username or password');
-  //         notifyInvalidUsernamePassword();
-  //       } else if (response.status === 404) {
-  //         console.error('User not found');
-  //         notifyUserNotFound();
-  //       } else {
-  //         console.error('Error:', response.status);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error:', error);
-  //     });
-  // };
-
+  
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
-
-  // const onUserTypeChange = (e) => {
-  //   setValues({ ...values, userType: e.target.value });
-  // };
-
-  // let x;
-  // if (values.userType === "manager") {
-  //   x = handleSubmitManager
-  // } else if (values.userType === "employee") {
-  //   x = handleSubmitEmployee
-  // } else {
-  //   x = handleSubmit
-  // }
 
   return (
     <div>
