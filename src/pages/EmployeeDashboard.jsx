@@ -102,6 +102,7 @@ function EmployeeDashboard() {
                         <th>#</th>
                         <th>Task Number</th>
                         <th>Task Type</th>
+                        <th>Deadline</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -111,6 +112,7 @@ function EmployeeDashboard() {
                             <td>{index + 1}</td>
                             <td>{task.taskNr}</td>
                             <td>{getTaskTypeName(task.taskType)}</td>
+                            <td>{task.deadline}</td>
                             <td>
                                 <button className='app-button' onClick={() => openModal(task)}>View</button>
                             </td>

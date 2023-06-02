@@ -16,9 +16,12 @@ const ManagerDashboard = () => {
   const [selectedOrderDetails, setSelectedOrderDetails] = useState(null);
   const [juniorDevelopers, setJuniorDevelopers] = useState([]);
   const [seniorDevelopers, setSeniorDevelopers] = useState([]);
+  const [reviewers, setReviewers] = useState([]);
   const [selectedJuniorDeveloper, setSelectedJuniorDeveloper] = useState(null);
   const [selectedSeniorDeveloper, setSelectedSeniorDeveloper] = useState(null);
+  const [selectedReviewer, setSelectedReviewer] = useState(null);
   const [showDevelopers, setShowDevelopers] = useState(true);
+  const [showReviewers, setShowReviewers] = useState(true);
 
 
 
@@ -220,6 +223,16 @@ const ManagerDashboard = () => {
     }
   };
 
+  const fetchReviewer = async () => {
+    try {
+      const response = await fetch('http://localhost:9191/mng/reviewer');
+      const data = await response.json();
+      setReviewers(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleSelectJuniorDeveloper = (juniorDeveloper) => {
     setSelectedJuniorDeveloper(juniorDeveloper);
   };
@@ -227,6 +240,10 @@ const ManagerDashboard = () => {
   const handleSelectSeniorDeveloper = (seniorDeveloper) => {
     setSelectedSeniorDeveloper(seniorDeveloper);
   };
+
+  const handleSelectReviewer = (reviewer) => {
+    setSelectedReviewer(reviewer);
+  }
 
   const handleAssignFunction = async () => {
     try {
@@ -251,10 +268,10 @@ const ManagerDashboard = () => {
     }
   };
 
-  const handleAssignDeveloper = async () => {
+  const handleAssignReviewer = async () => {
     try {
       const response = await fetch(
-        `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedSeniorDeveloper.employeeId}`,
+        `http://localhost:9191/mng/${selectedOrderDetails.internalOrder}/assign/reviewer/${selectedReviewer.employeeId}`,
         {
           method: 'POST',
           headers: {
@@ -264,271 +281,312 @@ const ManagerDashboard = () => {
       );
 
       if (response.ok) {
-        console.log('Senior developer assigned successfully');
-        setShowDevelopers(false);
+        console.log('Reviewer assigned successfully');
+        setShowReviewers(false);
       } else {
-        console.error('Failed to assign senior developer');
+        console.error('Failed to assign reviewer');
       }
     } catch (error) {
       console.error(error);
-    }
-  };
+    };
 
-  const handleViewAcceptedOrder = async (orderId) => {
-    try {
-      const remarks = await fetchOrderRemarks(orderId);
-      const customerFullName = await fetchCustomerDetails(orderId);
-      const order = await fetchOrderDetails(orderId);
+    const handleAssignDeveloper = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedSeniorDeveloper.employeeId}`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
 
-      setOrderRemarks(remarks);
+        if (response.ok) {
+          console.log('Senior developer assigned successfully');
+          setShowDevelopers(false);
+        } else {
+          console.error('Failed to assign senior developer');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-      const internalStatusResponse = await fetch(`http://localhost:9191/mng/order/internal/${orderId}`);
-      const internalStatusData = await internalStatusResponse.json();
-      const internalStatus = internalStatusData.internalStatus;
-      const internalOrder = internalStatusData.internalOrder;
 
-      await fetchJuniorDevelopers();
-      await fetchSeniorDevelopers();
 
-      setSelectedOrderDetails({
-        orderId: orderId,
-        remarks: remarks,
-        title: order.title,
-        description: order.description,
-        customerFullName: customerFullName,
-        status: order.status,
-        internalStatus: internalStatus,
-        internalOrder: internalOrder
-      });
-      setShowSecondModal(true);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    const handleViewAcceptedOrder = async (orderId) => {
+      try {
+        const remarks = await fetchOrderRemarks(orderId);
+        const customerFullName = await fetchCustomerDetails(orderId);
+        const order = await fetchOrderDetails(orderId);
 
-  return (
-    <div>
-      <div className="welcome1">
-        <Link to="/">
-          <h1 className='welcome-h1'>ElectroGhiurai</h1>
-        </Link>
-        <Link to="/login">
-          <button className="welcome-button">Sign Out</button>
-        </Link>
-      </div>
-      <div className='app'>
-        <h1 className='app-h1'>Manager Dashboard</h1>
-        <button className='app-button' onClick={handleButtonClick1}>View Pending Orders</button>
-        <button className='app-button' onClick={handleButtonClick2}>View Current Orders</button>
-        <button className='app-button' onClick={handleButtonClick3}>Other Services</button>
-        {showModal1 && (
-          <Modal onClose={handleModalClose1}>
-            <h2>Pending Orders</h2>
-            <table className="order-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Title</th>
-                  <th>Client</th>
-                </tr>
-              </thead>
-              <tbody>
-                {pendingOrders.map((order) => (
-                  <tr key={order.orderId}>
-                    <td>{order.orderId}</td>
-                    <td>{order.title}</td>
-                    <td>{customerDetails[order.orderId]}</td>
-                    <td>
-                      <button className="view-button" onClick={() => handleViewOrder(order.orderId)}>
-                        View
-                      </button>
-                    </td>
+        setOrderRemarks(remarks);
+
+        const internalStatusResponse = await fetch(`http://localhost:9191/mng/order/internal/${orderId}`);
+        const internalStatusData = await internalStatusResponse.json();
+        const internalStatus = internalStatusData.internalStatus;
+        const internalOrder = internalStatusData.internalOrder;
+
+        await fetchJuniorDevelopers();
+        await fetchSeniorDevelopers();
+        await fetchReviewer();
+
+        setSelectedOrderDetails({
+          orderId: orderId,
+          remarks: remarks,
+          title: order.title,
+          description: order.description,
+          customerFullName: customerFullName,
+          status: order.status,
+          internalStatus: internalStatus,
+          internalOrder: internalOrder
+        });
+        setShowSecondModal(true);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    return (
+      <div>
+        <div className="welcome1">
+          <Link to="/">
+            <h1 className='welcome-h1'>ElectroGhiurai</h1>
+          </Link>
+          <Link to="/login">
+            <button className="welcome-button">Sign Out</button>
+          </Link>
+        </div>
+        <div className='app'>
+          <h1 className='app-h1'>Manager Dashboard</h1>
+          <button className='app-button' onClick={handleButtonClick1}>View Pending Orders</button>
+          <button className='app-button' onClick={handleButtonClick2}>View Current Orders</button>
+          <button className='app-button' onClick={handleButtonClick3}>Other Services</button>
+          {showModal1 && (
+            <Modal onClose={handleModalClose1}>
+              <h2>Pending Orders</h2>
+              <table className="order-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Client</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </Modal>
-        )}
-        {showModal2 && (
-          <Modal onClose={handleModalClose2}>
-            <h2>Current Orders</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>Order ID</th>
-                  <th>Title</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {acceptedOrders.map((order) => (
-                  <tr key={order.orderId}>
-                    <td>{order.orderId}</td>
-                    <td>{order.title}</td>
-                    <td>
-                      <button className="view-button" onClick={() => handleViewAcceptedOrder(order.orderId)}>
-                        View
-                      </button>
-                    </td>
+                </thead>
+                <tbody>
+                  {pendingOrders.map((order) => (
+                    <tr key={order.orderId}>
+                      <td>{order.orderId}</td>
+                      <td>{order.title}</td>
+                      <td>{customerDetails[order.orderId]}</td>
+                      <td>
+                        <button className="view-button" onClick={() => handleViewOrder(order.orderId)}>
+                          View
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </Modal>
+          )}
+          {showModal2 && (
+            <Modal onClose={handleModalClose2}>
+              <h2>Current Orders</h2>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Title</th>
+                    <th>Action</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            {showSecondModal && (
-              <div>
-                <h2>Order Details</h2>
-                <h3>Order ID: {selectedOrderDetails.orderId}</h3>
-                <h3>Title: {selectedOrderDetails.title}</h3>
-                <h3>Description: {selectedOrderDetails.description}</h3>
-                <h3>Status: {formatString(selectedOrderDetails.internalStatus)}</h3>
+                </thead>
+                <tbody>
+                  {acceptedOrders.map((order) => (
+                    <tr key={order.orderId}>
+                      <td>{order.orderId}</td>
+                      <td>{order.title}</td>
+                      <td>
+                        <button className="view-button" onClick={() => handleViewAcceptedOrder(order.orderId)}>
+                          View
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {showSecondModal && (
+                <div>
+                  <h2>Order Details</h2>
+                  <h3>Order ID: {selectedOrderDetails.orderId}</h3>
+                  <h3>Title: {selectedOrderDetails.title}</h3>
+                  <h3>Description: {selectedOrderDetails.description}</h3>
+                  <h3>Status: {formatString(selectedOrderDetails.internalStatus)}</h3>
 
-                <h3>Remarks:</h3>
-                {orderRemarks.length === 0 ? (
-                  <p>No remarks added</p>
-                ) : (
-                  <ul>
-                    {orderRemarks.map((remark) => (
-                      <li key={remark.remarkId}>{remark.description}</li>
-                    ))}
-                  </ul>
-                )}
-                <button>Assign Function</button>
-                <button>Assign Developer</button>
-                <button>Assign Reviewer</button>
-                <button>Download Code</button>
-                <button>Finish Order</button>
-              </div>
-            )}
-          </Modal>
-        )}
-        {showModal3 && (
-          <Modal onClose={handleModalClose3}>
-            <h2>Other Services</h2>
-            <Link to="/manager/employeeaccount">
-              <button className='app-button'>Create Employee Account</button>
-            </Link>
-          </Modal>
-        )}
-        {selectedOrder && (
-          <Modal onClose={handleCloseOrderModal}>
-            <h2>Order Details</h2>
-            <h3>Order ID: {selectedOrder.orderId}</h3>
-            <h3>Title: {selectedOrder.title}</h3>
-            <h3>Description: {selectedOrder.description}</h3>
-            <h3>Remarks:</h3>
-            {orderRemarks.length === 0 ? (
-              <p>No remarks added</p>
-            ) : (
-              <ul>
-                {orderRemarks.map((remark) => (
-                  <li key={remark.remarkId}>{remark.description}</li>
-                ))}
-              </ul>
-            )}
-            <button onClick={handleAcceptOrder}>Accept</button>
-          </Modal>
-        )}
-        {showSecondModal && (
-          <Modal onClose={() => handleCloseAcceptedOrderModal(false)}>
-            <h2>Order Details</h2>
-            <h3>Order ID: {selectedOrderDetails.orderId}</h3>
-            <h3>Title: {selectedOrderDetails.title}</h3>
-            <h3>Description: {selectedOrderDetails.description}</h3>
-            <h3>Internal Status: {formatString(selectedOrderDetails.internalStatus)}</h3>
-            {selectedOrderDetails.internalStatus === 1 && showDevelopers && (
-              <div>
-                <h3>List of Developers</h3>
-                {juniorDevelopers.length === 0 ? (
-                  <p>No junior developers available</p>
-                ) : (
-                  <div>
-                    <select onChange={handleSelectJuniorDeveloper}>
-                      <option value="">Select a junior developer</option>
-                      {juniorDevelopers.map((juniorDeveloper) => (
-                        <option key={juniorDeveloper.employeeId} value={juniorDeveloper.employeeId}>
-                          {juniorDeveloper.firstName} {juniorDeveloper.lastName}
-                        </option>
+                  <h3>Remarks:</h3>
+                  {orderRemarks.length === 0 ? (
+                    <p>No remarks added</p>
+                  ) : (
+                    <ul>
+                      {orderRemarks.map((remark) => (
+                        <li key={remark.remarkId}>{remark.description}</li>
                       ))}
-                    </select>
-                    <button onClick={handleAssignFunction}>Assign Function</button>
-                  </div>
-                )}
-                {selectedJuniorDeveloper && (
-                  <p>Selected Junior Developer: {selectedJuniorDeveloper.firstName} {selectedJuniorDeveloper.lastName}</p>
-                )}
-              </div>
-            )}
-            {selectedOrderDetails.internalStatus === 2 && (
-              <div>
-                <h3>Function: John Smith</h3>
-              </div>
-            )}
-            {selectedOrderDetails.internalStatus === 3 && showDevelopers && (
-              <div>
-                <h3>List of Senior Developers</h3>
-                {seniorDevelopers.length === 0 ? (
-                  <p>No senior developers available</p>
-                ) : (
-                  <div>
-                    <select onChange={handleSelectSeniorDeveloper}>
-                      <option value="">Select a senior developer</option>
-                      {seniorDevelopers.map((seniorDeveloper) => (
-                        <option key={seniorDeveloper.employeeId} value={seniorDeveloper.employeeId}>
-                          {seniorDeveloper.firstName} {seniorDeveloper.lastName}
-                        </option>
-                      ))}
-                    </select>
-                    <button onClick={handleAssignDeveloper}>Assign Developer</button>
-                    <button onClick={handleDownloadSpec}>Download Spec</button>
-                  </div>
-                )}
-                {selectedSeniorDeveloper && (
-                  <p>Selected Senior Developer: {selectedSeniorDeveloper.firstName} {selectedSeniorDeveloper.lastName}</p>
-                )}
-              </div>
-            )}
-            {selectedOrderDetails.internalStatus === 4 && (
-              <div>
-                <h3>Function: Johnny Johnson</h3>
-                <button onClick={handleDownloadSpec}>Download Spec</button>
-                <h3>Developer: John Johnson</h3>
-              </div>
-            )}
-            {selectedOrderDetails.internalStatus === 5 && (
-              <div>
-                <h3>Function: Johnny Johnson</h3>
-                <button>Download Spec</button>
-                <h3>Developer: John Johnson</h3>
-                <button>Download Code</button>
-                <button>Assign Reviewer</button>
-              </div>
-            )}
-            {selectedOrderDetails.internalStatus === 6 && (
-              <div>
-                <h3>Function: Johnny Johnson</h3>
-                <button>Download Spec</button>
-                <h3>Developer: John Johnson</h3>
-                <button>Download Code</button>
-                <h3>Reviewer: Jonathan Johnson</h3>
-              </div>
-            )}
-            {selectedOrderDetails.internalStatus === 7 && (
-              <div>
-                <h3>Function: Johnny Johnson</h3>
-                <button>Download Spec</button>
-                <h3>Developer: John Johnson</h3>
-                <button>Download Code</button>
-                <h3>Reviewer: Jonathan Johnson</h3>
-                <button>Download Final Code</button>
-                <h3>Upload Code: </h3>
-                <button>Finish Order</button>
-              </div>
-            )}
-          </Modal>
-        )}
+                    </ul>
+                  )}
+                  <button>Assign Function</button>
+                  <button>Assign Developer</button>
+                  <button>Assign Reviewer</button>
+                  <button>Download Code</button>
+                  <button>Finish Order</button>
+                </div>
+              )}
+            </Modal>
+          )}
+          {showModal3 && (
+            <Modal onClose={handleModalClose3}>
+              <h2>Other Services</h2>
+              <Link to="/manager/employeeaccount">
+                <button className='app-button'>Create Employee Account</button>
+              </Link>
+            </Modal>
+          )}
+          {selectedOrder && (
+            <Modal onClose={handleCloseOrderModal}>
+              <h2>Order Details</h2>
+              <h3>Order ID: {selectedOrder.orderId}</h3>
+              <h3>Title: {selectedOrder.title}</h3>
+              <h3>Description: {selectedOrder.description}</h3>
+              <h3>Remarks:</h3>
+              {orderRemarks.length === 0 ? (
+                <p>No remarks added</p>
+              ) : (
+                <ul>
+                  {orderRemarks.map((remark) => (
+                    <li key={remark.remarkId}>{remark.description}</li>
+                  ))}
+                </ul>
+              )}
+              <button onClick={handleAcceptOrder}>Accept</button>
+            </Modal>
+          )}
+          {showSecondModal && (
+            <Modal onClose={() => handleCloseAcceptedOrderModal(false)}>
+              <h2>Order Details</h2>
+              <h3>Order ID: {selectedOrderDetails.orderId}</h3>
+              <h3>Title: {selectedOrderDetails.title}</h3>
+              <h3>Description: {selectedOrderDetails.description}</h3>
+              <h3>Internal Status: {formatString(selectedOrderDetails.internalStatus)}</h3>
+              {selectedOrderDetails.internalStatus === 1 && showDevelopers && (
+                <div>
+                  <h3>List of Developers</h3>
+                  {juniorDevelopers.length === 0 ? (
+                    <p>No junior developers available</p>
+                  ) : (
+                    <div>
+                      <select onChange={handleSelectJuniorDeveloper}>
+                        <option value="">Select a junior developer</option>
+                        {juniorDevelopers.map((juniorDeveloper) => (
+                          <option key={juniorDeveloper.employeeId} value={juniorDeveloper.employeeId}>
+                            {juniorDeveloper.firstName} {juniorDeveloper.lastName}
+                          </option>
+                        ))}
+                      </select>
+                      <button onClick={handleAssignFunction}>Assign Function</button>
+                    </div>
+                  )}
+                  {selectedJuniorDeveloper && (
+                    <p>Selected Junior Developer: {selectedJuniorDeveloper.firstName} {selectedJuniorDeveloper.lastName}</p>
+                  )}
+                </div>
+              )}
+              {selectedOrderDetails.internalStatus === 2 && (
+                <div>
+                  <h3>Function: John Smith</h3>
+                </div>
+              )}
+              {selectedOrderDetails.internalStatus === 3 && showDevelopers && (
+                <div>
+                  <h3>List of Senior Developers</h3>
+                  {seniorDevelopers.length === 0 ? (
+                    <p>No senior developers available</p>
+                  ) : (
+                    <div>
+                      <select onChange={handleSelectSeniorDeveloper}>
+                        <option value="">Select a senior developer</option>
+                        {seniorDevelopers.map((seniorDeveloper) => (
+                          <option key={seniorDeveloper.employeeId} value={seniorDeveloper.employeeId}>
+                            {seniorDeveloper.firstName} {seniorDeveloper.lastName}
+                          </option>
+                        ))}
+                      </select>
+                      <button onClick={handleAssignDeveloper}>Assign Developer</button>
+                      <button onClick={handleDownloadSpec}>Download Spec</button>
+                    </div>
+                  )}
+                  {selectedSeniorDeveloper && (
+                    <p>Selected Senior Developer: {selectedSeniorDeveloper.firstName} {selectedSeniorDeveloper.lastName}</p>
+                  )}
+                </div>
+              )}
+              {selectedOrderDetails.internalStatus === 4 && (
+                <div>
+                  <h3>Function: Johnny Johnson</h3>
+                  <button onClick={handleDownloadSpec}>Download Spec</button>
+                  <h3>Developer: John Johnson</h3>
+                </div>
+              )}
+              {selectedOrderDetails.internalStatus === 5 && showReviewers && (
+                <div>
+                  <h3>List of Reviewers</h3>
+                  {reviewers.length === 0 ? (
+                    <p>No reviewers available</p>
+                  ) : (
+                    <div>
+                      <select onChange={handleSelectReviewer}>
+                        <option value="">Select a reviewer</option>
+                        {reviewers.map((reviewer) => (
+                          <option key={reviewer.employeeId} value={reviewer.employeeId}>
+                            {reviewer.firstName} {reviewer.lastName}
+                          </option>
+                        ))}
+                      </select>
+                      <button onClick={handleAssignReviewer}>Assign Reviewer</button>
+                      <button onClick={handleDownloadSpec}>Download Spec</button>
+                    </div>
+                  )}
+                  {selectedReviewer && (
+                    <p>Selected Reviewer: {selectedReviewer.firstName} {selectedReviewer.lastName}</p>
+                  )}
+                </div>
+              )}
+              {selectedOrderDetails.internalStatus === 6 && (
+                <div>
+                  <h3>Function: Johnny Johnson</h3>
+                  <button onClick={handleDownloadSpec}>Download Spec</button>
+                  <h3>Developer: John Johnson</h3>
+                  <button>Download Code</button>
+                  <h3>Reviewer: Jonathan Johnson</h3>
+                </div>
+              )}
+              {selectedOrderDetails.internalStatus === 7 && (
+                <div>
+                  <h3>Function: Johnny Johnson</h3>
+                  <button onClick={handleDownloadSpec}>Download Spec</button>
+                  <h3>Developer: John Johnson</h3>
+                  <button>Download Code</button>
+                  <h3>Reviewer: Jonathan Johnson</h3>
+                  <button>Download Final Code</button>
+                  <h3>Upload Code: </h3>
+                  <button>Finish Order</button>
+                </div>
+              )}
+            </Modal>
+          )}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
+}
 
 export default ManagerDashboard;

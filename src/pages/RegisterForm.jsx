@@ -11,7 +11,7 @@ const RegisterForm = () => {
   const [values, setValues] = useState({
     username: "",
     email: "",
-    countryOfOrigin: "",
+    country: "",
     password: "",
     firstName: "",
     lastName: "",
@@ -60,7 +60,7 @@ const RegisterForm = () => {
     },
     {
       id: 5,
-      name: "countryOfOrigin",
+      name: "country",
       type: "country",
       placeholder: "Country",
       label: "Country",
@@ -211,7 +211,7 @@ const RegisterForm = () => {
       return;
     }
     
-    if (!countryNames.includes(values.countryOfOrigin)) {
+    if (!countryNames.includes(values.country)) {
       countryNotValid();
       return;
     }
