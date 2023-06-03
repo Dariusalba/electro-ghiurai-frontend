@@ -231,17 +231,17 @@ const ManagerDashboard = () => {
   // };
 
   const handleSelectJuniorDeveloper = (juniorDeveloper) => {
-    setSelectedJuniorDeveloper(juniorDeveloper);
+    setSelectedJuniorDeveloper(juniorDeveloper.target.value);
   };
 
   const handleSelectSeniorDeveloper = (seniorDeveloper) => {
-    setSelectedSeniorDeveloper(seniorDeveloper);
+    setSelectedSeniorDeveloper(seniorDeveloper.target.value);
   };
 
   const handleAssignFunction = async () => {
     try {
       const response = await fetch(
-        `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedSeniorDeveloper.employeeId}`,
+        `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedJuniorDeveloper}`,
         {
           method: 'POST',
           headers: {
@@ -264,7 +264,7 @@ const ManagerDashboard = () => {
   const handleAssignDeveloper = async () => {
     try {
       const response = await fetch(
-        `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/software/${selectedSeniorDeveloper.employeeId}`,
+        `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/software/${selectedSeniorDeveloper.userId}`,
         {
           method: 'POST',
           headers: {
@@ -454,19 +454,15 @@ const ManagerDashboard = () => {
                   <p>No junior developers available</p>
                 ) : (
                   <div>
-                    <select onChange={handleSelectJuniorDeveloper}>
-                      <option value="">Select a junior developer</option>
-                      {juniorDevelopers.map((juniorDeveloper) => (
-                        <option key={juniorDeveloper.employeeId} value={juniorDeveloper.employeeId}>
-                          {juniorDeveloper.firstName} {juniorDeveloper.lastName}
+                    <select value = {selectedJuniorDeveloper} onChange={handleSelectJuniorDeveloper}>
+                      {juniorDevelopers.map((juniorDeveloper,index) => (
+                        <option key={index} value={juniorDeveloper.userId}>
+                          {juniorDeveloper.firstName}, {juniorDeveloper.lastName}
                         </option>
                       ))}
                     </select>
                     <button onClick={handleAssignFunction}>Assign Function</button>
                   </div>
-                )}
-                {selectedJuniorDeveloper && (
-                  <p>Selected Junior Developer: {selectedJuniorDeveloper.firstName} {selectedJuniorDeveloper.lastName}</p>
                 )}
               </div>
             )}
