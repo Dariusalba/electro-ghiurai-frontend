@@ -25,50 +25,56 @@ const ReportPage = () => {
 
   const parsedTopCountries = JSON.parse(data.top_3_countries);
   const countryData = [
-    { country: parsedTopCountries["1st_country"], number: parsedTopCountries["1st_country_number"] },
-    { country: parsedTopCountries["2nd_country"], number: parsedTopCountries["2nd_country_number"] },
-    { country: parsedTopCountries["3rd_country"], number: parsedTopCountries["3rd_country_number"] },
+    { name: parsedTopCountries["1st_country"], value: parsedTopCountries["1st_country_number"] },
+    { name: parsedTopCountries["2nd_country"], value: parsedTopCountries["2nd_country_number"] },
+    { name: parsedTopCountries["3rd_country"], value: parsedTopCountries["3rd_country_number"] },
   ];
-
+  const countryLabels = countryData.map((entry) => entry.name);
   return (
-    <div>
+    <div className='chart-container'>
       <h1>Order Information</h1>
-      <PieChart width={400} height={400}>
-        <Pie
-          dataKey="number"
-          isAnimationActive={false}
-          data={countryData}
-          cx={200}
-          cy={200}
-          outerRadius={80}
-          fill="#8884d8"
-          label
-        >
-          {countryData.map((_entry, index) => (
-            <Cell key={`cell-${index}`} fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} />
-          ))}
-        </Pie>
-        <Tooltip />
-        <Legend />
-      </PieChart>
+      <div className='pie-chart'>
+        <PieChart width={400} height={400}>
+          <Pie
+            dataKey="value"
+            isAnimationActive={false}
+            data={countryData}
+            cx={200}
+            cy={200}
+            outerRadius={80}
+            fill="#8884d8"
+            label
+            labels={countryLabels}
+          >
+            {countryData.map((_entry, index) => (
+              <Cell key={`cell-${index}`} fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend />
+        </PieChart>
+      </div>
 
       <h1>Other Information</h1>
-      <BarChart width={600} height={400} data={[data]}>
-        <Bar dataKey="total_users" fill="#8884d8" />
-        <Bar dataKey="total_customers" fill="#82ca9d" />
-        <Bar dataKey="total_orders" fill="#ffc658" />
-        <Bar dataKey="pending_orders" fill="#ffc658" />
-        <Bar dataKey="accepted_orders" fill="#ffc658" />
-        <Bar dataKey="finished_orders" fill="#ffc658" />
-        <Bar dataKey="most_active_customer" fill="#82ca9d" />
-        <Bar dataKey="most_active_customer_order_number" fill="#82ca9d" />
-        <Bar dataKey="average_customer_age" fill="#8884d8" />
-        <Tooltip />
-        <Legend />
-      </BarChart>
+      <div className="bar-chart">
+        <BarChart width={600} height={400} data={[data]}>
+          <Bar dataKey="total_users" fill="#8884d8" />
+          <Bar dataKey="total_customers" fill="#82ca9d" />
+          <Bar dataKey="total_orders" fill="#ffc658" />
+          <Bar dataKey="pending_orders" fill="#ffc658" />
+          <Bar dataKey="accepted_orders" fill="#ffc658" />
+          <Bar dataKey="finished_orders" fill="#ffc658" />
+          <Bar dataKey="most_active_customer" fill="#82ca9d" />
+          <Bar dataKey="most_active_customer_order_number" fill="#82ca9d" />
+          <Bar dataKey="average_customer_age" fill="#8884d8" />
+          <Tooltip />
+          <Legend />
+        </BarChart>
+      </div>
     </div>
   );
 };
+
 
 export default ReportPage;
 
