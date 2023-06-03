@@ -53,6 +53,10 @@ const ManagerDashboard = () => {
     setShowModal3(true);
   };
 
+  const handleReportButtonClick = async () => {
+    window.location.href = '/manager/report'
+  };
+
   const handleModalClose1 = () => {
     setShowModal1(false);
   };
@@ -227,7 +231,7 @@ const ManagerDashboard = () => {
     try {
       const response = await fetch('http://localhost:9191/mng/engineer');
       const data = await response.json();
-      setReviewer(data);
+      setReviewers(data);
     } catch (error) {
       console.error(error);
     }
@@ -305,7 +309,7 @@ const ManagerDashboard = () => {
 
       if (response.ok) {
         console.log('Reviewer assigned successfully');
-        setShowReviewer(false);
+        setShowReviewers(false);
       } else {
         console.error('Failed to assign Reviewer');
       }
@@ -363,6 +367,7 @@ const ManagerDashboard = () => {
         <h1 className='app-h1'>Manager Dashboard</h1>
         <button className='app-button' onClick={handleButtonClick1}>View Pending Orders</button>
         <button className='app-button' onClick={handleButtonClick2}>View Current Orders</button>
+        <button className='app-button' onClick={handleReportButtonClick}>View Company Report</button>
         <button className='app-button' onClick={handleButtonClick3}>Other Services</button>
         {showModal1 && (
           <Modal onClose={handleModalClose1}>
@@ -529,7 +534,7 @@ const ManagerDashboard = () => {
                 <h3>Developer: Developer</h3>
               </div>
             )}
-            {selectedOrderDetails.internalStatus === 5 && (
+            {selectedOrderDetails.internalStatus === 5 && showReviewers && (
               <div>
                 <h3>Function: Function Dev</h3>
                 <button onClick={handleDownloadSpec}>Download Spec</button>
@@ -546,7 +551,7 @@ const ManagerDashboard = () => {
                         </option>
                       ))}
                     </select>
-                    <button onClick={handleAssignFunction}>Assign Reviewer</button>
+                    <button onClick={handleAssignReviewer}>Assign Reviewer</button>
                   </div>
                 )}
               </div>
