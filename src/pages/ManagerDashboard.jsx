@@ -16,9 +16,12 @@ const ManagerDashboard = () => {
   const [selectedOrderDetails, setSelectedOrderDetails] = useState(null);
   const [juniorDevelopers, setJuniorDevelopers] = useState([]);
   const [seniorDevelopers, setSeniorDevelopers] = useState([]);
+  const [reviewers, setReviewers] = useState([]);
   const [selectedJuniorDeveloper, setSelectedJuniorDeveloper] = useState(null);
   const [selectedSeniorDeveloper, setSelectedSeniorDeveloper] = useState(null);
+  const [selectedReviewer, setSelectedReviewer] = useState(null);
   const [showDevelopers, setShowDevelopers] = useState(true);
+  const [showReviewers, setShowReviewers] = useState(true);
 
 
 
@@ -220,15 +223,15 @@ const ManagerDashboard = () => {
     }
   };
 
-  // const fetchReviewer = async () => {
-  //   try {
-  //     const response = await fetch('http://localhost:9191/mng/engineer');
-  //     const data = await response.json();
-  //     setReviewer(data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const fetchReviewers = async () => {
+    try {
+      const response = await fetch('http://localhost:9191/mng/engineer');
+      const data = await response.json();
+      setReviewer(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleSelectJuniorDeveloper = (juniorDeveloper) => {
     setSelectedJuniorDeveloper(juniorDeveloper.target.value);
@@ -236,6 +239,10 @@ const ManagerDashboard = () => {
 
   const handleSelectSeniorDeveloper = (seniorDeveloper) => {
     setSelectedSeniorDeveloper(seniorDeveloper.target.value);
+  };
+
+  const handleSelectReviewer = (reviewer) => {
+    setSelectedReviewer(reviewer.target.value);
   };
 
   const handleAssignFunction = async () => {
@@ -283,8 +290,31 @@ const ManagerDashboard = () => {
       console.error(error);
     }
   };
-  
-  
+
+  const handleAssignReviewer = async () => {
+    try {
+      const response = await fetch(`
+      http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/review/${selectedReviewer.userId}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (response.ok) {
+        console.log('Reviewer assigned successfully');
+        setShowReviewer(false);
+      } else {
+        console.error('Failed to assign Reviewer');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
 
   const handleViewAcceptedOrder = async (orderId) => {
     try {
@@ -301,6 +331,7 @@ const ManagerDashboard = () => {
 
       await fetchJuniorDevelopers();
       await fetchSeniorDevelopers();
+      await fetchReviewers();
 
       setSelectedOrderDetails({
         orderId: orderId,
@@ -454,8 +485,8 @@ const ManagerDashboard = () => {
                   <p>No junior developers available</p>
                 ) : (
                   <div>
-                    <select value = {selectedJuniorDeveloper} onChange={handleSelectJuniorDeveloper}>
-                      {juniorDevelopers.map((juniorDeveloper,index) => (
+                    <select value={selectedJuniorDeveloper} onChange={handleSelectJuniorDeveloper}>
+                      {juniorDevelopers.map((juniorDeveloper, index) => (
                         <option key={index} value={juniorDeveloper.userId}>
                           {juniorDeveloper.firstName}, {juniorDeveloper.lastName}
                         </option>
@@ -468,7 +499,7 @@ const ManagerDashboard = () => {
             )}
             {selectedOrderDetails.internalStatus === 2 && (
               <div>
-                <h3>Function: John Smith</h3>
+                <h3>Function: Function Dev</h3>
               </div>
             )}
             {selectedOrderDetails.internalStatus === 3 && showDevelopers && (
@@ -478,11 +509,10 @@ const ManagerDashboard = () => {
                   <p>No senior developers available</p>
                 ) : (
                   <div>
-                    <select onChange={handleSelectSeniorDeveloper}>
-                      <option value="">Select a senior developer</option>
-                      {seniorDevelopers.map((seniorDeveloper) => (
-                        <option key={seniorDeveloper.employeeId} value={seniorDeveloper.employeeId}>
-                          {seniorDeveloper.firstName} {seniorDeveloper.lastName}
+                    <select value={selectedSeniorDeveloper} onChange={handleSelectSeniorDeveloper}>
+                      {seniorDevelopers.map((seniorDeveloper, index) => (
+                        <option key={index} value={seniorDeveloper.userId}>
+                          {seniorDeveloper.firstName}, {seniorDeveloper.lastName}
                         </option>
                       ))}
                     </select>
@@ -490,25 +520,35 @@ const ManagerDashboard = () => {
                     <button onClick={handleDownloadSpec}>Download Spec</button>
                   </div>
                 )}
-                {selectedSeniorDeveloper && (
-                  <p>Selected Senior Developer: {selectedSeniorDeveloper.firstName} {selectedSeniorDeveloper.lastName}</p>
-                )}
               </div>
             )}
             {selectedOrderDetails.internalStatus === 4 && (
               <div>
-                <h3>Function: Johnny Johnson</h3>
+                <h3>Function: Function Dev</h3>
                 <button onClick={handleDownloadSpec}>Download Spec</button>
-                <h3>Developer: John Johnson</h3>
+                <h3>Developer: Developer</h3>
               </div>
             )}
             {selectedOrderDetails.internalStatus === 5 && (
               <div>
-                <h3>Function: Johnny Johnson</h3>
-                <button>Download Spec</button>
-                <h3>Developer: John Johnson</h3>
-                <button>Download Code</button>
-                <button>Assign Reviewer</button>
+                <h3>Function: Function Dev</h3>
+                <button onClick={handleDownloadSpec}>Download Spec</button>
+                <h3>Developer: Developer</h3>
+                <h3>List of Reviewers</h3>
+                {reviewers.length === 0 ? (
+                  <p>No reviewers available</p>
+                ) : (
+                  <div>
+                    <select value={selectedReviewer} onChange={handleSelectReviewer}>
+                      {reviewers.map((reviewer, index) => (
+                        <option key={index} value={reviewer.userId}>
+                          {reviewer.firstName}, {reviewer.lastName}
+                        </option>
+                      ))}
+                    </select>
+                    <button onClick={handleAssignFunction}>Assign Reviewer</button>
+                  </div>
+                )}
               </div>
             )}
             {selectedOrderDetails.internalStatus === 6 && (
@@ -522,12 +562,11 @@ const ManagerDashboard = () => {
             )}
             {selectedOrderDetails.internalStatus === 7 && (
               <div>
-                <h3>Function: Johnny Johnson</h3>
-                <button>Download Spec</button>
-                <h3>Developer: John Johnson</h3>
-                <button>Download Code</button>
+                <h3>Function: Function Dev</h3>
+                <button onClick={handleDownloadSpec}>Download Spec</button>
+                <h3>Developer: Developer</h3>
                 <h3>Reviewer: Jonathan Johnson</h3>
-                <button>Download Final Code</button>
+                <button>Download Code</button>
                 <h3>Upload Code: </h3>
                 <button>Finish Order</button>
               </div>
@@ -535,7 +574,7 @@ const ManagerDashboard = () => {
           </Modal>
         )}
       </div>
-    </div>
+    </div >
   );
 };
 
