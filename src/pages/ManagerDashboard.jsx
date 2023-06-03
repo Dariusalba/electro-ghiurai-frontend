@@ -275,7 +275,7 @@ const ManagerDashboard = () => {
   const handleAssignDeveloper = async () => {
     try {
       const response = await fetch(
-        `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/software/${selectedSeniorDeveloper.userId}`,
+        `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/software/${selectedSeniorDeveloper}`,
         {
           method: 'POST',
           headers: {
@@ -298,7 +298,7 @@ const ManagerDashboard = () => {
   const handleAssignReviewer = async () => {
     try {
       const response = await fetch(`
-      http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/review/${selectedReviewer.userId}`,
+      http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/review/${selectedReviewer}`,
         {
           method: 'POST',
           headers: {
