@@ -73,15 +73,14 @@ const LoginForm = () => {
     })
       .then(response => {
         if (response.status === 200) {
-          console.log('Login successful');
           response.json().then(data => {
             const userId = data.userId;
             sessionStorage.setItem('userId', userId);
-            if (data.userPosition === 1) {
+            if (data.position === 1) {
               window.location.href = '/account';
-            } else if (data.userPosition === 2 || data.userPosition === 3) {
+            } else if (data.position === 2 || data.position === 3) {
               window.location.href = '/employee/dashboard'
-            } else if (data.userPosition === 4) {
+            } else if (data.position === 4) {
               window.location.href = '/manager/dashboard';
             } else {
               console.error('User position is invalid or fetched incorrectly.');

@@ -216,7 +216,7 @@ const RegisterForm = () => {
       return;
     }
 
-    fetch('http://localhost:9191/customer/register', {
+    fetch('http://localhost:9191/user/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

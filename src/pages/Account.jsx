@@ -2,17 +2,17 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function AccountInfo() {
-  const customerId = sessionStorage.getItem("customerId");
+  const userId = sessionStorage.getItem("userId");
   const [userInfo, setUserInfo] = useState({});
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await fetch(`http://localhost:9191/customer/${customerId}`);
+        const response = await fetch(`http://localhost:9191/customer/${userId}`);
         const data = await response.json();
-        const { username, firstName, lastName, email, countryOfOrigin } = data;
-        setUserInfo({ username, firstName, lastName, email, countryOfOrigin });
+        const { username, firstName, lastName, email, country } = data;
+        setUserInfo({ username, firstName, lastName, email, country });
       } catch (error) {
         console.error("Error: ", error);
       }
@@ -20,7 +20,7 @@ function AccountInfo() {
   
     const fetchOrders = async () => {
       try {
-        const response = await fetch(`http://localhost:9191/customer/${customerId}/order`);
+        const response = await fetch(`http://localhost:9191/customer/${userId}/order`);
         const data = await response.json();
         setOrders(data);
       } catch (error) {
@@ -30,7 +30,7 @@ function AccountInfo() {
   
     fetchUserInfo();
     fetchOrders();
-  }, [customerId]);
+  }, [userId]);
 
   return (
     <div>
@@ -51,7 +51,7 @@ function AccountInfo() {
             <p className="account-p">First Name: {userInfo.firstName}</p>
             <p className="account-p">Last Name: {userInfo.lastName}</p>
             <p className="account-p">Email: {userInfo.email}</p>
-            <p className="account-p">Country of Origin: {userInfo.countryOfOrigin}</p>
+            <p className="account-p">Country of Origin: {userInfo.country}</p>
           </>
         ) : (
           <p>Failed to load user information.</p>

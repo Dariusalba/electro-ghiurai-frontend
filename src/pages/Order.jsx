@@ -3,11 +3,11 @@ import '../components/Order.css';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
-const customerId = sessionStorage.getItem("customerId");
+const userId = sessionStorage.getItem("userId");
 
 function OrderForm() {
   const [values, setValues] = useState({
-    customerId: `${customerId}`,
+    customerId: `${userId}`,
     title: "",
     description: "",
     progress: 0,
@@ -46,7 +46,7 @@ function OrderForm() {
     const newValues = { ...values, remarks };
     const remarksJson = JSON.stringify(remarks);
 
-    fetch(`http://localhost:9191/customer/order/${customerId}`, {
+    fetch(`http://localhost:9191/customer/order/${userId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 
-const employeeId = sessionStorage.getItem('employeeId');
+const userId = sessionStorage.getItem('userId');
 
 function EmployeeDashboard() {
     const [tasks, setTasks] = useState([]);
@@ -12,7 +12,7 @@ function EmployeeDashboard() {
     const [selectedFile, setSelectedFile] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:9191/emp/tasks/${employeeId}`)
+        fetch(`http://localhost:9191/emp/tasks/${userId}`)
             .then(response => response.json())
             .then(data => setTasks(data))
             .catch(error => console.log(error));

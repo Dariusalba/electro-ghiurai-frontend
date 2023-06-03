@@ -10,7 +10,7 @@ import countries from "../countries.json"
 const EmployeeAccountCreation = () => {
   const [values, setValues] = useState({
     email: "",
-    countryOfOrigin: "",
+    country: "",
     firstName: "",
     lastName: "",
     dateOfBirth: "",
