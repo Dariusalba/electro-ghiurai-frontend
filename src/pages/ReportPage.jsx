@@ -58,7 +58,7 @@ const ReportPage = () => {
               <PieChart width={400} height={400}>
                 <Pie
                   dataKey="value"
-                  isAnimationActive={false}
+                  isAnimationActive={true}
                   data={countryData}
                   cx={200}
                   cy={200}
