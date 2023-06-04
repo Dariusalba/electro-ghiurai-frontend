@@ -104,13 +104,13 @@ const ManagerDashboard = () => {
 
   const handleDownloadSpec = async () => {
     try {
-      const response = await fetch(`http://localhost:9191/mng/download/spec/${selectedOrder.orderId}`);
+      const response = await fetch(`http://localhost:9191/mng/download/spec/${selectedOrderDetails.orderId}`);
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
 
       const link = document.createElement('a');
       link.href = url;
-      link.download = `spec-${selectedOrder.orderId}.pdf`;
+      link.download = `spec-${selectedOrderDetails.orderId}.pdf`;
 
       link.click();
 
