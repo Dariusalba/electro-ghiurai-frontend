@@ -16,7 +16,6 @@ const RegisterForm = () => {
     firstName: "",
     lastName: "",
     dateOfBirth: "",
-    profilePic: null,
   });
 
   const countryNames = countries.map((country) => country.english_name);
@@ -97,14 +96,6 @@ const RegisterForm = () => {
       label: "Confirm Password",
       pattern: values.password,
       required: true,
-    },
-    {
-      id: 9,
-      name: "profilePic",
-      type: "file",
-      label: "Profile Picture",
-      accept: "image/jpeg",
-      required: false,
     }
   ];
 
@@ -172,8 +163,8 @@ const RegisterForm = () => {
       progress: undefined,
       theme: "dark",
     });
-
-  const nameNotEntered = () =>
+  
+    const nameNotEntered = () =>
     toast.error('❌ Please enter your first and last name!', {
       position: "bottom-right",
       autoClose: 5000,
@@ -185,7 +176,7 @@ const RegisterForm = () => {
       theme: "dark",
     });
 
-  const userRegistered = () =>
+    const userRegistered = () => 
     toast.success('✅ Registration successful! Redirecting to login page...', {
       position: "bottom-right",
       autoClose: 2000,
@@ -195,11 +186,11 @@ const RegisterForm = () => {
       draggable: true,
       progress: undefined,
       theme: "dark",
-    });
+      });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    
     if (!values.username) {
       usernameNotEntered();
       return;
@@ -219,7 +210,7 @@ const RegisterForm = () => {
       passwordsNotMatching();
       return;
     }
-
+    
     if (!countryNames.includes(values.country)) {
       countryNotValid();
       return;
@@ -238,23 +229,6 @@ const RegisterForm = () => {
           notifyUserExists();
         } else if (response.status === 201) {
           userRegistered();
-          const userId = response.json().userId;
-          const formData = new FormData();
-          formData.append("profilePic", values.profilePic);
-          fetch(`http://localhost:9191/customer/register/pic/${userId}`, {
-            method: "POST",
-            body: formData,
-          })
-            .then((response) => {
-              if (response.status === 200) {
-                console.log("Profile picture uploaded successfully");
-              } else {
-                console.error("Profile picture upload failed");
-              }
-            })
-            .catch((error) => {
-              console.error("Error uploading profile picture:", error);
-            });
           setTimeout(() => {
             window.location.href = '/login';
           }, 2000);
@@ -269,15 +243,7 @@ const RegisterForm = () => {
   }
 
   const onChange = (e) => {
-    if (e.target.type === "file") {
-      onFileChange(e);
-    } else {
-      setValues({ ...values, [e.target.name]: e.target.value });
-    }
-  };
-
-  const onFileChange = (e) => {
-    setValues({ ...values, profilePic: e.target.files[0] });
+    setValues({ ...values, [e.target.name]: e.target.value });
   };
 
 
