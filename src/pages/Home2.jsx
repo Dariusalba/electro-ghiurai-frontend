@@ -21,7 +21,7 @@ const Home2 = () => {
           </div>
         </div>
       </div>
-      <header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
+      <header class="bgimg-1 w3-display-container w3-white w3-grayscale-min" id="home">
         <div class="w3-display-left w3-text-white w3-padding-48">
           <span class="w3-jumbo w3-hide-small">We are ElectroGhiurai!</span><br />
           <span class="w3-xxlarge w3-hide-large w3-hide-medium">Start something that matters</span><br />
@@ -29,7 +29,7 @@ const Home2 = () => {
           <p><a href="#about" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Learn more and join today</a></p>
         </div>
       </header>
-      <div class="w3-container w3-padding-128-16" id="about">
+      <div class="w3-container w3-white w3-padding-128-16" id="about">
         <h3 class="w3-center">ABOUT THE COMPANY</h3>
         <p class="w3-center w3-large">Key features of our company</p>
         <div class="w3-row-padding w3-center w3-margintop-64">
@@ -74,7 +74,7 @@ const Home2 = () => {
           </div>
         </div>
       </div>
-      <div class="w3-container w3-padding-128-16" id="reviews">
+      <div class="w3-container w3-white w3-padding-128-16" id="reviews">
         <h3 class="w3-center">CUSTOMER REVIEWS</h3>
         <p class="w3-center w3-large">See what other people think about us.</p>
         <div class="w3-row-padding w3-grayscale w3-margintop-64">
