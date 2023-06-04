@@ -103,6 +103,15 @@ body {
 	background-size: cover;
 }
 
+.manager-bg {
+	width: auto;
+	min-height: 900px;
+	max-height: 1330px;
+	padding-top: 1px;
+	background-image: url("components/manager-bg.jpg");
+	background-size: cover;
+}
+
 .account-p {
 	margin-top: 0px;
     margin-bottom: 0px;

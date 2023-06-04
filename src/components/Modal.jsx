@@ -26,9 +26,10 @@ const Modal = ({ onClose, children }) => {
   return ReactDOM.createPortal(
     <div className="modal" onKeyDown={handleKeyDown} onClick={handleBackdropClick}>
       <div className="modal-content">
-        <button className="close-button" onClick={onClose}>
+        <button className="w3-button w3-black close-button" onClick={onClose}>
           &times;
         </button>
+        <br />
         {children}
       </div>
     </div>,

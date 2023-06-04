@@ -482,20 +482,24 @@ const ManagerDashboard = () => {
 
   return (
     <div>
-      <div className="welcome1">
-        <Link to="/">
-          <h1 className='welcome-h1'>ElectroGhiurai</h1>
-        </Link>
-        <Link to="/login">
-          <button className="welcome-button">Sign Out</button>
-        </Link>
+      <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+          <a href="/" class="w3-bar-item w3-button w3-wide">ELECTROGHIURAI</a>
+          <div class="w3-right w3-hide-small">
+            <a href="/login" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i> SIGN OUT</a>
+          </div>
+        </div>
       </div>
+      <div className='manager-bg'>
       <div className='app'>
         <h1 className='app-h1'>Manager Dashboard</h1>
-        <button className='app-button' onClick={handleButtonClick1}>View Pending Orders</button>
-        <button className='app-button' onClick={handleButtonClick2}>View Current Orders</button>
-        <button className='app-button' onClick={handleReportButtonClick}>View Company Report</button>
-        <button className='app-button' onClick={handleButtonClick3}>Other Services</button>
+        <button className='w3-button w3-black app-button' onClick={handleButtonClick1}>View Pending Orders</button>
+        <br />
+        <button className='w3-button w3-black app-button' onClick={handleButtonClick2}>View Current Orders</button>
+        <br />
+        <button className='w3-button w3-black app-button' onClick={handleReportButtonClick}>View Company Report</button>
+        <br />
+        <button className='w3-button w3-black app-button' onClick={handleButtonClick3}>Other Services</button>
         {showModal1 && (
           <Modal onClose={handleModalClose1}>
             <h2>Pending Orders</h2>
@@ -514,7 +518,7 @@ const ManagerDashboard = () => {
                     <td>{order.title}</td>
                     <td>{customerDetails[order.orderId]}</td>
                     <td>
-                      <button className="view-button" onClick={() => handleViewOrder(order.orderId)}>
+                      <button className="w3-button w3-black view-button" onClick={() => handleViewOrder(order.orderId)}>
                         View
                       </button>
                     </td>
@@ -527,7 +531,7 @@ const ManagerDashboard = () => {
         {showModal2 && (
           <Modal onClose={handleModalClose2}>
             <h2>Current Orders</h2>
-            <table>
+            <table className='order-table'>
               <thead>
                 <tr>
                   <th>Order ID</th>
@@ -541,7 +545,7 @@ const ManagerDashboard = () => {
                     <td>{order.orderId}</td>
                     <td>{order.title}</td>
                     <td>
-                      <button className="view-button" onClick={() => handleViewAcceptedOrder(order.orderId)}>
+                      <button className="w3-button w3-black view-button" onClick={() => handleViewAcceptedOrder(order.orderId)}>
                         View
                       </button>
                     </td>
@@ -580,7 +584,7 @@ const ManagerDashboard = () => {
           <Modal onClose={handleModalClose3}>
             <h2>Other Services</h2>
             <Link to="/manager/employee/account">
-              <button className='app-button'>Create Employee Account</button>
+              <button className='w3-button w3-black app-button'>Create Employee Account</button>
             </Link>
           </Modal>
         )}
@@ -759,6 +763,7 @@ const ManagerDashboard = () => {
             )}
           </Modal>
         )}
+      </div>
       </div>
     </div >
   );
