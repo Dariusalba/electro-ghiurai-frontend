@@ -62,23 +62,6 @@ const OrderChart = ({ orderData }) => {
       </div>
       <div>
         <h2>Order Details</h2>
-        <PieChart width={400} height={300}>
-          <Pie
-            dataKey="value"
-            data={orderDetailsData}
-            fill="#82ca9d"
-            label
-          >
-            {orderDetailsData.map((_entry, index) => (
-              <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend />
-        </PieChart>
-      </div>
-      <div>
-        <h2>Order Details</h2>
         <BarChart width={400} height={300} data={orderDetailsData}>
           <Bar dataKey="value" nameKey="name" fill="#327ba8" name="Average Customer Age" />
           <Bar dataKey="value1" nameKey="name1" fill="#8884d8" name="Total Customers" />
@@ -94,11 +77,38 @@ const OrderChart = ({ orderData }) => {
 const EmployeeChart = ({ employeeData }) => (
   <div>
   <h1>Employee Report</h1>
+  <div>
+    <h2>Total Tasks Assigned</h2>
+    <PieChart width={600} height={400}>
+    <Pie data={employeeData.employee_report} dataKey="total_tasks_assigned" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label />
+    <Tooltip />
+    <Legend />
+    </PieChart>
+  </div>
+  <div>
+    <h2>Tasks Completed In Time</h2>
   <PieChart width={600} height={400}>
-    <Pie data={employeeData.employee_report} dataKey="total_tasks_assigned" nameKey="full_name" fill="#8884d8" label />
+    <Pie data={employeeData.employee_report} dataKey="tasks_completed_in_time" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label />
     <Tooltip />
     <Legend />
   </PieChart>
+  </div>
+  <div>
+    <h2>Tasks Completed Late</h2>
+  <PieChart width={600} height={400}>
+    <Pie data={employeeData.employee_report} dataKey="tasks_completed_late" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label />
+    <Tooltip />
+    <Legend />
+  </PieChart>
+  </div>
+  <div>
+    <h2>Tasks Currently Assigned</h2>
+  <PieChart width={600} height={400}>
+    <Pie data={employeeData.employee_report} dataKey="current_tasks_assigned" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label />
+    <Tooltip />
+    <Legend />
+  </PieChart>
+  </div>
   <div>
     <h2>Employee Summary</h2>
     <p>Total Employees: {employeeData.total_employee_number}</p>
