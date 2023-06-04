@@ -4,7 +4,6 @@ html {
 
 body{
     min-height: auto;
-	background-image: url('components/background.png');
 }
 
 .not-found {
