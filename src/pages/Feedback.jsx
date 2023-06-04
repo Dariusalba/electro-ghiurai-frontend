@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
+import '../components/Feedback.css';
 
 const colors = {
     orange: "#FFBA5A",
@@ -53,9 +54,9 @@ function Feedback() {
     };
 
     return (
-        <div style={styles.container}>
-            <h2>Leave a feedback</h2>
-            <div style={styles.stars}>
+        <div className="container">
+            <h2>Provide a feedback</h2>
+            <div className="stars">
                 {stars.map((_, index) => (
                     <FaStar
                         key={index}
@@ -73,42 +74,15 @@ function Feedback() {
             </div>
             <textarea
                 placeholder="What's your experience?"
-                style={styles.textarea}
+                className="f-textarea"
                 value={comment}
                 onChange={handleCommentChange}
             />
-            <button style={styles.button} onClick={handleSubmit}>
+            <button className="w3-button w3-black" onClick={handleSubmit}>
                 Submit
             </button>
         </div>
     );
 }
-
-const styles = {
-    container: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center"
-    },
-    stars: {
-        display: "flex",
-        flexDirection: "row",
-    },
-    textarea: {
-        border: "1px solid #a9a9a9",
-        borderRadius: 5,
-        padding: 10,
-        margin: "20px 0",
-        minHeight: 100,
-        width: 300
-    },
-    button: {
-        border: "1px solid #a9a9a9",
-        borderRadius: 5,
-        width: 300,
-        padding: 10,
-        cursor: "pointer"
-    }
-};
 
 export default Feedback;

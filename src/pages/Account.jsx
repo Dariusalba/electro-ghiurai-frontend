@@ -95,11 +95,11 @@ function AccountInfo() {
         </div>
       </div>
       <div className="app">
-        <h1>Account Information</h1>
+        <button onClick={openFeedbackModal}>Da</button>
         <h2>User Information:</h2>
         {Object.keys(userInfo).length > 0 ? (
           <>
-            <p className="account-pu">Username: {userInfo.username}</p>
+            <p className="account-p">Username: {userInfo.username}</p>
             <p className="account-p">First Name: {userInfo.firstName}</p>
             <p className="account-p">Last Name: {userInfo.lastName}</p>
             <p className="account-p">Email: {userInfo.email}</p>
@@ -143,7 +143,7 @@ function AccountInfo() {
         {modalOpen && selectedOrder && (
           <div className="modal">
             <div className="modal-content">
-              <span className="close" onClick={closeModal}>&times;</span>
+              <span className="w3-button w3-black close" onClick={closeModal}>&times;</span>
               <h2>Selected Order Details:</h2>
               <p>Order ID: {selectedOrder.orderId}</p>
               <p>Title: {selectedOrder.title}</p>
@@ -152,12 +152,12 @@ function AccountInfo() {
               {selectedOrder.orderStatus === 3 && (
                 <div>
                   <button
-                    className="app-button"
+                    className="w3-button w3-black app-button"
                     onClick={() => handleDownloadSpec(selectedOrder.specUrl)}
                   >
                     Download Spec
                   </button>
-                  <button className="app-button" onClick={openFeedbackModal}>
+                  <button className="w3-button w3-black app-button" onClick={openFeedbackModal}>
                     Feedback
                   </button>
                 </div>
@@ -168,12 +168,12 @@ function AccountInfo() {
         {feedbackModalOpen && (
           <div className="modal">
             <div className="modal-content">
-              <span className="close" onClick={closeFeedbackModal}>&times;</span>
-              <h2>Provide Feedback</h2>
+              <span className="w3-button w3-black close" onClick={closeFeedbackModal}>&times;</span>
               <Feedback />
             </div>
           </div>
         )}
+        <br />
         <Link to="/order">
           <button className="w3-button w3-black app-button">Create Order</button>
         </Link>
