@@ -23,6 +23,9 @@ const ManagerDashboard = () => {
   const [showDevelopers, setShowDevelopers] = useState(true);
   const [showReviewers, setShowReviewers] = useState(true);
   const [deadline, setDeadline] = useState('');
+  const [functionName, setFunctionName] = useState('');
+  const [developerName, setDeveloperName] = useState('');
+  const [reviewerName, setReviewerName] = useState('');
 
 
 
@@ -289,8 +292,10 @@ const ManagerDashboard = () => {
       );
 
       if (response.ok) {
+        const responseData = await response.json();
         console.log('Junior developer assigned successfully');
         setShowDevelopers(false);
+        setFunctionName(responseData.firstName + ' ' + responseData.lastName);
       } else {
         console.error('Failed to assign junior developer');
       }
@@ -298,6 +303,7 @@ const ManagerDashboard = () => {
       console.error(error);
     }
   };
+
 
   const handleAssignDeveloper = async () => {
     try {
@@ -313,8 +319,10 @@ const ManagerDashboard = () => {
       );
 
       if (response.ok) {
+        const responseData = await response.json();
         console.log('Senior developer assigned successfully');
         setShowDevelopers(false);
+        setDeveloperName(responseData.firstName + ' ' + responseData.lastName);
       } else {
         console.error('Failed to assign senior developer');
       }
@@ -329,7 +337,7 @@ const ManagerDashboard = () => {
         ...selectedOrderDetails,
         internalStatus: 1,
       };
-  
+
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedJuniorDeveloper}`,
         {
@@ -338,15 +346,16 @@ const ManagerDashboard = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            deadline,
-            orderDetails: updatedOrderDetails,
+            deadline
           }),
         }
       );
-  
+
       if (response.ok) {
+        const responseData = await response.json();
         console.log('Junior developer assigned successfully');
         setShowDevelopers(false);
+        setFunctionName(responseData.firstName + ' ' + responseData.lastName);
       } else {
         console.error('Failed to assign junior developer');
       }
@@ -354,7 +363,7 @@ const ManagerDashboard = () => {
       console.error(error);
     }
   };
-  
+
 
   const handleReAssignDeveloper = async () => {
     try {
@@ -362,7 +371,7 @@ const ManagerDashboard = () => {
         ...selectedOrderDetails,
         internalStatus: 4,
       };
-  
+
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/software/${selectedSeniorDeveloper}`,
         {
@@ -371,15 +380,16 @@ const ManagerDashboard = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            deadline,
-            orderDetails: updatedOrderDetails,
+            deadline
           }),
         }
       );
-  
+
       if (response.ok) {
+        const responseData = await response.json();
         console.log('Senior developer assigned successfully');
         setShowDevelopers(false);
+        setDeveloperName(responseData.firstName + ' ' + responseData.lastName);
       } else {
         console.error('Failed to assign senior developer');
       }
@@ -387,7 +397,6 @@ const ManagerDashboard = () => {
       console.error(error);
     }
   };
-  
 
 
   const handleAssignReviewer = async () => {
@@ -404,15 +413,37 @@ const ManagerDashboard = () => {
       );
 
       if (response.ok) {
+        const responseData = await response.json();
         console.log('Reviewer assigned successfully');
         setShowReviewers(false);
+        setReviewerName(responseData.firstName + ' ' + responseData.lastName);
       } else {
         console.error('Failed to assign Reviewer');
       }
     } catch (error) {
       console.error(error);
     }
-  }
+  };
+
+  const handleFinishOrder = async () => {
+    try {
+      const response = await fetch(`http://localhost:9191/mng/finish/order/${selectedOrderDetails.orderId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(selectedOrderDetails),
+      });
+
+      if (response.ok) {
+        console.log('Order finished successfully');
+      } else {
+        console.error('Failed to finish the order');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 
 
@@ -601,7 +632,7 @@ const ManagerDashboard = () => {
             )}
             {selectedOrderDetails.internalStatus === 2 && (
               <div>
-                <h3>Function: Function Dev</h3>
+                <h3>Function: {functionName}</h3>
               </div>
             )}
             {selectedOrderDetails.internalStatus === 3 && showDevelopers && (
@@ -627,16 +658,16 @@ const ManagerDashboard = () => {
             )}
             {selectedOrderDetails.internalStatus === 4 && (
               <div>
-                <h3>Function: Function Dev</h3>
+                <h3>Function: {functionName}</h3>
                 <button onClick={handleDownloadSpec}>Download Spec</button>
-                <h3>Developer: Developer</h3>
+                <h3>Developer: {developerName}</h3>
               </div>
             )}
             {selectedOrderDetails.internalStatus === 5 && showReviewers && (
               <div>
-                <h3>Function: Function Dev</h3>
+                <h3>Function: {functionName}</h3>
                 <button onClick={handleDownloadSpec}>Download Spec</button>
-                <h3>Developer: Developer</h3>
+                <h3>Developer: {developerName}</h3>
                 <h3>List of Reviewers</h3>
                 {reviewers.length === 0 ? (
                   <p>No reviewers available</p>
@@ -658,31 +689,30 @@ const ManagerDashboard = () => {
             )}
             {selectedOrderDetails.internalStatus === 6 && (
               <div>
-                <h3>Function: Johnny Johnson</h3>
+                <h3>Function: {functionName}</h3>
                 <button>Download Spec</button>
-                <h3>Developer: John Johnson</h3>
+                <h3>Developer: {developerName}</h3>
                 <button>Download Code</button>
-                <h3>Reviewer: Jonathan Johnson</h3>
+                <h3>Reviewer: {reviewerName}</h3>
               </div>
             )}
             {selectedOrderDetails.internalStatus === 7 && (
               <div>
-                <h3>Function: Function Dev</h3>
+                <h3>Function: {functionName}</h3>
                 <button onClick={handleDownloadSpec}>Download Spec</button>
-                <h3>Developer: Developer</h3>
-                <h3>Reviewer: Jonathan Johnson</h3>
+                <h3>Developer: {developerName}</h3>
+                <h3>Reviewer: {reviewerName}</h3>
                 <button onClick={handleDownloadCode}>Download Code</button>
-                <button>Finish Order</button>
+                <button onClick={handleFinishOrder}>Finish Order</button>
               </div>
             )}
             {selectedOrderDetails.internalStatus === 8 && showDevelopers && (
               <div>
-                <h3>Function: Function Dev</h3>
+                <h3>Function: {functionName}</h3>
                 <button onClick={handleDownloadSpec}>Download Spec</button>
-                <h3>Developer: Developer</h3>
-                <h3>Reviewer: Jonathan Johnson</h3>
+                <h3>Developer: {developerName}</h3>
+                <h3>Reviewer: {reviewerName}</h3>
                 <button onClick={handleDownloadCode}>Download Code</button>
-                <button>Finish Order</button>
                 <h3>Reassign Function Developer</h3>
                 {juniorDevelopers.length === 0 ? (
                   <p>No junior developers available</p>
@@ -703,12 +733,11 @@ const ManagerDashboard = () => {
             )}
             {selectedOrderDetails.internalStatus === 9 && showDevelopers && (
               <div>
-                <h3>Function: Function Dev</h3>
+                <h3>Function: {functionName}</h3>
                 <button onClick={handleDownloadSpec}>Download Spec</button>
-                <h3>Developer: Developer</h3>
-                <h3>Reviewer: Jonathan Johnson</h3>
+                <h3>Developer: {developerName}</h3>
+                <h3>Reviewer: {reviewerName}</h3>
                 <button onClick={handleDownloadCode}>Download Code</button>
-                <button>Finish Order</button>
                 <h3>Reassign Developer</h3>
                 {seniorDevelopers.length === 0 ? (
                   <p>Reassign Developer</p>
