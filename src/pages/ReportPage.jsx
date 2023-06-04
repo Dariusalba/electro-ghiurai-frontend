@@ -18,8 +18,9 @@ const OrderChart = ({ orderData }) => {
   ];
 
   const orderDetailsData = [
-    { name: 'Total Users', value: orderData.total_users },
-    { name: 'Total Customers', value: orderData.total_customers },
+    { name2: 'Total Users', value2: orderData.total_users },
+    { name1: 'Total Customers', value1: orderData.total_customers },
+    { name: 'Average Customer Age', value: orderData.average_customer_age}
   ];
 
   return (
@@ -79,8 +80,9 @@ const OrderChart = ({ orderData }) => {
       <div>
         <h2>Order Details</h2>
         <BarChart width={400} height={300} data={orderDetailsData}>
-          <Bar dataKey="value" fill="#82ca9d" />
-          <Bar dataKey="average_customer_age" fill="#8884d8" name="Average Customer Age" />
+          <Bar dataKey="value" nameKey="name" fill="#327ba8" name="Average Customer Age" />
+          <Bar dataKey="value1" nameKey="name1" fill="#8884d8" name="Total Customers" />
+          <Bar dataKey="value2" nameKey="name2" fill="#522c94" name="Total Users" />
           <Tooltip />
           <Legend />
         </BarChart>
