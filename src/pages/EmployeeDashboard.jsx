@@ -273,9 +273,7 @@ function EmployeeDashboard() {
                                     ) : (
                                         <p>No remarks available</p>
                                     )}
-                                    <Link to='/employee/doceditor'>
-                                        <button className='app-button' >Open SpecDoc</button>
-                                    </Link>
+                                    <button className='app-button' onClick={() => window.open('/doceditor','mywin','width=1200,height=800')}>Open SpecDoc</button>
                                     <input type="file" accept=".pdf" onChange={handleFileChange} />
                                     <button className='app-button' onClick={uploadSpecDoc}>Upload Spec</button>
                                 </div>
