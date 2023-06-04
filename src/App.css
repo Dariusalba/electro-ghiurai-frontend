@@ -85,6 +85,16 @@ body {
 	}
 }
 
+.account-bg {
+	width: auto;
+	min-height: 900px;
+	max-height: 1330px;
+	padding-top: 1px;
+	background: rgba(51, 92, 188, 0.65);
+	/*background-image: url("components/account-bg.jpg");*/
+	background-size: cover;
+}
+
 .account-p {
 	margin-top: 0px;
     margin-bottom: 0px;

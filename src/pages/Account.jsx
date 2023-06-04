@@ -94,7 +94,8 @@ function AccountInfo() {
           </div>
         </div>
       </div>
-      <div className="app">
+      <div className="account-bg">
+      <div className="app account-op">
         <h2>User Information:</h2>
         {Object.keys(userInfo).length > 0 ? (
           <>
@@ -201,6 +202,7 @@ function AccountInfo() {
         <Link to="/order">
           <button className="w3-button w3-black app-button">Create Order</button>
         </Link>
+      </div>
       </div>
     </div>
   );
