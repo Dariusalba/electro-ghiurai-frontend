@@ -169,7 +169,7 @@ function AccountInfo() {
           <div className="modal">
             <div className="modal-content">
               <span className="w3-button w3-black close" onClick={closeModal}>&times;</span>
-              <h2>Selected Order Details:</h2>
+              <h2>Selected Order Details</h2>
               <table className="order-table">
                 <tbody>
                   <tr>
@@ -197,7 +197,7 @@ function AccountInfo() {
                     className="w3-button w3-black app-button"
                     onClick={() => handleDownloadSpec(selectedOrder.specUrl)}
                   >
-                    Download Spec
+                    Download Code
                   </button>
                   <br />
                   <br />
