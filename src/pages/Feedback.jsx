@@ -34,8 +34,8 @@ function Feedback() {
     const handleSubmit = () => {
         const feedbackData = {
             userId: userId, 
-            starRating: currentValue,
-            comment: comment
+            rating: currentValue,
+            description: comment
         };
 
         fetch(`http://localhost:9191/customer/feedback/${userId}`, {
