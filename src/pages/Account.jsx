@@ -98,11 +98,26 @@ function AccountInfo() {
         <h2>User Information:</h2>
         {Object.keys(userInfo).length > 0 ? (
           <>
-            <p className="account-p">Username: {userInfo.username}</p>
-            <p className="account-p">First Name: {userInfo.firstName}</p>
-            <p className="account-p">Last Name: {userInfo.lastName}</p>
-            <p className="account-p">Email: {userInfo.email}</p>
-            <p className="account-p">Country of Origin: {userInfo.country}</p>
+            <table className="order-table">
+              <thead>
+                <tr>
+                  <th>Info</th>
+                  <th>Data</th>
+                </tr>
+              </thead>
+              <tbody>
+                <td>Username</td>
+                <td>{userInfo.username}</td>
+                <td>First Name</td>
+                <td>{userInfo.firstName}</td>
+                <td>Last Name</td>
+                <td>{userInfo.lastName}</td>
+                <td>Email</td>
+                <td>{userInfo.email}</td>
+                <td>Country of Origin</td>
+                <td>{userInfo.country}</td>
+              </tbody>
+            </table> 
           </>
         ) : (
           <p>Failed to load user information.</p>
