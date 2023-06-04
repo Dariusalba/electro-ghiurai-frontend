@@ -22,6 +22,7 @@ const ManagerDashboard = () => {
   const [selectedReviewer, setSelectedReviewer] = useState(null);
   const [showDevelopers, setShowDevelopers] = useState(true);
   const [showReviewers, setShowReviewers] = useState(true);
+  const [deadline, setDeadline] = useState('');
 
 
 
@@ -76,6 +77,13 @@ const ManagerDashboard = () => {
   const handleCloseAcceptedOrderModal = () => {
     setShowSecondModal(null);
   };
+
+  const handleDeadlineChange = (event) => {
+    const selectedDate = event.target.value;
+    
+    setDeadline(selectedDate);
+  };
+  
 
   const fetchCustomerDetails = async (orderId) => {
     try {
@@ -258,6 +266,7 @@ const ManagerDashboard = () => {
           headers: {
             'Content-Type': 'application/json',
           },
+          body: JSON.stringify({ deadline }),
         }
       );
 
@@ -281,9 +290,10 @@ const ManagerDashboard = () => {
           headers: {
             'Content-Type': 'application/json',
           },
+          body: JSON.stringify({ deadline }),
         }
       );
-
+  
       if (response.ok) {
         console.log('Senior developer assigned successfully');
         setShowDevelopers(false);
@@ -294,6 +304,7 @@ const ManagerDashboard = () => {
       console.error(error);
     }
   };
+  
 
   const handleAssignReviewer = async () => {
     try {
@@ -304,6 +315,7 @@ const ManagerDashboard = () => {
           headers: {
             'Content-Type': 'application/json',
           },
+          body: JSON.stringify({ deadline }),
         }
       );
 
@@ -497,6 +509,7 @@ const ManagerDashboard = () => {
                         </option>
                       ))}
                     </select>
+                    <input type="date" value={deadline} onChange={handleDeadlineChange} />
                     <button onClick={handleAssignFunction}>Assign Function</button>
                   </div>
                 )}
@@ -521,6 +534,7 @@ const ManagerDashboard = () => {
                         </option>
                       ))}
                     </select>
+                    <input type="date" value={deadline} onChange={handleDeadlineChange} />
                     <button onClick={handleAssignDeveloper}>Assign Developer</button>
                     <button onClick={handleDownloadSpec}>Download Spec</button>
                   </div>
@@ -551,6 +565,7 @@ const ManagerDashboard = () => {
                         </option>
                       ))}
                     </select>
+                    <input type="date" value={deadline} onChange={handleDeadlineChange} />
                     <button onClick={handleAssignReviewer}>Assign Reviewer</button>
                   </div>
                 )}
