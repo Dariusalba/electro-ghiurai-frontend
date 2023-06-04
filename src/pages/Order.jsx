@@ -30,7 +30,7 @@ function OrderForm() {
 
   const orderPlaced = () => 
     toast.success('✅ Order placed successfully', {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -141,14 +141,14 @@ function OrderForm() {
                 onChange={handleRemarkChange}
                 className="remark-input"
               />
-              <button type="button" onClick={handleAddRemark} className="app-button">
+              <button type="button" onClick={handleAddRemark} className="w3-button w3-black app-button">
               Add Remark
               </button>
               <label className="form-input">Remarks:</label>
               <div className="remark-input">
                 {remarks.map((remark, index) => (
                   <div className="remark" key={index}>
-                    *{remark.description};
+                    -{remark.description}
                   </div>
                 ))}
               <br></br>
@@ -156,8 +156,10 @@ function OrderForm() {
             </div>
           </div>
         
-          <button type="submit" className="app-button">Submit</button>
-          <button type="button" onClick={accountRedirect} className="app-button">Go Back</button>
+          <button type="submit" className="w3-button w3-black app-button">Submit</button>
+          <br />
+          <br />
+          <button type="button" onClick={accountRedirect} className="w3-button w3-black app-button">Go Back</button>
         </form>
         <ToastContainer />
       </div>
