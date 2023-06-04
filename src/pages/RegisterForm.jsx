@@ -142,7 +142,7 @@ const RegisterForm = () => {
 
   const usernameNotEntered = () =>
     toast.error('❌ Please enter a username!', {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -154,7 +154,7 @@ const RegisterForm = () => {
 
   const countryNotValid = () =>
     toast.error('❌ Please enter a valid country!', {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -166,7 +166,7 @@ const RegisterForm = () => {
   
     const nameNotEntered = () =>
     toast.error('❌ Please enter your first and last name!', {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -178,7 +178,7 @@ const RegisterForm = () => {
 
     const userRegistered = () => 
     toast.success('✅ Registration successful! Redirecting to login page...', {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -249,10 +249,10 @@ const RegisterForm = () => {
 
   return (
     <div>
-      <div className="welcome2">
-        <Link to="/">
-          <h1 className='welcome-h1'>ElectroGhiurai</h1>
-        </Link>
+      <div class="w3-top">
+        <div class="w3-bar w3-white w3-card bar-zindex" id="myNavbar">
+          <a href="../" class="w3-bar-item w3-button w3-wide">ELECTROGHIURAI</a>
+        </div>
       </div>
       <div className="app">
         <form onSubmit={handleSubmit}>
@@ -265,7 +265,7 @@ const RegisterForm = () => {
               onChange={onChange}
             />
           ))}
-          <button className="app-button" onClick={handleSubmit}>Register</button>
+          <button className="w3-button w3-black app-button" onClick={handleSubmit}>Register</button>
           <p>Already have an account? <Link to="/login">Login now</Link>!</p>
         </form>
         <ToastContainer />

@@ -38,7 +38,7 @@ const LoginForm = () => {
 
   const notifyInvalidUsernamePassword = () =>
     toast.error('❌ Invalid username or password', {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -50,7 +50,7 @@ const LoginForm = () => {
 
   const notifyUserNotFound = () =>
     toast.error('❌ User not found', {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -106,11 +106,11 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
-      <div className="welcome2">
-        <Link to="/">
-          <h1 className='welcome-h1'>ElectroGhiurai</h1>
-        </Link>
+    <div id="loginform">
+      <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+          <a href="../" class="w3-bar-item w3-button w3-wide">ELECTROGHIURAI</a>
+        </div>
       </div>
       <div className="app">
         <form onSubmit={handleSubmit}>
@@ -123,7 +123,7 @@ const LoginForm = () => {
               onChange={onChange}
             />
           ))}
-          <button className='app-button'>Login</button>
+          <button className='w3-button w3-black app-button'>Login</button>
           <p>Don't have an account? <Link to="/register">Register now</Link>!</p>
         </form>
         <ToastContainer />
