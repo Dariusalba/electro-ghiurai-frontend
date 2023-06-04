@@ -24,7 +24,7 @@
     width: 280px;
 }
 
-input{
+.order-input{
     padding-top: 10px;
     margin: 0px 0px;
     border-radius: 5px;
@@ -34,6 +34,8 @@ input{
 .description-input {
     padding-bottom: 100px;
     resize: none;
+    border-radius: 5px;
+    border: 1px solid gray;
 }
 
 label{
@@ -43,6 +45,10 @@ label{
 
 .remark-input {
     width: 280px;
+    padding-top: 10px;
+    margin: 0px 0px;
+    border-radius: 5px;
+    border: 1px solid gray;
 }
 
 .remark {

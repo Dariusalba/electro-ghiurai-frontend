@@ -116,6 +116,7 @@ function OrderForm() {
               type="text"
               id="title"
               name="title"
+              className="order-input"
               value={values.title}
               onChange={handleChange}
             />
@@ -150,7 +151,7 @@ function OrderForm() {
               <br />
               <br />
               <label className="form-input">Remarks:</label>
-              <div className="remark-input">
+              <div>
                 {remarks.map((remark, index) => (
                   <div className="remark" key={index}>
                     -{remark.description}

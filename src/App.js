@@ -22,7 +22,6 @@ function App() {
         <Route path="/order" element={<Order />} />
         <Route path="/account" element={<Account />} />
         <Route path="/doceditor" element={<DocEditorPage />} />
-        <Route path="/feedback" element={<Feedback />} />
         <Route path="/manager/dashboard" element={<ManagerDashboard />} />
         <Route path="/manager/employee/account" element={<EmployeeAccountCreation />} />
         <Route path="/employee/dashboard" element={<EmployeeDashboard />} />
