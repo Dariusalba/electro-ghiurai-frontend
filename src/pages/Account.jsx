@@ -186,10 +186,11 @@ function AccountInfo() {
                   </tr>
                   <tr>
                     <td>Status</td>
-                    <td>{selectedOrder.orderStatus}</td>
+                    <td>{getOrderStatusName(selectedOrder.orderStatus)}</td>
                   </tr>
                 </tbody>
               </table>
+              <br />
               {selectedOrder.orderStatus === 3 && (
                 <div>
                   <button
@@ -198,6 +199,7 @@ function AccountInfo() {
                   >
                     Download Spec
                   </button>
+                  <br />
                   <br />
                   <button className="w3-button w3-black app-button" onClick={openFeedbackModal}>
                     Feedback
