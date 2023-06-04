@@ -11,6 +11,19 @@ const OrderChart = ({ orderData }) => {
 
   const colors = ['#8884d8', '#82ca9d', '#ffc658'];
 
+  const orderSummaryData = [
+    { name: 'Total Orders', value: orderData.total_orders },
+    { name: 'Pending Orders', value: orderData.pending_orders },
+    { name: 'Accepted Orders', value: orderData.accepted_orders },
+    { name: 'Finished Orders', value: orderData.finished_orders },
+  ];
+
+  const orderDetailsData = [
+    { name: 'Total Users', value: orderData.total_users },
+    { name: 'Total Customers', value: orderData.total_customers },
+    { name: 'Average Customer Age', value: orderData.average_customer_age },
+  ];
+
   return (
     <div>
       <h1>Order Information</h1>
@@ -31,6 +44,31 @@ const OrderChart = ({ orderData }) => {
         <Tooltip />
         <Legend />
       </PieChart>
+      <div>
+        <h2>Order Summary</h2>
+        <PieChart width={400} height={300}>
+          <Pie
+            dataKey="value"
+            data={orderSummaryData}
+            fill="#8884d8"
+            label
+          >
+            {orderSummaryData.map((_entry, index) => (
+              <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend />
+        </PieChart>
+      </div>
+      <div>
+        <h2>Order Details</h2>
+        <BarChart width={400} height={300} data={orderDetailsData}>
+          <Bar dataKey="value" fill="#82ca9d" />
+          <Tooltip />
+          <Legend />
+        </BarChart>
+      </div>
     </div>
   );
 };
@@ -46,47 +84,49 @@ const EmployeeChart = ({ employeeData }) => (
       <Tooltip />
       <Legend />
     </BarChart>
+    <div>
+      <h2>Employee Summary</h2>
+      <p>Total Employees: {employeeData.total_employee_number}</p>
+      <p>Junior Developers: {employeeData.junior_developers}</p>
+    </div>
   </div>
 );
 
 const ReportPage = () => {
+  const [chartType, setChartType] = useState('order');
   const [orderData, setOrderData] = useState(null);
   const [employeeData, setEmployeeData] = useState(null);
-  const [selectedChart, setSelectedChart] = useState('order');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const responseOrder = await fetch('http://localhost:9191/mng/report/order');
-        const responseEmployee = await fetch('http://localhost:9191/mng/report/employee');
-        const orderJsonData = await responseOrder.json();
-        const employeeJsonData = await responseEmployee.json();
+        const orderResponse = await fetch('http://localhost:9191/mng/report/customer');
+        const orderJsonData = await orderResponse.json();
         setOrderData(orderJsonData);
+
+        const employeeResponse = await fetch('http://localhost:9191/mng/report/employee');
+        const employeeJsonData = await employeeResponse.json();
         setEmployeeData(employeeJsonData);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.log(error);
       }
     };
 
     fetchData();
   }, []);
 
-  const handleChartChange = (chartType) => {
-    setSelectedChart(chartType);
-  };
-
   return (
     <div>
-      <div className="sidebar">
-        <h2>Chart Selection</h2>
+      <div>
+        <h1>Chart Selection</h1>
         <ul>
-          <li onClick={() => handleChartChange('order')}>Order Charts</li>
-          <li onClick={() => handleChartChange('employee')}>Employee Charts</li>
+          <li onClick={() => setChartType('order')}>Order Chart</li>
+          <li onClick={() => setChartType('employee')}>Employee Chart</li>
         </ul>
       </div>
-      <div className="chart-container">
-        {selectedChart === 'order' && orderData && <OrderChart orderData={orderData} />}
-        {selectedChart === 'employee' && employeeData && <EmployeeChart employeeData={employeeData} />}
+      <div>
+        {chartType === 'order' && orderData && <OrderChart orderData={orderData} />}
+        {chartType === 'employee' && employeeData && <EmployeeChart employeeData={employeeData} />}
       </div>
     </div>
   );
