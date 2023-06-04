@@ -36,7 +36,7 @@ function AccountInfo() {
 
   const handleDownloadSpec = async (specUrl) => {
     try {
-      const response = await fetch(`http://localhost:9191/mng/download/spec/${selectedOrder.orderId}`);
+      const response = await fetch(`http://localhost:9191/mng/download/code/${selectedOrder.orderId}`);
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
 
@@ -59,6 +59,19 @@ function AccountInfo() {
 
   const closeModal = () => {
     setModalOpen(false);
+  };
+
+  const getOrderStatusName = (orderStatus) => {
+    switch (orderStatus) {
+      case 1:
+        return "PENDING";
+      case 2:
+        return "IN PROGRESS";
+      case 3:
+        return "COMPLETED";
+      default:
+        return "";
+    }
   };
 
   return (
@@ -125,6 +138,7 @@ function AccountInfo() {
               <p>Order ID: {selectedOrder.orderId}</p>
               <p>Title: {selectedOrder.title}</p>
               <p>Description: {selectedOrder.description}</p>
+              <p>Status: {getOrderStatusName(selectedOrder.orderStatus)}</p>
               {selectedOrder.orderStatus === 3 && (
                 <div>
                   <button
