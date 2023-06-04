@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Feedback from "./Feedback";
 
 function AccountInfo() {
   const userId = sessionStorage.getItem("userId");
@@ -7,6 +8,7 @@ function AccountInfo() {
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -19,7 +21,7 @@ function AccountInfo() {
         console.error("Error: ", error);
       }
     };
-  
+
     const fetchOrders = async () => {
       try {
         const response = await fetch(`http://localhost:9191/customer/${userId}/order`);
@@ -29,7 +31,7 @@ function AccountInfo() {
         console.error("Error: ", error);
       }
     };
-  
+
     fetchUserInfo();
     fetchOrders();
   }, [userId]);
@@ -61,9 +63,17 @@ function AccountInfo() {
     setModalOpen(false);
   };
 
+  const openFeedbackModal = () => {
+    setFeedbackModalOpen(true);
+  };
+
+  const closeFeedbackModal = () => {
+    setFeedbackModalOpen(false);
+  };
+
   const redirectToFeedback = () => {
     window.location.href = '/feedback';
-  }
+  };
 
   const getOrderStatusName = (orderStatus) => {
     switch (orderStatus) {
@@ -151,9 +161,20 @@ function AccountInfo() {
                   >
                     Download Spec
                   </button>
-                  <button className="app-button" onClick={redirectToFeedback}>Feedback</button>
+                  <button className="app-button" onClick={openFeedbackModal}>
+                    Feedback
+                  </button>
                 </div>
               )}
+            </div>
+          </div>
+        )}
+        {feedbackModalOpen && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={closeFeedbackModal}>&times;</span>
+              <h2>Provide Feedback</h2>
+              <Feedback />
             </div>
           </div>
         )}
