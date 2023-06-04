@@ -71,10 +71,6 @@ function AccountInfo() {
     setFeedbackModalOpen(false);
   };
 
-  const redirectToFeedback = () => {
-    window.location.href = '/feedback';
-  };
-
   const getOrderStatusName = (orderStatus) => {
     switch (orderStatus) {
       case 1:
