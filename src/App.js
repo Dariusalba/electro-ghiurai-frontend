@@ -9,6 +9,7 @@ import EmployeeAccountCreation from './pages/EmployeeAccountCreation'
 import EmployeeDashboard from './pages/EmployeeDashboard';
 import DocEditorTest from './pages/DocEditorTest';
 import ReportPage from './pages/ReportPage';
+import EmployeeReport from './pages/EmployeeReport';
 
 function App() {
   return (
@@ -20,10 +21,11 @@ function App() {
         <Route path="/order" element={<Order />} />
         <Route path="/account" element={<Account />} />
         <Route path="/manager/dashboard" element={<ManagerDashboard />} />
-        <Route path="/manager/employeeaccount" element={<EmployeeAccountCreation />} />
+        <Route path="/manager/employee/account" element={<EmployeeAccountCreation />} />
         <Route path="/employee/dashboard" element={<EmployeeDashboard />} />
         <Route path="/employee/doceditor" element={<DocEditorTest />} />
         <Route path="/manager/report" element={<ReportPage />} />
+        <Route path="/manager/employee/report" element={<EmployeeReport />} />
         <Route path="*" element={<h1 className='not-found'>Not Found</h1>} />
       </Routes>
     </Router>
