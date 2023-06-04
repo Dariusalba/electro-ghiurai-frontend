@@ -95,7 +95,6 @@ function AccountInfo() {
         </div>
       </div>
       <div className="app">
-        <button onClick={openFeedbackModal}>Da</button>
         <h2>User Information:</h2>
         {Object.keys(userInfo).length > 0 ? (
           <>
