@@ -25,7 +25,8 @@
 }
 
 input{
-    padding: 10px;
+    padding-top: 10px;
+    margin: 0px 0px;
     border-radius: 5px;
     border: 1px solid gray;
 }
@@ -36,12 +37,17 @@ input{
 }
 
 label{
-    font-size: 12px;
+    font-size: 16px;
     color: gray;
+}
+
+.remark-input {
+    width: 280px;
 }
 
 .remark {
     text-align: left;
+    padding-left: 10px;
     overflow-wrap: break-word;
 }
 

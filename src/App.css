@@ -91,7 +91,15 @@ body {
 	max-height: 1330px;
 	padding-top: 1px;
 	background: rgba(41, 62, 111, 0.65);
-	/*background-image: url("components/account-bg.jpg");*/
+	background-size: cover;
+}
+
+.order-bg {
+	width: auto;
+	min-height: 900px;
+	max-height: 1330px;
+	padding-top: 1px;
+	background-image: url("components/account-bg.jpg");
 	background-size: cover;
 }
 

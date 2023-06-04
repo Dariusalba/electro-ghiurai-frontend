@@ -101,11 +101,12 @@ function OrderForm() {
 
   return (
     <div>
-      <div className="welcome2">
-        <Link to="/account">
-          <h1 className='welcome-h1'>ElectroGhiurai</h1>
-        </Link>
+      <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+          <a href="/account" class="w3-bar-item w3-button w3-wide">ELECTROGHIURAI</a>
+        </div>
       </div>
+      <div className="order-bg">
       <div className="order-app">
         <h1 className="app-h1">Create an order</h1>
         <form onSubmit={handleSubmit} id="order-form">
@@ -141,9 +142,13 @@ function OrderForm() {
                 onChange={handleRemarkChange}
                 className="remark-input"
               />
+              <br />
+              <br />
               <button type="button" onClick={handleAddRemark} className="w3-button w3-black app-button">
               Add Remark
               </button>
+              <br />
+              <br />
               <label className="form-input">Remarks:</label>
               <div className="remark-input">
                 {remarks.map((remark, index) => (
@@ -162,6 +167,7 @@ function OrderForm() {
           <button type="button" onClick={accountRedirect} className="w3-button w3-black app-button">Go Back</button>
         </form>
         <ToastContainer />
+      </div>
       </div>
     </div>
   );
