@@ -57,10 +57,6 @@ const ManagerDashboard = () => {
     window.location.href = '/manager/report'
   };
 
-  const handleEmployeeReportButtonClick = async () => {
-    window.location.href = '/manager/employee/report'
-  };
-
   const handleModalClose1 = () => {
     setShowModal1(false);
   };
@@ -372,7 +368,6 @@ const ManagerDashboard = () => {
         <button className='app-button' onClick={handleButtonClick1}>View Pending Orders</button>
         <button className='app-button' onClick={handleButtonClick2}>View Current Orders</button>
         <button className='app-button' onClick={handleReportButtonClick}>View Company Report</button>
-        <button className='app-button' onClick={handleEmployeeReportButtonClick}>View Employee Report</button>
         <button className='app-button' onClick={handleButtonClick3}>Other Services</button>
         {showModal1 && (
           <Modal onClose={handleModalClose1}>
