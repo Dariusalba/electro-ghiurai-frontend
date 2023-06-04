@@ -143,6 +143,7 @@ const Home2 = () => {
           <button class="w3-button w3-black" onClick={scroll_top}>LOGIN</button>
         </Link>
         <br />
+        <br />
         <Link to="/register">
           <button class="w3-button w3-black" onClick={scroll_top}>REGISTER</button>
         </Link>
