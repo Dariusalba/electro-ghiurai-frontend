@@ -21,8 +21,6 @@ const OrderChart = ({ orderData }) => {
   const orderDetailsData = [
     { name: 'Total Users', value: orderData.total_users },
     { name: 'Total Customers', value: orderData.total_customers },
-    { name: 'Most Active Customer', value: orderData.most_active_customer },
-    { name: 'Order Number of Most Active Customer', value: orderData.most_active_customer_order_number },
     { name: 'Average Customer Age', value: orderData.average_customer_age },
   ];
 
@@ -48,11 +46,20 @@ const OrderChart = ({ orderData }) => {
       </PieChart>
       <div>
         <h2>Order Summary</h2>
-        <BarChart width={400} height={300} data={orderSummaryData}>
-          <Bar dataKey="value" fill="#8884d8" />
+        <PieChart width={400} height={300}>
+          <Pie
+            dataKey="value"
+            data={orderSummaryData}
+            fill="#8884d8"
+            label
+          >
+            {orderSummaryData.map((_entry, index) => (
+              <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+            ))}
+          </Pie>
           <Tooltip />
           <Legend />
-        </BarChart>
+        </PieChart>
       </div>
       <div>
         <h2>Order Details</h2>
