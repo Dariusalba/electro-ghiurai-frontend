@@ -90,20 +90,20 @@ function AccountInfo() {
 
   return (
     <div>
-      <div className="welcome1">
-        <Link to="/">
-          <h1 className='welcome-h1'>ElectroGhiurai</h1>
-        </Link>
-        <Link to="/login">
-          <button className="welcome-button">Sign Out</button>
-        </Link>
+      <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+          <a href="/" class="w3-bar-item w3-button w3-wide">ELECTROGHIURAI</a>
+          <div class="w3-right w3-hide-small">
+            <a href="/login" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i> SIGN OUT</a>
+          </div>
+        </div>
       </div>
       <div className="app">
         <h1>Account Information</h1>
         <h2>User Information:</h2>
         {Object.keys(userInfo).length > 0 ? (
           <>
-            <p className="account-p">Username: {userInfo.username}</p>
+            <p className="account-pu">Username: {userInfo.username}</p>
             <p className="account-p">First Name: {userInfo.firstName}</p>
             <p className="account-p">Last Name: {userInfo.lastName}</p>
             <p className="account-p">Email: {userInfo.email}</p>
@@ -131,7 +131,7 @@ function AccountInfo() {
                   <td>{order.description}</td>
                   <td>
                     <button
-                      className="app-button"
+                      className="w3-button w3-black app-button"
                       onClick={() => handleOrderSelection(order.orderId)}
                     >
                       View
@@ -179,7 +179,7 @@ function AccountInfo() {
           </div>
         )}
         <Link to="/order">
-          <button className="app-button">Create Order</button>
+          <button className="w3-button w3-black app-button">Create Order</button>
         </Link>
       </div>
     </div>
