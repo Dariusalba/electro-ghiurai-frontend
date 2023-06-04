@@ -5,6 +5,8 @@ function AccountInfo() {
   const userId = sessionStorage.getItem("userId");
   const [userInfo, setUserInfo] = useState({});
   const [orders, setOrders] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -16,7 +18,7 @@ function AccountInfo() {
       } catch (error) {
         console.error("Error: ", error);
       }
-    }
+    };
   
     const fetchOrders = async () => {
       try {
@@ -26,11 +28,38 @@ function AccountInfo() {
       } catch (error) {
         console.error("Error: ", error);
       }
-    }
+    };
   
     fetchUserInfo();
     fetchOrders();
   }, [userId]);
+
+  const handleDownloadSpec = async (specUrl) => {
+    try {
+      const response = await fetch(`http://localhost:9191/mng/download/spec/${selectedOrder.orderId}`);
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `spec-${specUrl}`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error downloading spec: ", error);
+    }
+  };
+
+  const handleOrderSelection = (orderId) => {
+    const order = orders.find((order) => order.orderId === orderId);
+    setSelectedOrder(order);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   return (
     <div>
@@ -64,6 +93,7 @@ function AccountInfo() {
                 <th>Order ID</th>
                 <th>Title</th>
                 <th>Description</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -72,12 +102,42 @@ function AccountInfo() {
                   <td>{order.orderId}</td>
                   <td>{order.title}</td>
                   <td>{order.description}</td>
+                  <td>
+                    <button
+                      className="app-button"
+                      onClick={() => handleOrderSelection(order.orderId)}
+                    >
+                      View
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         ) : (
           <p>No orders found.</p>
+        )}
+        {modalOpen && selectedOrder && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={closeModal}>&times;</span>
+              <h2>Selected Order Details:</h2>
+              <p>Order ID: {selectedOrder.orderId}</p>
+              <p>Title: {selectedOrder.title}</p>
+              <p>Description: {selectedOrder.description}</p>
+              {selectedOrder.orderStatus === 3 && (
+                <div>
+                  <button
+                    className="app-button"
+                    onClick={() => handleDownloadSpec(selectedOrder.specUrl)}
+                  >
+                    Download Spec
+                  </button>
+                  <button className="app-button">Feedback</button>
+                </div>
+              )}
+            </div>
+          </div>
         )}
         <Link to="/order">
           <button className="app-button">Create Order</button>
