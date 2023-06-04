@@ -67,7 +67,7 @@ const EmployeeAccountCreation = () => {
 
   const notifyUserExists = () =>
     toast.error('❌ Username already exists!', {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -84,7 +84,7 @@ const EmployeeAccountCreation = () => {
 
   const emailNotValid = () =>
     toast.error('❌ Please enter a valid email address!', {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -96,7 +96,7 @@ const EmployeeAccountCreation = () => {
 
   const countryNotValid = () =>
     toast.error('❌ Please enter a valid country!', {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -108,7 +108,7 @@ const EmployeeAccountCreation = () => {
   
     const nameNotEntered = () =>
     toast.error('❌ Please the employees first and last name!', {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -120,7 +120,7 @@ const EmployeeAccountCreation = () => {
 
     const userRegistered = () => 
     toast.success('✅ Employee account created, redirecting to dashboard', {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -181,10 +181,10 @@ const EmployeeAccountCreation = () => {
 
   return (
     <div>
-      <div className="welcome2">
-        <Link to="/manager/dashboard">
-          <h1 className='welcome-h1'>ElectroGhiurai</h1>
-        </Link>
+      <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+          <a href="/manager/dashboard" class="w3-bar-item w3-button w3-wide">ELECTROGHIURAI</a>
+        </div>
       </div>
       <div className="app">
         <form onSubmit={handleSubmit}>
@@ -198,9 +198,11 @@ const EmployeeAccountCreation = () => {
             />
           ))}
           <br></br>
-          <button className="app-button" onClick={handleSubmit}>Create Employee Account</button>
+          <button className="w3-button w3-black app-button" onClick={handleSubmit}>Create Employee Account</button>
+          <br />
+          <br />
           <Link to="/manager/dashboard">
-              <button className="app-button">Back to dashboard</button>
+              <button className="w3-button w3-black app-button">Back to dashboard</button>
           </Link>
         </form>
       <ToastContainer />
