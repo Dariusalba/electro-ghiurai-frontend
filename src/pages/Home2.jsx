@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import '../components/Home2.css'
 import '../components/Animations.js'
 
+function scroll_top() {
+  window.scroll({top: 0, behavior: "smooth"});
+}
+
 const Home2 = () => {
   return (
     <div>
@@ -136,11 +140,11 @@ const Home2 = () => {
         <br />
         <p class="w3-center">
         <Link to="/login">
-          <button class="w3-button w3-black">LOGIN</button>
+          <button class="w3-button w3-black" onClick={scroll_top}>LOGIN</button>
         </Link>
         <br />
         <Link to="/register">
-          <button class="w3-button w3-black">REGISTER</button>
+          <button class="w3-button w3-black" onClick={scroll_top}>REGISTER</button>
         </Link>
         </p>
       </div>
