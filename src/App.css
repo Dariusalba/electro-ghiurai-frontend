@@ -2,6 +2,10 @@ html {
 	scroll-behavior: smooth;
 }
 
+body {
+	height: auto;
+}
+
 .not-found {
 	color: #fff;
 	align-items: center;

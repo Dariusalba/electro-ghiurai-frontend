@@ -11,8 +11,8 @@ const FormInput = (props) => {
 
   return (
     <div className="formInput">
-      <label>{label}</label>
       <input
+        class="w3-input w3-border"
         {...inputProps}
         onChange={onChange}
         onBlur={handleFocus}
