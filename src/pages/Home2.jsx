@@ -16,8 +16,8 @@ const Home2 = () => {
           <div class="w3-right w3-hide-small">
             <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
             <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i> TEAM</a>
-            <a href="#reviews" class="w3-bar-item w3-button"><i class="fa fa-th"></i> REVIEWS</a>
-            <a href="#register" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> REGISTER</a>
+            <a href="#reviews" class="w3-bar-item w3-button"><i class="fa fa-star"></i> REVIEWS</a>
+            <a href="#register" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i> REGISTER</a>
           </div>
         </div>
       </div>
