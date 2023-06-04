@@ -2,10 +2,6 @@ html {
 	scroll-behavior: smooth;
 }
 
-body{
-    min-height: auto;
-}
-
 .not-found {
 	color: #fff;
 	align-items: center;
@@ -106,14 +102,6 @@ button:hover{
 		top: 250px;
 		opacity: 100%;
 	}
-}
-
-.doc-app {
-	width: 1500px;
-}
-
-.doc-edit span {
-	width: 80px;
 }
 
 .radio-group {
