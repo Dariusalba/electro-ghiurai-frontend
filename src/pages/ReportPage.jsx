@@ -93,21 +93,19 @@ const OrderChart = ({ orderData }) => {
 
 const EmployeeChart = ({ employeeData }) => (
   <div>
-    <h1>Employee Report</h1>
-    <BarChart width={600} height={400} data={employeeData.employee_report}>
-      <Bar dataKey="total_tasks_assigned" fill="#8884d8" name="Total Tasks Assigned" />
-      <Bar dataKey="tasks_completed_in_time" fill="#82ca9d" name="Tasks Completed in Time" />
-      <Bar dataKey="tasks_completed_late" fill="#ffc658" name="Tasks Completed Late" />
-      <Bar dataKey="current_tasks_assigned" fill="#ff7300" name="Current Tasks Assigned" />
-      <Tooltip />
-      <Legend />
-    </BarChart>
-    <div>
-      <h2>Employee Summary</h2>
-      <p>Total Employees: {employeeData.total_employee_number}</p>
-      <p>Junior Developers: {employeeData.junior_developers}</p>
-    </div>
+  <h1>Employee Report</h1>
+  <PieChart width={600} height={400}>
+    <Pie data={employeeData.employee_report} dataKey="total_tasks_assigned" nameKey="full_name" fill="#8884d8" label />
+    <Tooltip />
+    <Legend />
+  </PieChart>
+  <div>
+    <h2>Employee Summary</h2>
+    <p>Total Employees: {employeeData.total_employee_number}</p>
+    <p>Junior Developers: {employeeData.junior_developers}</p>
   </div>
+</div>
+
 );
 
 const ReportPage = () => {
