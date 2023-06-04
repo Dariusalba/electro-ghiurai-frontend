@@ -80,10 +80,10 @@ const ManagerDashboard = () => {
 
   const handleDeadlineChange = (event) => {
     const selectedDate = event.target.value;
-    
+
     setDeadline(selectedDate);
   };
-  
+
 
   const fetchCustomerDetails = async (orderId) => {
     try {
@@ -311,6 +311,71 @@ const ManagerDashboard = () => {
           body: JSON.stringify({ deadline }),
         }
       );
+
+      if (response.ok) {
+        console.log('Senior developer assigned successfully');
+        setShowDevelopers(false);
+      } else {
+        console.error('Failed to assign senior developer');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleReAssignFunction = async () => {
+    try {
+      const updatedOrderDetails = {
+        ...selectedOrderDetails,
+        internalStatus: 1,
+      };
+  
+      const response = await fetch(
+        `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedJuniorDeveloper}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            deadline,
+            orderDetails: updatedOrderDetails,
+          }),
+        }
+      );
+  
+      if (response.ok) {
+        console.log('Junior developer assigned successfully');
+        setShowDevelopers(false);
+      } else {
+        console.error('Failed to assign junior developer');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+
+  const handleReAssignDeveloper = async () => {
+    try {
+      const updatedOrderDetails = {
+        ...selectedOrderDetails,
+        internalStatus: 4,
+      };
+  
+      const response = await fetch(
+        `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/software/${selectedSeniorDeveloper}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            deadline,
+            orderDetails: updatedOrderDetails,
+          }),
+        }
+      );
   
       if (response.ok) {
         console.log('Senior developer assigned successfully');
@@ -323,6 +388,7 @@ const ManagerDashboard = () => {
     }
   };
   
+
 
   const handleAssignReviewer = async () => {
     try {
@@ -605,9 +671,61 @@ const ManagerDashboard = () => {
                 <button onClick={handleDownloadSpec}>Download Spec</button>
                 <h3>Developer: Developer</h3>
                 <h3>Reviewer: Jonathan Johnson</h3>
-                <button>Download Code</button>
-                <h3>Upload Code: </h3>
+                <button onClick={handleDownloadCode}>Download Code</button>
                 <button>Finish Order</button>
+              </div>
+            )}
+            {selectedOrderDetails.internalStatus === 8 && showDevelopers && (
+              <div>
+                <h3>Function: Function Dev</h3>
+                <button onClick={handleDownloadSpec}>Download Spec</button>
+                <h3>Developer: Developer</h3>
+                <h3>Reviewer: Jonathan Johnson</h3>
+                <button onClick={handleDownloadCode}>Download Code</button>
+                <button>Finish Order</button>
+                <h3>Reassign Function Developer</h3>
+                {juniorDevelopers.length === 0 ? (
+                  <p>No junior developers available</p>
+                ) : (
+                  <div>
+                    <select value={selectedJuniorDeveloper} onChange={handleSelectJuniorDeveloper}>
+                      {juniorDevelopers.map((juniorDeveloper, index) => (
+                        <option key={index} value={juniorDeveloper.userId}>
+                          {juniorDeveloper.firstName}, {juniorDeveloper.lastName}
+                        </option>
+                      ))}
+                    </select>
+                    <input type="date" value={deadline} onChange={handleDeadlineChange} />
+                    <button onClick={handleReAssignFunction}>Reassign Function</button>
+                  </div>
+                )}
+              </div>
+            )}
+            {selectedOrderDetails.internalStatus === 9 && showDevelopers && (
+              <div>
+                <h3>Function: Function Dev</h3>
+                <button onClick={handleDownloadSpec}>Download Spec</button>
+                <h3>Developer: Developer</h3>
+                <h3>Reviewer: Jonathan Johnson</h3>
+                <button onClick={handleDownloadCode}>Download Code</button>
+                <button>Finish Order</button>
+                <h3>Reassign Developer</h3>
+                {seniorDevelopers.length === 0 ? (
+                  <p>Reassign Developer</p>
+                ) : (
+                  <div>
+                    <select value={selectedSeniorDeveloper} onChange={handleSelectSeniorDeveloper}>
+                      {seniorDevelopers.map((seniorDeveloper, index) => (
+                        <option key={index} value={seniorDeveloper.userId}>
+                          {seniorDeveloper.firstName}, {seniorDeveloper.lastName}
+                        </option>
+                      ))}
+                    </select>
+                    <input type="date" value={deadline} onChange={handleDeadlineChange} />
+                    <button onClick={handleReAssignDeveloper}>Reassign Developer</button>
+                    <button onClick={handleDownloadSpec}>Download Spec</button>
+                  </div>
+                )}
               </div>
             )}
           </Modal>
