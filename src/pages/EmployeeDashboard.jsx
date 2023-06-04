@@ -31,7 +31,7 @@ function EmployeeDashboard() {
   };
 
   const redirectToVSCDev = () => {
-    window.location.href = 'https://vscode.dev'
+    window.open('https://vscode.dev', '_blank');
   }
 
   const openModal = (task) => {
@@ -81,6 +81,25 @@ function EmployeeDashboard() {
       formData.append('file', selectedFile);
 
       fetch(`http://localhost:9191/emp/spec/${selectedTask.taskNr}`, {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('File uploaded:', data);
+        })
+        .catch(error => console.log(error));
+      specUploaded();
+      closeModal();
+    }
+  };
+
+  const uploadCode = () => {
+    if (selectedFile && selectedTask) {
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+
+      fetch(`http://localhost:9191/emp/code/${selectedTask.taskNr}`, {
         method: 'POST',
         body: formData
       })
@@ -181,10 +200,9 @@ function EmployeeDashboard() {
                     <p>No remarks available</p>
                   )}
                   <button className="app-button">Download Spec</button>
-                  {/* Redirect to vscode.dev button */}
                   <button className="app-button" onClick={redirectToVSCDev}>Open in VSCode</button>
                   <input type="file" accept=".zip" onChange={handleFileChange} />
-                  <button className="app-button" onClick={uploadSpecDoc}>Upload Code</button>
+                  <button className="app-button" onClick={uploadCode}>Upload Code</button>
                 </div>
               ) : (
                   <p>Failed to load order details</p>
