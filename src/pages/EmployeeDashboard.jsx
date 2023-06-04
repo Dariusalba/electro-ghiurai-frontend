@@ -131,6 +131,10 @@ function EmployeeDashboard() {
     }
   };
 
+  const openInNewTab = () => {
+    window.open('../doceditor','mywin','width=1200,height=800');
+  };
+
   return (
     <div>
       <div className="welcome2">
@@ -186,9 +190,7 @@ function EmployeeDashboard() {
                   ) : (
                       <p>No remarks available</p>
                     )}
-                  <Link to='/doceditor'>
-                    <button className='app-button' >Open SpecDoc</button>
-                  </Link>
+                  <button className='app-button' onClick={() => openInNewTab()}>Open SpecDoc</button>
                   <input type="file" accept=".pdf" onChange={handleFileChange} />
                   <button className='app-button' onClick={uploadSpecDoc}>Upload Spec</button>
                 </div>

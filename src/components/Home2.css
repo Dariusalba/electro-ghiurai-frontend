@@ -30,8 +30,8 @@ body, html {
 }
 
 .scontainer{
-    width: 800px;
-	height: 460px;
+    width: 600px;
+	height: 405px;
 	margin-left: 100px;
     overflow: hidden;
     border: 10px solid #ffffff;

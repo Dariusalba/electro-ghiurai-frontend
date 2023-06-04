@@ -10,7 +10,7 @@ function DocEditor() {
         onInit={(evt, editor) => (editorRef.current = editor)}
         initialValue="Aici scrii ce doresti tu!"
         init={{
-          min_height: 1330,
+          min_height: 712,
           resize: false,
           plugins: [
             'advlist',
