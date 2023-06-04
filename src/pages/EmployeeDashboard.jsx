@@ -120,6 +120,24 @@ function EmployeeDashboard() {
         }
     };
 
+    const handleDownloadCode = async () => {
+        try {
+            const response = await fetch(`http://localhost:9191/emp/download/code/${selectedTask.taskNr}`);
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `code-${selectedTask.taskNr}.zip`;
+
+            link.click();
+
+            URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const uploadCode = () => {
         if (selectedFile && selectedTask) {
             const formData = new FormData();
@@ -316,6 +334,7 @@ function EmployeeDashboard() {
                                         <p>No remarks available</p>
                                     )}
                                     <button className="app-button" onClick={handleDownloadSpec}>Download Spec</button>
+                                    <button className="app-button" onClick={handleDownloadCode}>Download Code</button>
                                     <button className="app-button" onClick={handleDeclareDefect}>Declare Spec Defect</button>
                                     <button className="app-button" onClick={handleDeclareCodeDefect}>Declare Code Defect</button>
                                     <button className="app-button" onClick={handleDeclareNoDefect}>Declare No Defect</button>
