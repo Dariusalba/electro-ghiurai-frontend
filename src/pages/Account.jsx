@@ -106,16 +106,26 @@ function AccountInfo() {
                 </tr>
               </thead>
               <tbody>
-                <td>Username</td>
-                <td>{userInfo.username}</td>
-                <td>First Name</td>
-                <td>{userInfo.firstName}</td>
-                <td>Last Name</td>
-                <td>{userInfo.lastName}</td>
-                <td>Email</td>
-                <td>{userInfo.email}</td>
-                <td>Country of Origin</td>
-                <td>{userInfo.country}</td>
+                <tr>
+                  <td>Username</td>
+                  <td>{userInfo.username}</td>
+                </tr>
+                <tr>
+                  <td>First Name</td>
+                  <td>{userInfo.firstName}</td>
+                </tr>
+                <tr>
+                  <td>Last Name</td>
+                  <td>{userInfo.lastName}</td>
+                </tr>
+                <tr>
+                  <td>Email</td>
+                  <td>{userInfo.email}</td>
+                </tr>
+                <tr>
+                  <td>Country of Origin</td>
+                  <td>{userInfo.country}</td>
+                </tr>
               </tbody>
             </table> 
           </>
