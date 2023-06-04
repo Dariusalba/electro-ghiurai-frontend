@@ -12,7 +12,6 @@ const OrderChart = ({ orderData }) => {
   const colors = ['#8884d8', '#82ca9d', '#ffc658'];
 
   const orderSummaryData = [
-    { name: 'Total Orders', value: orderData.total_orders },
     { name: 'Pending Orders', value: orderData.pending_orders },
     { name: 'Accepted Orders', value: orderData.accepted_orders },
     { name: 'Finished Orders', value: orderData.finished_orders },
@@ -21,7 +20,6 @@ const OrderChart = ({ orderData }) => {
   const orderDetailsData = [
     { name: 'Total Users', value: orderData.total_users },
     { name: 'Total Customers', value: orderData.total_customers },
-    { name: 'Average Customer Age', value: orderData.average_customer_age },
   ];
 
   return (
@@ -63,8 +61,26 @@ const OrderChart = ({ orderData }) => {
       </div>
       <div>
         <h2>Order Details</h2>
+        <PieChart width={400} height={300}>
+          <Pie
+            dataKey="value"
+            data={orderDetailsData}
+            fill="#82ca9d"
+            label
+          >
+            {orderDetailsData.map((_entry, index) => (
+              <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend />
+        </PieChart>
+      </div>
+      <div>
+        <h2>Order Details</h2>
         <BarChart width={400} height={300} data={orderDetailsData}>
           <Bar dataKey="value" fill="#82ca9d" />
+          <Bar dataKey="average_customer_age" fill="#8884d8" name="Average Customer Age" />
           <Tooltip />
           <Legend />
         </BarChart>
