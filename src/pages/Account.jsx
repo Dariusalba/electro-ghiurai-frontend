@@ -61,6 +61,10 @@ function AccountInfo() {
     setModalOpen(false);
   };
 
+  const redirectToFeedback = () => {
+    window.location.href = '/feedback';
+  }
+
   const getOrderStatusName = (orderStatus) => {
     switch (orderStatus) {
       case 1:
@@ -147,7 +151,7 @@ function AccountInfo() {
                   >
                     Download Spec
                   </button>
-                  <button className="app-button">Feedback</button>
+                  <button className="app-button" onClick={redirectToFeedback}>Feedback</button>
                 </div>
               )}
             </div>
