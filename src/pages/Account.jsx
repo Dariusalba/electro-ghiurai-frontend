@@ -170,10 +170,26 @@ function AccountInfo() {
             <div className="modal-content">
               <span className="w3-button w3-black close" onClick={closeModal}>&times;</span>
               <h2>Selected Order Details:</h2>
-              <p>Order ID: {selectedOrder.orderId}</p>
-              <p>Title: {selectedOrder.title}</p>
-              <p>Description: {selectedOrder.description}</p>
-              <p>Status: {getOrderStatusName(selectedOrder.orderStatus)}</p>
+              <table className="order-table">
+                <tbody>
+                  <tr>
+                    <td>Order ID</td>
+                    <td>{selectedOrder.orderId}</td>
+                  </tr>
+                  <tr>
+                    <td>Title</td>
+                    <td>{selectedOrder.title}</td>
+                  </tr>
+                  <tr>
+                    <td>Description</td>
+                    <td>{selectedOrder.description}</td>
+                  </tr>
+                  <tr>
+                    <td>Status</td>
+                    <td>{selectedOrder.orderStatus}</td>
+                  </tr>
+                </tbody>
+              </table>
               {selectedOrder.orderStatus === 3 && (
                 <div>
                   <button
@@ -182,6 +198,7 @@ function AccountInfo() {
                   >
                     Download Spec
                   </button>
+                  <br />
                   <button className="w3-button w3-black app-button" onClick={openFeedbackModal}>
                     Feedback
                   </button>
