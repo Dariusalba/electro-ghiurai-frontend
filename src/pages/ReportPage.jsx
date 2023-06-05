@@ -111,8 +111,8 @@ const EmployeeChart = ({ employeeData }) => (
   </div>
   <div>
     <h2 className='app-h1'>Employee Summary</h2>
-    <p>Total Employees: {employeeData.total_employee_number}</p>
-    <p>Junior Developers: {employeeData.junior_developers}</p>
+    <p className='app-h1'>Total Employees: {employeeData.total_employee_number}</p>
+    <p className='app-h1'>Junior Developers: {employeeData.junior_developers}</p>
   </div>
 </div>
 
