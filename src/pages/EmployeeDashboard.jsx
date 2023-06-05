@@ -363,10 +363,10 @@ function EmployeeDashboard() {
                                     <div className='dev-func'>
                                         <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadSpec}>Download Spec</button>
                                         <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadCode}>Download Code</button>
-                                        <h2>Verdict</h2>
-                                        <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareDefect}>Declare Spec Defect</button>
-                                        <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareCodeDefect}>Declare Code Defect</button>
-                                        <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareNoDefect}>Declare No Defect</button>
+                                        <h2>Declare Verdict</h2>
+                                        <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareDefect}>Spec Defect</button>
+                                        <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareCodeDefect}>Code Defect</button>
+                                        <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareNoDefect}>No Defect</button>
                                     </div>
                                 </div>
                             ) : (
