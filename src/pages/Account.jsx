@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Feedback from "./Feedback";
+import { ToastContainer } from 'react-toastify';
 
 function AccountInfo() {
   const userId = sessionStorage.getItem("userId");
@@ -223,6 +224,7 @@ function AccountInfo() {
         </Link>
       </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

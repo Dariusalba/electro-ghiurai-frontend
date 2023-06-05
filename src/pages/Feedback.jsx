@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import '../components/Feedback.css';
+import { toast } from 'react-toastify';
 
 const colors = {
     orange: "#FFBA5A",
@@ -30,14 +31,24 @@ function Feedback() {
     const handleCommentChange = event => {
         setComment(event.target.value);
     };
-
+    const finishedOrder = () => 
+    toast.success('✅ We Received Your Feedback', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
     const handleSubmit = () => {
         const feedbackData = {
             userId: userId, 
             rating: currentValue,
             description: comment
         };
-
+        
         fetch(`http://localhost:9191/customer/feedback/${userId}`, {
             method: "POST",
             headers: {
@@ -46,7 +57,7 @@ function Feedback() {
             body: JSON.stringify(feedbackData)
         })
         .then(response => {
-            console.log(response);
+            finishedOrder();
         })
         .catch(error => {
             console.error(error);
