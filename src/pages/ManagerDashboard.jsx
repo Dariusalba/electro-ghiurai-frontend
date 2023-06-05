@@ -726,6 +726,9 @@ const ManagerDashboard = () => {
             )}
             {selectedOrderDetails.internalStatus === 3 && showDevelopers && (
               <div>
+                <div>
+                  <h3>Function: {functionName}</h3>
+                </div>
                 <h3>Add Function</h3>
                 {seniorDevelopers.length === 0 ? (
                   <p>No senior developers available</p>
