@@ -604,7 +604,7 @@ const ManagerDashboard = () => {
         )}
         {selectedOrder && (
           <Modal onClose={handleCloseOrderModal}>
-            <h2>Order Details</h2>
+            <h2>Order Details:</h2>
             <table className='order-table'>
               <tbody>
                 <tr>
@@ -631,7 +631,7 @@ const ManagerDashboard = () => {
                 ))}
               </ul>
             )}
-            <button onClick={handleAcceptOrder}>Accept</button>
+            <button className="w3-button w3-black" onClick={handleAcceptOrder}>Accept</button>
           </Modal>
         )}
         {showSecondModal && (
@@ -672,7 +672,7 @@ const ManagerDashboard = () => {
                       ))}
                     </select>
                     <input type="date" value={deadline} onChange={handleDeadlineChange} />
-                    <button onClick={handleAssignFunction}>Assign Function</button>
+                    <button className="w3-button w3-black" onClick={handleAssignFunction}>Assign Function</button>
                   </div>
                 )}
               </div>
@@ -697,8 +697,8 @@ const ManagerDashboard = () => {
                       ))}
                     </select>
                     <input type="date" value={deadline} onChange={handleDeadlineChange} />
-                    <button onClick={handleAssignDeveloper}>Assign Developer</button>
-                    <button onClick={handleDownloadSpec}>Download Spec</button>
+                    <button className="w3-button w3-black" onClick={handleAssignDeveloper}>Assign Developer</button>
+                    <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
                   </div>
                 )}
               </div>
@@ -706,14 +706,14 @@ const ManagerDashboard = () => {
             {selectedOrderDetails.internalStatus === 4 && (
               <div>
                 <h3>Function: {functionName}</h3>
-                <button onClick={handleDownloadSpec}>Download Spec</button>
+                <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
                 <h3>Developer: {developerName}</h3>
               </div>
             )}
             {selectedOrderDetails.internalStatus === 5 && showReviewers && (
               <div>
                 <h3>Function: {functionName}</h3>
-                <button onClick={handleDownloadSpec}>Download Spec</button>
+                <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
                 <h3>Developer: {developerName}</h3>
                 <h3>List of Reviewers</h3>
                 {reviewers.length === 0 ? (
@@ -727,9 +727,9 @@ const ManagerDashboard = () => {
                         </option>
                       ))}
                     </select>
-                    <button onclick={handleDownloadCode}>Download Code</button>
+                    <button className="w3-button w3-black" onclick={handleDownloadCode}>Download Code</button>
                     <input type="date" value={deadline} onChange={handleDeadlineChange} />
-                    <button onClick={handleAssignReviewer}>Assign Reviewer</button>
+                    <button className="w3-button w3-black" onClick={handleAssignReviewer}>Assign Reviewer</button>
                   </div>
                 )}
               </div>
@@ -737,29 +737,29 @@ const ManagerDashboard = () => {
             {selectedOrderDetails.internalStatus === 6 && (
               <div>
                 <h3>Function: {functionName}</h3>
-                <button>Download Spec</button>
+                <button className="w3-button w3-black" >Download Spec</button>
                 <h3>Developer: {developerName}</h3>
-                <button>Download Code</button>
+                <button className="w3-button w3-black" >Download Code</button>
                 <h3>Reviewer: {reviewerName}</h3>
               </div>
             )}
             {selectedOrderDetails.internalStatus === 7 && (
               <div>
                 <h3>Function: {functionName}</h3>
-                <button onClick={handleDownloadSpec}>Download Spec</button>
+                <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
                 <h3>Developer: {developerName}</h3>
                 <h3>Reviewer: {reviewerName}</h3>
-                <button onClick={handleDownloadCode}>Download Code</button>
-                <button onClick={handleFinishOrder}>Finish Order</button>
+                <button className="w3-button w3-black" onClick={handleDownloadCode}>Download Code</button>
+                <button className="w3-button w3-black" onClick={handleFinishOrder}>Finish Order</button>
               </div>
             )}
             {selectedOrderDetails.internalStatus === 8 && showDevelopers && (
               <div>
                 <h3>Function: {functionName}</h3>
-                <button onClick={handleDownloadSpec}>Download Spec</button>
+                <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
                 <h3>Developer: {developerName}</h3>
                 <h3>Reviewer: {reviewerName}</h3>
-                <button onClick={handleDownloadCode}>Download Code</button>
+                <button className="w3-button w3-black" onClick={handleDownloadCode}>Download Code</button>
                 <h3>Reassign Function Developer</h3>
                 {juniorDevelopers.length === 0 ? (
                   <p>No junior developers available</p>
@@ -773,7 +773,7 @@ const ManagerDashboard = () => {
                       ))}
                     </select>
                     <input type="date" value={deadline} onChange={handleDeadlineChange} />
-                    <button onClick={handleReAssignFunction}>Reassign Function</button>
+                    <button className="w3-button w3-black" onClick={handleReAssignFunction}>Reassign Function</button>
                   </div>
                 )}
               </div>
@@ -784,7 +784,7 @@ const ManagerDashboard = () => {
                 <button onClick={handleDownloadSpec}>Download Spec</button>
                 <h3>Developer: {developerName}</h3>
                 <h3>Reviewer: {reviewerName}</h3>
-                <button onClick={handleDownloadCode}>Download Code</button>
+                <button className="w3-button w3-black" onClick={handleDownloadCode}>Download Code</button>
                 <h3>Reassign Developer</h3>
                 {seniorDevelopers.length === 0 ? (
                   <p>Reassign Developer</p>
@@ -798,8 +798,8 @@ const ManagerDashboard = () => {
                       ))}
                     </select>
                     <input type="date" value={deadline} onChange={handleDeadlineChange} />
-                    <button onClick={handleReAssignDeveloper}>Reassign Developer</button>
-                    <button onClick={handleDownloadSpec}>Download Spec</button>
+                    <button className="w3-button w3-black" onClick={handleReAssignDeveloper}>Reassign Developer</button>
+                    <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
                   </div>
                 )}
               </div>
