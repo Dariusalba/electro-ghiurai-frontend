@@ -262,9 +262,6 @@ function EmployeeDashboard() {
                 {selectedTask && !codeModalVisible && (
                     <div className="modal">
                         <div className="modal-content">
-                        <button className="w3-button w3-black close-button" onClick={closeModal}>
-                        &times;
-                        </button>
                             <h2>Task #{selectedTask.taskNr}</h2>
                             {orderDetails ? (
                                 <div>
@@ -296,6 +293,9 @@ function EmployeeDashboard() {
                 {selectedTask && codeModalVisible && (
                     <div className="modal">
                         <div className="modal-content">
+                            <button className="w3-button w3-black close-button" onClick={closeModal}>
+                            &times;
+                            </button>
                             <h2>Task #{selectedTask.taskNr} - CODE</h2>
                             {orderDetails ? (
                                 <div>
@@ -315,11 +315,11 @@ function EmployeeDashboard() {
                                 <p>Failed to load order details</p>
                             )}
                             <div className='dev-func'>
-                                <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
-                                <button className="w3-button w3-black" onClick={redirectToVSCDev}>Open VSCode</button>
+                                <button className="w3-button w3-black app-button-simple" onClick={handleDownloadSpec}>Download Spec</button>
+                                <button className="w3-button w3-black app-button-simple" onClick={redirectToVSCDev}>Open VSCode</button>
                                 <input type="file" accept=".zip" onChange={handleFileChange} />
-                                <button className="w3-button w3-black" onClick={uploadCode}>Upload Code</button>
-                                <button className='w3-button w3-black' onClick={closeModal}>Close</button>
+                                <button className="w3-button w3-black app-button-simple" onClick={uploadCode}>Upload Code</button>
+                                <button className='w3-button w3-black app-button-simple' onClick={closeModal}>Close</button>
                             </div>
                         </div>
                     </div>
