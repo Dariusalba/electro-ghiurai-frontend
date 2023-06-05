@@ -125,6 +125,10 @@ body {
 	align-items: center;
 }
 
+.dev-date {
+	padding: 0px;
+}
+
 .account-bg {
 	width: auto;
 	min-height: 900px;

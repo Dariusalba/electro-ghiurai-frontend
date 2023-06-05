@@ -687,7 +687,7 @@ const ManagerDashboard = () => {
                         </option>
                       ))}
                     </select>
-                    <input type="date" value={deadline} onChange={handleDeadlineChange} />
+                    <input className="dev-date" type="date" value={deadline} onChange={handleDeadlineChange} />
                     <button className="w3-button w3-black" onClick={handleAssignFunction}>Assign Function</button>
                   </div>
                 )}
@@ -704,7 +704,7 @@ const ManagerDashboard = () => {
                 {seniorDevelopers.length === 0 ? (
                   <p>No senior developers available</p>
                 ) : (
-                  <div>
+                  <div className='dev-func'>
                     <select value={selectedSeniorDeveloper} onChange={handleSelectSeniorDeveloper}>
                       {seniorDevelopers.map((seniorDeveloper, index) => (
                         <option key={index} value={seniorDeveloper.userId}>
@@ -712,7 +712,7 @@ const ManagerDashboard = () => {
                         </option>
                       ))}
                     </select>
-                    <input type="date" value={deadline} onChange={handleDeadlineChange} />
+                    <input className="dev-date" type="date" value={deadline} onChange={handleDeadlineChange} />
                     <button className="w3-button w3-black" onClick={handleAssignDeveloper}>Assign Developer</button>
                     <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
                   </div>
