@@ -74,13 +74,37 @@ const OrderChart = ({ orderData }) => {
   );
 };
 
-const EmployeeChart = ({ employeeData }) => (
+const EmployeeChart = ({ employeeData }) =>{
+  const employeeUserData = [
+    {
+      name:'Junior Developers',
+      value:employeeData.junior_developers
+    },
+    {
+      name: 'Senior Developers',
+      value: employeeData.senior_developers
+    }
+  ];
+  const employeeSummaryColors = ['#8884d8', '#82ca9d'];
+  const employeeReportColors = () => {
+    const tmpArr = [];
+    for(let i=0;i < employeeData.employee_report.length;i++){
+      let color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+      tmpArr[i]=color;
+    }
+    return tmpArr;
+  }
+  return (
   <div>
   <h1 className='app-h1'>Employee Report</h1>
   <div>
     <h2 className='app-h1'>Total Tasks Assigned</h2>
     <PieChart width={600} height={400}>
-    <Pie data={employeeData.employee_report} dataKey="total_tasks_assigned" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label />
+    <Pie data={employeeData.employee_report} dataKey="total_tasks_assigned" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label >
+      {employeeData.employee_report.map((_entry, index) => (
+              <Cell key={`cell-${index}`} fill={employeeReportColors()[index % employeeReportColors().length]} />
+            ))}
+      </Pie>
     <Tooltip />
     <Legend />
     </PieChart>
@@ -88,7 +112,11 @@ const EmployeeChart = ({ employeeData }) => (
   <div>
     <h2 className='app-h1'>Tasks Completed In Time</h2>
   <PieChart width={600} height={400}>
-    <Pie data={employeeData.employee_report} dataKey="tasks_completed_in_time" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label />
+    <Pie data={employeeData.employee_report} dataKey="tasks_completed_in_time" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label >
+    {employeeData.employee_report.map((_entry, index) => (
+              <Cell key={`cell-${index}`} fill={employeeReportColors()[index % employeeReportColors().length]} />
+            ))}
+      </Pie>
     <Tooltip />
     <Legend />
   </PieChart>
@@ -96,7 +124,11 @@ const EmployeeChart = ({ employeeData }) => (
   <div>
     <h2 className='app-h1'>Tasks Completed Late</h2>
   <PieChart width={600} height={400}>
-    <Pie data={employeeData.employee_report} dataKey="tasks_completed_late" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label />
+    <Pie data={employeeData.employee_report} dataKey="tasks_completed_late" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label >
+    {employeeData.employee_report.map((_entry, index) => (
+              <Cell key={`cell-${index}`} fill={employeeReportColors()[index % employeeReportColors().length]} />
+            ))}
+      </Pie>
     <Tooltip />
     <Legend />
   </PieChart>
@@ -104,19 +136,31 @@ const EmployeeChart = ({ employeeData }) => (
   <div>
     <h2 className='app-h1'>Tasks Currently Assigned</h2>
   <PieChart width={600} height={400}>
-    <Pie data={employeeData.employee_report} dataKey="current_tasks_assigned" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label />
+    <Pie data={employeeData.employee_report} dataKey="current_tasks_assigned" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label >
+      {employeeData.employee_report.map((_entry, index) => (
+              <Cell key={`cell-${index}`} fill={employeeReportColors()[index % employeeReportColors().length]} />
+            ))}
+      </Pie>
     <Tooltip />
     <Legend />
   </PieChart>
   </div>
   <div>
-    <h2 className='app-h1'>Employee Summary</h2>
-    <p className='app-h1'>Total Employees: {employeeData.total_employee_number}</p>
-    <p className='app-h1'>Junior Developers: {employeeData.junior_developers}</p>
+  <h2 className='app-h1'>Employee Summary</h2>
+  <PieChart width={600} height={400}>
+    <Pie data={employeeUserData} dataKey="value" nameKey="name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label >
+        {employeeUserData.map((_entry, index) => (
+            <Cell key={`cell-${index}`} fill={employeeSummaryColors[index % employeeSummaryColors.length]} />
+          ))}
+      </Pie>
+    <Tooltip />
+    <Legend />
+  </PieChart>  
   </div>
 </div>
 
 );
+}
 
 const ReportPage = () => {
   const [chartType, setChartType] = useState('order');
