@@ -799,8 +799,8 @@ const ManagerDashboard = () => {
                 <h3>Function: {functionName}</h3>
                 <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
                 <h3>Developer: {developerName}</h3>
-                <h3>Reviewer: {reviewerName}</h3>
                 <button className="w3-button w3-black" onClick={handleDownloadCode}>Download Code</button>
+                <h3>Reviewer: {reviewerName}</h3>
                 <h3>Reassign Function Developer</h3>
                 {juniorDevelopers.length === 0 ? (
                   <p>No junior developers available</p>
