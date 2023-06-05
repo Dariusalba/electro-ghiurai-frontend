@@ -118,6 +118,13 @@ body {
 	}
 }
 
+.dev-func {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
 .account-bg {
 	width: auto;
 	min-height: 900px;
