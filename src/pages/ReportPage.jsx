@@ -25,8 +25,10 @@ const OrderChart = ({ orderData }) => {
 
   return (
     <div>
-      <h1 className='app-h1'>Order Information</h1>
-      <PieChart width={400} height={400}>
+      <h1 className='app-h1'>Customer Report</h1>
+      <h2 className='app-h1'>Top 3 Countries</h2>
+      <p className='app-chart-p'>This Pie Chart will show the top 3 countries which have the most customers.</p>
+      <PieChart width={400} height={400} className='chart-margin'>
         <Pie
           dataKey="value"
           data={countryData}
@@ -45,7 +47,8 @@ const OrderChart = ({ orderData }) => {
       </PieChart>
       <div>
         <h2 className='app-h1'>Order Summary</h2>
-        <PieChart width={400} height={300}>
+        <p className='app-chart-p'>A Simple Pie Chart that shows the current status of every order.</p>
+        <PieChart width={400} height={300} className='chart-margin'>
           <Pie
             dataKey="value"
             data={orderSummaryData}
@@ -61,8 +64,9 @@ const OrderChart = ({ orderData }) => {
         </PieChart>
       </div>
       <div>
-        <h2 className='app-h1'>Order Details</h2>
-        <BarChart width={400} height={300} data={orderDetailsData}>
+        <h2 className='app-h1'>Additional Customer Info</h2>
+        <p className='app-chart-p'>For the end, a Bar chart that shows the number of users compared to costumers as well as the average age of the customers.</p>
+        <BarChart width={400} height={300} data={orderDetailsData} className='chart-margin'>
           <Bar dataKey="value" nameKey="name" fill="#327ba8" name="Average Customer Age" />
           <Bar dataKey="value1" nameKey="name1" fill="#8884d8" name="Total Customers" />
           <Bar dataKey="value2" nameKey="name2" fill="#522c94" name="Total Users" />
@@ -99,6 +103,7 @@ const EmployeeChart = ({ employeeData }) =>{
   <h1 className='app-h1'>Employee Report</h1>
   <div>
     <h2 className='app-h1'>Total Tasks Assigned</h2>
+    <p className='app-chart-p'>The Following Pie Chart shows the total number of tasks assigned to all of the employees.</p>
     <PieChart width={600} height={400}>
     <Pie data={employeeData.employee_report} dataKey="total_tasks_assigned" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label >
       {employeeData.employee_report.map((_entry, index) => (
@@ -111,6 +116,7 @@ const EmployeeChart = ({ employeeData }) =>{
   </div>
   <div>
     <h2 className='app-h1'>Tasks Completed In Time</h2>
+    <p className='app-chart-p'>This Next Pie Chart shows all the tasks that have been completed before the deadline by each employee.</p>
   <PieChart width={600} height={400}>
     <Pie data={employeeData.employee_report} dataKey="tasks_completed_in_time" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label >
     {employeeData.employee_report.map((_entry, index) => (
@@ -123,6 +129,7 @@ const EmployeeChart = ({ employeeData }) =>{
   </div>
   <div>
     <h2 className='app-h1'>Tasks Completed Late</h2>
+    <p className='app-chart-p'>This Pie Chart presents every task finished after the deadline for every employee.</p>
   <PieChart width={600} height={400}>
     <Pie data={employeeData.employee_report} dataKey="tasks_completed_late" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label >
     {employeeData.employee_report.map((_entry, index) => (
@@ -135,6 +142,7 @@ const EmployeeChart = ({ employeeData }) =>{
   </div>
   <div>
     <h2 className='app-h1'>Tasks Currently Assigned</h2>
+    <p className='app-chart-p'>This Pie Chart shows the current number of tasks assigned to each employee at the time of this report.</p>
   <PieChart width={600} height={400}>
     <Pie data={employeeData.employee_report} dataKey="current_tasks_assigned" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label >
       {employeeData.employee_report.map((_entry, index) => (
@@ -147,6 +155,7 @@ const EmployeeChart = ({ employeeData }) =>{
   </div>
   <div>
   <h2 className='app-h1'>Employee Summary</h2>
+  <p className='app-chart-p'>For the last Pie Chart, we have a simple summary of the percentage of users and employees currently.</p>
   <PieChart width={600} height={400}>
     <Pie data={employeeUserData} dataKey="value" nameKey="name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label >
         {employeeUserData.map((_entry, index) => (
@@ -191,8 +200,8 @@ const ReportPage = () => {
         <div class="w3-bar w3-white w3-card" id="myNavbar">
           <a href="/manager/dashboard" class="w3-bar-item w3-button w3-wide">ELECTROGHIURAI</a>
           <div class="w3-right w3-hide-small">
-            <a href="#ochart" class="w3-bar-item w3-button" onClick={() => setChartType('order')}><i class="fa fa-compass"></i> ORDER CHART</a>
-            <a href="#echart" class="w3-bar-item w3-button" onClick={() => setChartType('employee')}><i class="fa fa-user"></i> EMPLOYEE CHART</a>
+            <a href="#ochart" class="w3-bar-item w3-button" onClick={() => setChartType('order')}><i class="fa fa-compass"></i> CUSTOMER REPORT</a>
+            <a href="#echart" class="w3-bar-item w3-button" onClick={() => setChartType('employee')}><i class="fa fa-user"></i> EMPLOYEE REPORT</a>
             <a href="/manager/dashboard" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i> GO BACK</a>
           </div>
         </div>

@@ -123,6 +123,13 @@ body {
 	text-align: center;
 	margin-top: 140px;
 }
+.app-chart-p {
+	text-align: center;
+}
+
+.chart-margin{
+	margin-left:75px;
+}
 
 @keyframes appear {
 	to {

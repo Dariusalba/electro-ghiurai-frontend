@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 
 const userId = sessionStorage.getItem('userId');
