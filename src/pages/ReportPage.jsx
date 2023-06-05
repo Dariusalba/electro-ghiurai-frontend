@@ -25,7 +25,7 @@ const OrderChart = ({ orderData }) => {
 
   return (
     <div>
-      <h1>Order Information</h1>
+      <h1 className='app-h1'>Order Information</h1>
       <PieChart width={400} height={400}>
         <Pie
           dataKey="value"
@@ -44,7 +44,7 @@ const OrderChart = ({ orderData }) => {
         <Legend />
       </PieChart>
       <div>
-        <h2>Order Summary</h2>
+        <h2 className='app-h1'>Order Summary</h2>
         <PieChart width={400} height={300}>
           <Pie
             dataKey="value"
@@ -61,7 +61,7 @@ const OrderChart = ({ orderData }) => {
         </PieChart>
       </div>
       <div>
-        <h2>Order Details</h2>
+        <h2 className='app-h1'>Order Details</h2>
         <BarChart width={400} height={300} data={orderDetailsData}>
           <Bar dataKey="value" nameKey="name" fill="#327ba8" name="Average Customer Age" />
           <Bar dataKey="value1" nameKey="name1" fill="#8884d8" name="Total Customers" />
