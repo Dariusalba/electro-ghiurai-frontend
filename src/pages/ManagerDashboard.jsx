@@ -791,7 +791,7 @@ const ManagerDashboard = () => {
                 <h3>Developer: {developerName}</h3>
                 <button className="w3-button w3-black" onClick={handleDownloadCode}>Download Code</button>
                 <h3>Reviewer: {reviewerName}</h3>
-                <button className="w3-button w3-black app-button-simple" onClick={handleFinishOrder}>Finish Order</button>
+                <div className='dev-func'><button className="w3-button w3-black app-button-simple" onClick={handleFinishOrder}>Finish Order</button></div>
               </div>
             )}
             {selectedOrderDetails.internalStatus === 8 && showDevelopers && (
