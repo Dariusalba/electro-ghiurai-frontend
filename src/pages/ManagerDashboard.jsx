@@ -805,7 +805,7 @@ const ManagerDashboard = () => {
                 {juniorDevelopers.length === 0 ? (
                   <p>No junior developers available</p>
                 ) : (
-                  <div>
+                  <div className='dev-func'>
                     <select value={selectedJuniorDeveloper} onChange={handleSelectJuniorDeveloper}>
                       {juniorDevelopers.map((juniorDeveloper, index) => (
                         <option key={index} value={juniorDeveloper.userId}>
@@ -813,8 +813,8 @@ const ManagerDashboard = () => {
                         </option>
                       ))}
                     </select>
-                    <input type="date" value={deadline} onChange={handleDeadlineChange} />
-                    <button className="w3-button w3-black" onClick={handleReAssignFunction}>Reassign Function</button>
+                    <input className="dev-date" type="date" value={deadline} onChange={handleDeadlineChange} />
+                    <button className="w3-button w3-black app-button-simple" onClick={handleReAssignFunction}>Reassign Function</button>
                   </div>
                 )}
               </div>
