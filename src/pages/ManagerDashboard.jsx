@@ -313,6 +313,10 @@ const ManagerDashboard = () => {
 
   const handleAssignDeveloper = async () => {
     try {
+        employeeAssigned();
+            setTimeout(() => {
+              window.location.href = '/manager/dashboard';
+            }, 2000);
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/software/${selectedSeniorDeveloper}`,
         {
@@ -339,7 +343,10 @@ const ManagerDashboard = () => {
 
   const handleReAssignFunction = async () => {
     try {
-
+      employeeAssigned();
+            setTimeout(() => {
+              window.location.href = '/manager/dashboard';
+            }, 2000);
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedJuniorDeveloper}`,
         {
@@ -369,10 +376,10 @@ const ManagerDashboard = () => {
 
   const handleReAssignDeveloper = async () => {
     try {
-      const updatedOrderDetails = {
-        ...selectedOrderDetails,
-        internalStatus: 4,
-      };
+      employeeAssigned();
+            setTimeout(() => {
+              window.location.href = '/manager/dashboard';
+            }, 2000);
 
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/software/${selectedSeniorDeveloper}`,
@@ -403,6 +410,10 @@ const ManagerDashboard = () => {
 
   const handleAssignReviewer = async () => {
     try {
+      employeeAssigned();
+            setTimeout(() => {
+              window.location.href = '/manager/dashboard';
+            }, 2000);
       const response = await fetch(`
       http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/review/${selectedReviewer}`,
         {
@@ -429,6 +440,10 @@ const ManagerDashboard = () => {
 
   const handleFinishOrder = async () => {
     try {
+      finishedOrder();
+            setTimeout(() => {
+              window.location.href = '/manager/dashboard';
+            }, 2000);
       const response = await fetch(`http://localhost:9191/mng/finish/order/${selectedOrderDetails.orderId}`, {
         method: 'POST',
         headers: {
@@ -471,6 +486,17 @@ const ManagerDashboard = () => {
   }
   const employeeAssigned = () => 
     toast.success('✅ Employee was Assigned Successfully', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+      const finishedOrder = () => 
+    toast.success('✅ Order Finished Successfully', {
       position: "bottom-right",
       autoClose: 2000,
       hideProgressBar: false,
