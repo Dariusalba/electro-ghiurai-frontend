@@ -153,9 +153,11 @@ const ReportPage = () => {
           </div>
         </div>
       </div>
-      <div className='app'>
-        {chartType === 'order' && orderData && <OrderChart orderData={orderData} />}
-        {chartType === 'employee' && employeeData && <EmployeeChart employeeData={employeeData} />}
+      <div className='report-bg'>
+        <div className='app'>
+          {chartType === 'order' && orderData && <OrderChart orderData={orderData} />}
+          {chartType === 'employee' && employeeData && <EmployeeChart employeeData={employeeData} />}
+        </div>
       </div>
     </div>
   );
