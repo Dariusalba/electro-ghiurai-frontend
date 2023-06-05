@@ -663,7 +663,7 @@ const ManagerDashboard = () => {
                 {juniorDevelopers.length === 0 ? (
                   <p>No junior developers available</p>
                 ) : (
-                  <div>
+                  <div className='dev-func'>
                     <select value={selectedJuniorDeveloper} onChange={handleSelectJuniorDeveloper}>
                       {juniorDevelopers.map((juniorDeveloper, index) => (
                         <option key={index} value={juniorDeveloper.userId}>
