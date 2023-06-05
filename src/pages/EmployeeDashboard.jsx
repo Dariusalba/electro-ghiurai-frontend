@@ -274,14 +274,14 @@ function EmployeeDashboard() {
                                     ) : (
                                         <p>No remarks available</p>
                                     )}
-                                    <button className='w3-button w3-black app-button' onClick={() => window.open('/doceditor','mywin','width=1200,height=800')}>Open SpecDoc</button>
+                                    <button className='w3-button w3-black' onClick={() => window.open('/doceditor','mywin','width=1200,height=800')}>Open SpecDoc</button>
                                     <input type="file" accept=".pdf" onChange={handleFileChange} />
-                                    <button className='w3-button w3-black app-button' onClick={uploadSpecDoc}>Upload Spec</button>
+                                    <button className='w3-button w3-black' onClick={uploadSpecDoc}>Upload Spec</button>
                                 </div>
                             ) : (
                                 <p>Failed to load order details</p>
                             )}
-                            <button className='w3-button w3-black app-button' onClick={closeModal}>Close</button>
+                            <button className='w3-button w3-black' onClick={closeModal}>Close</button>
                         </div>
                     </div>
                 )}
@@ -303,10 +303,10 @@ function EmployeeDashboard() {
                                     ) : (
                                         <p>No remarks available</p>
                                     )}
-                                    <button className="w3-button w3-black app-button" onClick={handleDownloadSpec}>Download Spec</button>
-                                    <button className="w3-button w3-black app-button" onClick={redirectToVSCDev}>Open in VSCode</button>
+                                    <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
+                                    <button className="w3-button w3-black" onClick={redirectToVSCDev}>Open in VSCode</button>
                                     <input type="file" accept=".zip" onChange={handleFileChange} />
-                                    <button className="w3-button w3-black app-button" onClick={uploadCode}>Upload Code</button>
+                                    <button className="w3-button w3-black" onClick={uploadCode}>Upload Code</button>
                                 </div>
                             ) : (
                                 <p>Failed to load order details</p>
