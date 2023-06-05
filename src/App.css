@@ -89,6 +89,11 @@ body {
     text-align: center;
 }
 
+.app-button-simple {
+	margin-top: 10px;
+	margin-bottom: 40px;
+}
+
 .app-button {
 	margin-bottom: 40px;
     width: 100%;
