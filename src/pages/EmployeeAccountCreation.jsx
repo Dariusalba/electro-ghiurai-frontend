@@ -200,7 +200,6 @@ const EmployeeAccountCreation = () => {
           <br></br>
           <button className="w3-button w3-black app-button" onClick={handleSubmit}>Create Employee Account</button>
           <br />
-          <br />
           <Link to="/manager/dashboard">
               <button className="w3-button w3-black app-button">Back to dashboard</button>
           </Link>

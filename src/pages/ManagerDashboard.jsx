@@ -509,16 +509,10 @@ const ManagerDashboard = () => {
       </div>
       <div className='app2'>
         <h1 className=''>Manager Dashboard</h1>
-        <button className='w3-button w3-black app-button' onClick={handleButtonClick1}>Pending Orders</button>
-        <br />
-        <br />
+        <button className='w3-button w3-black app-button-first' onClick={handleButtonClick1}>Pending Orders</button>
         <button className='w3-button w3-black app-button' onClick={handleButtonClick2}>Current Orders</button>
-        <br />
-        <br />
-        <button className='w3-button w3-black app-button' onClick={handleReportButtonClick}>Company Report</button>
-        <br />
-        <br />
         <button className='w3-button w3-black app-button' onClick={handleButtonClick3}>Other Services</button>
+        <p className='app-p'>©2023 ElectroGhiurai. All rights reserved.</p>
         {showModal1 && (
           <Modal onClose={handleModalClose1}>
             <h2>Pending Orders</h2>
@@ -602,6 +596,7 @@ const ManagerDashboard = () => {
         {showModal3 && (
           <Modal onClose={handleModalClose3}>
             <h2>Other Services</h2>
+            <button className='w3-button w3-black app-button-first' onClick={handleReportButtonClick}>Company Report</button>
             <Link to="/manager/employee/account">
               <button className='w3-button w3-black app-button'>Create Employee Account</button>
             </Link>

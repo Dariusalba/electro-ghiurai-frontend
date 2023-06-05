@@ -143,12 +143,9 @@ function OrderForm() {
                 className="remark-input"
               />
               <br />
-              <br />
-              <button type="button" onClick={handleAddRemark} className="w3-button w3-black app-button">
+              <button type="button" onClick={handleAddRemark} className="w3-button w3-black app-button-remark">
               Add Remark
               </button>
-              <br />
-              <br />
               <label className="form-input">Remarks:</label>
               <div>
                 {remarks.map((remark, index) => (
@@ -162,7 +159,6 @@ function OrderForm() {
           </div>
         
           <button type="submit" className="w3-button w3-black app-button">Submit</button>
-          <br />
           <br />
           <button type="button" onClick={accountRedirect} className="w3-button w3-black app-button">Go Back</button>
         </form>
