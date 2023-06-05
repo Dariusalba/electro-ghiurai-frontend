@@ -730,11 +730,12 @@ const ManagerDashboard = () => {
                 <h3>Function: {functionName}</h3>
                 <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
                 <h3>Developer: {developerName}</h3>
-                <h3>List of Reviewers</h3>
+                <button className="w3-button w3-black" onclick={handleDownloadCode}>Download Code</button>
+                <h3>Add Reviewer</h3>
                 {reviewers.length === 0 ? (
                   <p>No reviewers available</p>
                 ) : (
-                  <div>
+                  <div className='dev-func'>
                     <select value={selectedReviewer} onChange={handleSelectReviewer}>
                       {reviewers.map((reviewer, index) => (
                         <option key={index} value={reviewer.userId}>
@@ -742,9 +743,8 @@ const ManagerDashboard = () => {
                         </option>
                       ))}
                     </select>
-                    <button className="w3-button w3-black" onclick={handleDownloadCode}>Download Code</button>
-                    <input type="date" value={deadline} onChange={handleDeadlineChange} />
-                    <button className="w3-button w3-black" onClick={handleAssignReviewer}>Assign Reviewer</button>
+                    <input className="dev-date" type="date" value={deadline} onChange={handleDeadlineChange} />
+                    <button className="w3-button w3-black app-button-simple" onClick={handleAssignReviewer}>Assign Reviewer</button>
                   </div>
                 )}
               </div>
