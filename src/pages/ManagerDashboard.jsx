@@ -507,15 +507,16 @@ const ManagerDashboard = () => {
           </div>
         </div>
       </div>
-    
-      <div className='manager-bg'>
-      <div className='app'>
-        <h1 className='app-h1'>Manager Dashboard</h1>
+      <div className='app2'>
+        <h1 className=''>Manager Dashboard</h1>
         <button className='w3-button w3-black app-button' onClick={handleButtonClick1}>View Pending Orders</button>
+        <br />
         <br />
         <button className='w3-button w3-black app-button' onClick={handleButtonClick2}>View Current Orders</button>
         <br />
+        <br />
         <button className='w3-button w3-black app-button' onClick={handleReportButtonClick}>View Company Report</button>
+        <br />
         <br />
         <button className='w3-button w3-black app-button' onClick={handleButtonClick3}>Other Services</button>
         {showModal1 && (
@@ -782,6 +783,7 @@ const ManagerDashboard = () => {
           </Modal>
         )}
       </div>
+      <div className='manager-bg'>
       </div>
     </div >
   );
