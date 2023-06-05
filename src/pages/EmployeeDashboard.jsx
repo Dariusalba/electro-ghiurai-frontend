@@ -73,7 +73,7 @@ function EmployeeDashboard() {
 
     const specUploaded = () =>
         toast.success('✅ Spec uploaded successfully', {
-            position: "top-right",
+            position: "bottom-right",
             autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -228,6 +228,7 @@ function EmployeeDashboard() {
                     </div>
                 </div>
             </div>
+            <div className='employee-bg'>
             <div className='app'>
                 <h1>Employee Dashboard</h1>
                 <table className='order-table'>
@@ -345,6 +346,7 @@ function EmployeeDashboard() {
                     </div>
                 )}
                 <ToastContainer />
+            </div>
             </div>
         </div>
     );
