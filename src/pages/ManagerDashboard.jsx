@@ -779,7 +779,15 @@ const ManagerDashboard = () => {
         )}
       </div>
       <div className='manager-bg'>
-      </div>
+        <div class="scontainer2">
+          <div className='wrapper'>
+              <img class="w3-image w3-round-large" src="https://blog.velsoft.com/wp-content/uploads/2018/03/happiness.jpg" alt="img1" width="800"></img>
+              <img class="w3-image w3-round-large" src="https://content.fortune.com/wp-content/uploads/2017/01/gettyimages-533979847.jpg" alt="img2" width="800"></img>
+              <img class="w3-image w3-round-large" src="https://ggsc.s3.amazonaws.com/images/uploads/How_Happy_Are_People_at_Work.jpg" alt="img3" width="800"></img>
+              <img class="w3-image w3-round-large" src="https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg" alt="img4" width="800"></img>
+            </div>
+          </div>
+        </div>
     </div >
   );
 };
