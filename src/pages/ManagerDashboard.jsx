@@ -333,10 +333,6 @@ const ManagerDashboard = () => {
 
   const handleReAssignFunction = async () => {
     try {
-      const updatedOrderDetails = {
-        ...selectedOrderDetails,
-        internalStatus: 1,
-      };
 
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedJuniorDeveloper}`,
@@ -445,7 +441,28 @@ const ManagerDashboard = () => {
     }
   };
 
-
+  const addDevelopers = async(statusData) => {
+    try{
+      if(statusData.functionDev != null){
+        const response = await fetch(`http://localhost:9191/mng/get/employee/${statusData.functionDev}`);
+        const functionDev = await response.json();
+        setFunctionName(`${functionDev.firstName}, ${functionDev.lastName}`);
+      }
+      if(statusData.softwareDev != null){
+        const response2 = await fetch(`http://localhost:9191/mng/get/employee/${statusData.softwareDev}`);
+        const softwareDev = await response2.json();
+        setDeveloperName(`${softwareDev.firstName}, ${softwareDev.lastName}`);
+      }
+      if(statusData.reviewer != null){
+        const response3 = await fetch(`http://localhost:9191/mng/get/employee/${statusData.reviewer}`);
+        const reviewer = await response3.json();
+        setReviewerName(`${reviewer.firstName}, ${reviewer.lastName}`);
+      }
+      
+    }catch(error){
+      console.error(error);
+    }
+  }
 
   const handleViewAcceptedOrder = async (orderId) => {
     try {
@@ -459,11 +476,11 @@ const ManagerDashboard = () => {
       const internalStatusData = await internalStatusResponse.json();
       const internalStatus = internalStatusData.internalStatus;
       const internalOrder = internalStatusData.internalOrder;
-
       await fetchJuniorDevelopers();
       await fetchSeniorDevelopers();
       await fetchReviewers();
 
+      await addDevelopers(internalStatusData);
       setSelectedOrderDetails({
         orderId: orderId,
         remarks: remarks,
@@ -490,6 +507,7 @@ const ManagerDashboard = () => {
           </div>
         </div>
       </div>
+    
       <div className='manager-bg'>
       <div className='app'>
         <h1 className='app-h1'>Manager Dashboard</h1>
