@@ -571,7 +571,7 @@ const ManagerDashboard = () => {
                 ))}
               </tbody>
             </table>
-            {showSecondModal && (
+            {/* {showSecondModal && (
               <div>
                 <h2>Order Details</h2>
                 <h3>Order ID: {selectedOrderDetails.orderId}</h3>
@@ -595,7 +595,7 @@ const ManagerDashboard = () => {
                 <button>Download Code</button>
                 <button>Finish Order</button>
               </div>
-            )}
+            )} */}
           </Modal>
         )}
         {showModal3 && (
