@@ -175,6 +175,7 @@ function EmployeeDashboard() {
             .then(response => response.json())
             .then(data => {
                 console.log('Defect declared:', data);
+                specUploaded();
                 closeModal();
             })
             .catch(error => console.log(error));
@@ -195,6 +196,7 @@ function EmployeeDashboard() {
             .then(response => response.json())
             .then(data => {
                 console.log('No defect declared:', data);
+                specUploaded();
                 closeModal();
             })
             .catch(error => console.log(error));
@@ -215,6 +217,7 @@ function EmployeeDashboard() {
             .then(response => response.json())
             .then(data => {
                 console.log('Defect declared:', data);
+                specUploaded();
                 closeModal();
             })
             .catch(error => console.log(error));
