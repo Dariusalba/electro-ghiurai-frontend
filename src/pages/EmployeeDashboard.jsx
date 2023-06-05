@@ -253,7 +253,7 @@ function EmployeeDashboard() {
                                 <td>{getTaskTypeName(task.taskType)}</td>
                                 <td>{formatDeadline(task.deadline)}</td>
                                 <td>
-                                    <button className='w3-button w3-black app-button-simple2' onClick={() => openModal(task)}>View</button>
+                                    <button className='w3-button w3-black app-button-simple3' onClick={() => openModal(task)}>View</button>
                                 </td>
                             </tr>
                         ))}
