@@ -32,6 +32,17 @@ const ManagerDashboard = () => {
 
 
 
+  const specAccepted = () =>
+        toast.success('✅ Task Completed successfully', {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
 
   const handleButtonClick1 = async () => {
     try {
@@ -206,6 +217,8 @@ const ManagerDashboard = () => {
       });
       setAcceptedOrders([...acceptedOrders, selectedOrder]);
       setPendingOrders(pendingOrders.filter((order) => order.orderId !== selectedOrder.orderId));
+      specAccepted();
+      handleCloseOrderModal();
     } catch (error) {
       console.error(error);
     }
