@@ -76,9 +76,9 @@ const OrderChart = ({ orderData }) => {
 
 const EmployeeChart = ({ employeeData }) => (
   <div>
-  <h1>Employee Report</h1>
+  <h1 className='app-h1'>Employee Report</h1>
   <div>
-    <h2>Total Tasks Assigned</h2>
+    <h2 className='app-h1'>Total Tasks Assigned</h2>
     <PieChart width={600} height={400}>
     <Pie data={employeeData.employee_report} dataKey="total_tasks_assigned" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label />
     <Tooltip />
@@ -86,7 +86,7 @@ const EmployeeChart = ({ employeeData }) => (
     </PieChart>
   </div>
   <div>
-    <h2>Tasks Completed In Time</h2>
+    <h2 className='app-h1'>Tasks Completed In Time</h2>
   <PieChart width={600} height={400}>
     <Pie data={employeeData.employee_report} dataKey="tasks_completed_in_time" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label />
     <Tooltip />
@@ -94,7 +94,7 @@ const EmployeeChart = ({ employeeData }) => (
   </PieChart>
   </div>
   <div>
-    <h2>Tasks Completed Late</h2>
+    <h2 className='app-h1'>Tasks Completed Late</h2>
   <PieChart width={600} height={400}>
     <Pie data={employeeData.employee_report} dataKey="tasks_completed_late" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label />
     <Tooltip />
@@ -102,7 +102,7 @@ const EmployeeChart = ({ employeeData }) => (
   </PieChart>
   </div>
   <div>
-    <h2>Tasks Currently Assigned</h2>
+    <h2 className='app-h1'>Tasks Currently Assigned</h2>
   <PieChart width={600} height={400}>
     <Pie data={employeeData.employee_report} dataKey="current_tasks_assigned" nameKey="full_name" fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} label />
     <Tooltip />
@@ -110,7 +110,7 @@ const EmployeeChart = ({ employeeData }) => (
   </PieChart>
   </div>
   <div>
-    <h2>Employee Summary</h2>
+    <h2 className='app-h1'>Employee Summary</h2>
     <p>Total Employees: {employeeData.total_employee_number}</p>
     <p>Junior Developers: {employeeData.junior_developers}</p>
   </div>

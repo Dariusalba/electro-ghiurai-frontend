@@ -150,9 +150,9 @@ body {
 .report-bg {
 	width: auto;
 	min-height: 900px;
-	max-height: 1330px;
+	max-height: 1500px;
 	padding-top: 1px;
-	background-image: url("components/manager-bg.jpg");
+	background-image: url("components/report-bg.jpg");
 	background-size: cover;
 }
 
