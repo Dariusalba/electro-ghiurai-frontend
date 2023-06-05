@@ -675,7 +675,7 @@ const ManagerDashboard = () => {
             </table>
             {selectedOrderDetails.internalStatus === 1 && showDevelopers && (
               <div>
-                <h3>List of Developers</h3>
+                <h3>Add Function</h3>
                 {juniorDevelopers.length === 0 ? (
                   <p>No junior developers available</p>
                 ) : (
@@ -705,6 +705,7 @@ const ManagerDashboard = () => {
                   <p>No senior developers available</p>
                 ) : (
                   <div className='dev-func'>
+                    <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
                     <select value={selectedSeniorDeveloper} onChange={handleSelectSeniorDeveloper}>
                       {seniorDevelopers.map((seniorDeveloper, index) => (
                         <option key={index} value={seniorDeveloper.userId}>
@@ -714,7 +715,6 @@ const ManagerDashboard = () => {
                     </select>
                     <input className="dev-date" type="date" value={deadline} onChange={handleDeadlineChange} />
                     <button className="w3-button w3-black" onClick={handleAssignDeveloper}>Assign Developer</button>
-                    <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
                   </div>
                 )}
               </div>
