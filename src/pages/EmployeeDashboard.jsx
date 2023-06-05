@@ -262,7 +262,7 @@ function EmployeeDashboard() {
                 {selectedTask && !codeModalVisible && (
                     <div className="modal">
                         <div className="modal-content">
-                        <button className="w3-button w3-black close-button" onClick={onClose}>
+                        <button className="w3-button w3-black close-button" onClick={closeModal}>
                         &times;
                         </button>
                             <h2>Task #{selectedTask.taskNr}</h2>
