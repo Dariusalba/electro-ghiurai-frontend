@@ -262,12 +262,28 @@ function EmployeeDashboard() {
                 {selectedTask && !codeModalVisible && (
                     <div className="modal">
                         <div className="modal-content">
+                            <button className="w3-button w3-black close-button" onClick={closeModal}>
+                            &times;
+                            </button>
                             <h2>Task #{selectedTask.taskNr}</h2>
                             {orderDetails ? (
                                 <div>
-                                    <p>Order #{selectedTask.internalOrder}</p>
-                                    <p>Order title: {orderDetails.title}</p>
-                                    <p>Order description: {orderDetails.description}</p>
+                                    <table className='order-table'>
+                                        <tbody>
+                                            <tr>
+                                                <td>Order</td>
+                                                <td>#{selectedTask.internalOrder}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Order title</td>
+                                                <td>{orderDetails.title}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Order description</td>
+                                                <td>{orderDetails.description}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                     <p>Remarks:</p>
                                     {orderRemarks ? (
                                         <ul>
@@ -278,14 +294,15 @@ function EmployeeDashboard() {
                                     ) : (
                                         <p>No remarks available</p>
                                     )}
-                                    <button className='w3-button w3-black' onClick={() => window.open('/doceditor','mywin','width=1200,height=800')}>Open SpecDoc</button>
-                                    <input type="file" accept=".pdf" onChange={handleFileChange} />
-                                    <button className='w3-button w3-black' onClick={uploadSpecDoc}>Upload Spec</button>
+                                    <div className='dev-func'>
+                                        <button className='w3-button w3-black app-button-simple2' onClick={() => window.open('/doceditor','mywin','width=1200,height=800')}>Open SpecDoc</button>
+                                        <input type="file" accept=".pdf" onChange={handleFileChange} />
+                                        <button className='w3-button w3-black app-button-simple2' onClick={uploadSpecDoc}>Upload Spec</button>
+                                    </div>
                                 </div>
                             ) : (
                                 <p>Failed to load order details</p>
                             )}
-                            <button className='w3-button w3-black' onClick={closeModal}>Close</button>
                         </div>
                     </div>
                 )}
