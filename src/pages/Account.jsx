@@ -36,7 +36,7 @@ function AccountInfo() {
     fetchOrders();
   }, [userId]);
 
-  const handleDownloadSpec = async (specUrl) => {
+  const handleDownloadCode = async (specUrl) => {
     try {
       const response = await fetch(`http://localhost:9191/mng/download/code/${selectedOrder.orderId}`);
       const blob = await response.blob();
@@ -44,7 +44,7 @@ function AccountInfo() {
 
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `spec-${specUrl}`);
+      link.setAttribute('download', `app-${specUrl}`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -195,7 +195,7 @@ function AccountInfo() {
                 <div>
                   <button
                     className="w3-button w3-black app-button"
-                    onClick={() => handleDownloadSpec(selectedOrder.specUrl)}
+                    onClick={() => handleDownloadCode(selectedOrder.orderId)}
                   >
                     Download Code
                   </button>
