@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { BarChart, Bar, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 
 const OrderChart = ({ orderData }) => {
@@ -147,23 +146,16 @@ const ReportPage = () => {
       <div class="w3-top">
         <div class="w3-bar w3-white w3-card" id="myNavbar">
           <a href="/manager/dashboard" class="w3-bar-item w3-button w3-wide">ELECTROGHIURAI</a>
+          <div class="w3-right w3-hide-small">
+            <a href="#ochart" class="w3-bar-item w3-button" onClick={() => setChartType('order')}><i class="fa fa-compass"></i> ORDER CHART</a>
+            <a href="#echart" class="w3-bar-item w3-button" onClick={() => setChartType('employee')}><i class="fa fa-user"></i> EMPLOYEE CHART</a>
+            <a href="/manager/dashboard" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i> GO BACK</a>
+          </div>
         </div>
       </div>
-      <div className='app2'>
-      <div>
-        <h1>Chart Selection</h1>
-        <button className="w3-button w3-black app-button-first" onClick={() => setChartType('order')}>Order Chart</button>
-        <button className="w3-button w3-black app-button" onClick={() => setChartType('employee')}>Employee Chart</button>
-        <Link to="/manager/dashboard">
-        <button className="w3-button w3-black app-button">Go Back</button>
-        </Link>
-      </div>
-      <div>
+      <div className='app'>
         {chartType === 'order' && orderData && <OrderChart orderData={orderData} />}
         {chartType === 'employee' && employeeData && <EmployeeChart employeeData={employeeData} />}
-      </div>
-      <br/>
-      <p className='app-p'>©2023 ElectroGhiurai. All rights reserved.</p>
       </div>
     </div>
   );
