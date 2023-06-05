@@ -605,9 +605,22 @@ const ManagerDashboard = () => {
         {selectedOrder && (
           <Modal onClose={handleCloseOrderModal}>
             <h2>Order Details</h2>
-            <h3>Order ID: {selectedOrder.orderId}</h3>
-            <h3>Title: {selectedOrder.title}</h3>
-            <h3>Description: {selectedOrder.description}</h3>
+            <table className='order-table'>
+              <tbody>
+                <tr>
+                  <td>Order ID</td>
+                  <td>{selectedOrderDetails.orderId}</td>
+                </tr>
+                <tr>
+                  <td>Title</td>
+                  <td>{selectedOrderDetails.title}</td>
+                </tr>
+                <tr>
+                  <td>Description</td>
+                  <td>{selectedOrderDetails.description}</td>
+                </tr>
+              </tbody>
+            </table>
             <h3>Remarks:</h3>
             {orderRemarks.length === 0 ? (
               <p>No remarks added</p>
