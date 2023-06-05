@@ -307,15 +307,15 @@ function EmployeeDashboard() {
                                     ) : (
                                         <p>No remarks available</p>
                                     )}
-                                    <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
-                                    <button className="w3-button w3-black" onClick={redirectToVSCDev}>Open in VSCode</button>
-                                    <input type="file" accept=".zip" onChange={handleFileChange} />
-                                    <button className="w3-button w3-black" onClick={uploadCode}>Upload Code</button>
                                 </div>
                             ) : (
                                 <p>Failed to load order details</p>
                             )}
-                            <button className='w3-button w3-black app-button' onClick={closeModal}>Close</button>
+                            <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
+                            <button className="w3-button w3-black" onClick={redirectToVSCDev}>Open VSCode</button>
+                            <input type="file" accept=".zip" onChange={handleFileChange} />
+                            <button className="w3-button w3-black" onClick={uploadCode}>Upload Code</button>
+                            <button className='w3-button w3-black' onClick={closeModal}>Close</button>
                         </div>
                     </div>
                 )}
