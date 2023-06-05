@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Modal from '../components/Modal';
 import { Link } from "react-router-dom";
 import "../App.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const ManagerDashboard = () => {
   const [showModal1, setShowModal1] = useState(false);
@@ -204,7 +206,6 @@ const ManagerDashboard = () => {
       });
       setAcceptedOrders([...acceptedOrders, selectedOrder]);
       setPendingOrders(pendingOrders.filter((order) => order.orderId !== selectedOrder.orderId));
-      handleCloseOrderModal();
     } catch (error) {
       console.error(error);
     }
@@ -280,6 +281,10 @@ const ManagerDashboard = () => {
 
   const handleAssignFunction = async () => {
     try {
+      employeeAssigned();
+          setTimeout(() => {
+            window.location.href = '/manager/dashboard';
+          }, 2000);
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedJuniorDeveloper}`,
         {
@@ -296,6 +301,7 @@ const ManagerDashboard = () => {
         console.log('Junior developer assigned successfully');
         setShowDevelopers(false);
         setFunctionName(responseData.firstName + ' ' + responseData.lastName);
+        
       } else {
         console.error('Failed to assign junior developer');
       }
@@ -463,7 +469,17 @@ const ManagerDashboard = () => {
       console.error(error);
     }
   }
-
+  const employeeAssigned = () => 
+    toast.success('✅ Employee was Assigned Successfully', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
   const handleViewAcceptedOrder = async (orderId) => {
     try {
       const remarks = await fetchOrderRemarks(orderId);
@@ -818,6 +834,7 @@ const ManagerDashboard = () => {
               </div>
             </div>
         </div>
+        <ToastContainer />
     </div >
   );
 };
