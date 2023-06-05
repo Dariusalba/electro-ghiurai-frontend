@@ -72,7 +72,7 @@ function EmployeeDashboard() {
     };
 
     const specUploaded = () =>
-        toast.success('✅ Spec uploaded successfully', {
+        toast.success('✅ Task Completed successfully', {
             position: "bottom-right",
             autoClose: 2000,
             hideProgressBar: false,
@@ -82,6 +82,7 @@ function EmployeeDashboard() {
             progress: undefined,
             theme: "dark",
         });
+        
 
     const uploadSpecDoc = () => {
         if (selectedFile && selectedTask) {
