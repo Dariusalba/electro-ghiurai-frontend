@@ -342,10 +342,10 @@ function EmployeeDashboard() {
                 )}
                 {reviewModalVisible && (
                     <div className="modal">
-                        <button className="w3-button w3-black close-button" onClick={closeModal}>
-                        &times;
-                        </button>
                         <div className="modal-content2">
+                            <button className="w3-button w3-black close-button" onClick={closeModal}>
+                            &times;
+                            </button>
                             <h2>Task #{selectedTask.taskNr} - REVIEW</h2>
                             {orderDetails ? (
                                 <div>
