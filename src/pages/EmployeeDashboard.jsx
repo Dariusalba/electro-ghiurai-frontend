@@ -342,7 +342,10 @@ function EmployeeDashboard() {
                 )}
                 {reviewModalVisible && (
                     <div className="modal">
-                        <div className="modal-content">
+                        <button className="w3-button w3-black close-button" onClick={closeModal}>
+                        &times;
+                        </button>
+                        <div className="modal-content2">
                             <h2>Task #{selectedTask.taskNr} - REVIEW</h2>
                             {orderDetails ? (
                                 <div>
@@ -360,6 +363,7 @@ function EmployeeDashboard() {
                                     <div className='dev-func'>
                                         <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadSpec}>Download Spec</button>
                                         <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadCode}>Download Code</button>
+                                        <h2>Verdict</h2>
                                         <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareDefect}>Declare Spec Defect</button>
                                         <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareCodeDefect}>Declare Code Defect</button>
                                         <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareNoDefect}>Declare No Defect</button>
@@ -368,7 +372,6 @@ function EmployeeDashboard() {
                             ) : (
                                 <p>Failed to load order details</p>
                             )}
-                            <button className='w3-button w3-black app-button' onClick={closeModal}>Close</button>
                         </div>
                     </div>
                 )}

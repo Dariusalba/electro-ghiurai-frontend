@@ -22,6 +22,20 @@
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
+
+  .modal-content2 {
+    max-height: 600px;
+    min-width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    overflow-y: auto;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
   
   /* Style for the close button */
   .close-button {
