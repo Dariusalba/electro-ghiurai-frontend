@@ -202,7 +202,7 @@ function AccountInfo() {
                   </button>
                   <br />
                   <br />
-                  <button className="w3-button w3-black app-button" onClick={openFeedbackModal}>
+                  <button className="w3-button w3-black app-button-simple4" onClick={openFeedbackModal}>
                     Feedback
                   </button>
                 </div>
