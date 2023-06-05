@@ -138,6 +138,9 @@ function EmployeeDashboard() {
             console.error(error);
         }
     };
+    const formatDeadline = (deadline) => {
+        return deadline.substring(0,10);
+    }
 
     const uploadCode = () => {
         if (selectedFile && selectedTask) {
@@ -248,7 +251,7 @@ function EmployeeDashboard() {
                                 <td>{index + 1}</td>
                                 <td>{task.taskNr}</td>
                                 <td>{getTaskTypeName(task.taskType)}</td>
-                                <td>{task.deadline}</td>
+                                <td>{formatDeadline(task.deadline)}</td>
                                 <td>
                                     <button className='w3-button w3-black app-button' onClick={() => openModal(task)}>View</button>
                                 </td>
