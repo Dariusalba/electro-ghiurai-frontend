@@ -42,12 +42,20 @@ body, html {
 .scontainer2{
     width: 600px;
 	height: 405px;
-    margin-top: 100px;
-	margin-left: 350px;
+    margin-top: 30px;
+	margin-left: 150px;
     overflow: hidden;
     border: 10px solid #ffffff;
     border-radius: 8px;
     box-shadow: -1px 5px 15px black;
+}
+
+.slogo {
+    width: 523px;
+    height: 208px;
+    margin-left: 200px;
+    margin-top: 20px;
+    background-image: url("logo.png");
 }
 
 .wrapper {
