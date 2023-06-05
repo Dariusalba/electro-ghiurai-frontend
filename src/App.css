@@ -73,10 +73,10 @@ body {
   .app2 {
 	width: 600px;
 	margin-top: 59px;
-	height: 841px;
+	height: 654px;
 	background-color: #fff;
 	box-shadow: 5px 20px 50px #000;
-	padding: 20px;
+	padding: 125px;
 	box-sizing: border-box;
 	overflow-y: scroll;
 	overflow: hidden;
@@ -120,7 +120,7 @@ body {
 
 .manager-bg {
 	width: 1320px;
-	height: 841px;
+	height: 654px;
 	position: absolute;
 	top: 59px;
 	left: 600px;

@@ -509,13 +509,13 @@ const ManagerDashboard = () => {
       </div>
       <div className='app2'>
         <h1 className=''>Manager Dashboard</h1>
-        <button className='w3-button w3-black app-button' onClick={handleButtonClick1}>View Pending Orders</button>
+        <button className='w3-button w3-black app-button' onClick={handleButtonClick1}>Pending Orders</button>
         <br />
         <br />
-        <button className='w3-button w3-black app-button' onClick={handleButtonClick2}>View Current Orders</button>
+        <button className='w3-button w3-black app-button' onClick={handleButtonClick2}>Current Orders</button>
         <br />
         <br />
-        <button className='w3-button w3-black app-button' onClick={handleReportButtonClick}>View Company Report</button>
+        <button className='w3-button w3-black app-button' onClick={handleReportButtonClick}>Company Report</button>
         <br />
         <br />
         <button className='w3-button w3-black app-button' onClick={handleButtonClick3}>Other Services</button>
