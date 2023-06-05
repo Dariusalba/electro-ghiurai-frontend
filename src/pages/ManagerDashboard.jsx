@@ -822,13 +822,13 @@ const ManagerDashboard = () => {
             {selectedOrderDetails.internalStatus === 9 && showDevelopers && (
               <div>
                 <h3>Function: {functionName}</h3>
-                <button onClick={handleDownloadSpec}>Download Spec</button>
+                <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
                 <h3>Developer: {developerName}</h3>
                 <button className="w3-button w3-black" onClick={handleDownloadCode}>Download Code</button>
                 <h3>Reviewer: {reviewerName}</h3>
                 <h3>Reassign Developer</h3>
                 {seniorDevelopers.length === 0 ? (
-                  <p>Reassign Developer</p>
+                  <p>No developers available.</p>
                 ) : (
                   <div className='dev-func'>
                     <select value={selectedSeniorDeveloper} onChange={handleSelectSeniorDeveloper}>
@@ -840,7 +840,6 @@ const ManagerDashboard = () => {
                     </select>
                     <input className="dev-date" type="date" value={deadline} onChange={handleDeadlineChange} />
                     <button className="w3-button w3-black app-button-simple" onClick={handleReAssignDeveloper}>Reassign Developer</button>
-                    <button className="w3-button w3-black app-button-simple" onClick={handleDownloadSpec}>Download Spec</button>
                   </div>
                 )}
               </div>
