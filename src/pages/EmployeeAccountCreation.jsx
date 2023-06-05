@@ -148,7 +148,7 @@ const EmployeeAccountCreation = () => {
       return;
     }
 
-    fetch('http://localhost:9191/mng/new', {
+    fetch('http://localhost:9191/mng/new-emp', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
