@@ -265,7 +265,7 @@ function EmployeeDashboard() {
                             <button className="w3-button w3-black close-button" onClick={closeModal}>
                             &times;
                             </button>
-                            <h2>Task #{selectedTask.taskNr}</h2>
+                            <h2>Task #{selectedTask.taskNr} - SPEC</h2>
                             {orderDetails ? (
                                 <div>
                                     <table className='order-table'>
@@ -357,11 +357,13 @@ function EmployeeDashboard() {
                                     ) : (
                                         <p>No remarks available</p>
                                     )}
-                                    <button className="w3-button w3-black app-button" onClick={handleDownloadSpec}>Download Spec</button>
-                                    <button className="w3-button w3-black app-button" onClick={handleDownloadCode}>Download Code</button>
-                                    <button className="w3-button w3-black app-button" onClick={handleDeclareDefect}>Declare Spec Defect</button>
-                                    <button className="w3-button w3-black app-button" onClick={handleDeclareCodeDefect}>Declare Code Defect</button>
-                                    <button className="w3-button w3-black app-button" onClick={handleDeclareNoDefect}>Declare No Defect</button>
+                                    <div className='dev-func'>
+                                        <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadSpec}>Download Spec</button>
+                                        <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadCode}>Download Code</button>
+                                        <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareDefect}>Declare Spec Defect</button>
+                                        <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareCodeDefect}>Declare Code Defect</button>
+                                        <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareNoDefect}>Declare No Defect</button>
+                                    </div>
                                 </div>
                             ) : (
                                 <p>Failed to load order details</p>
