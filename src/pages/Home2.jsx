@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../components/Home2.css'
 import '../components/Animations.js'
@@ -8,6 +9,21 @@ function scroll_top() {
 }
 
 const Home2 = () => {
+  useEffect(() =>{
+    fetchFeedback();
+  },[]);
+  const [customerFeedback, setCustomerFeedback] = useState([]);
+  const fetchFeedback = async () =>{
+    const response = await fetch('http://localhost:9191/user/feedback');
+    const data = await response.json();
+    for(let i = 0; i<data.length ;i++){
+      const customerResponse = await fetch(`http://localhost:9191/customer/${data[i].userId}`);
+      const customerData = await customerResponse.json();
+      data[i].firstName = customerData.firstName;
+      data[i].lastName = customerData.lastName;
+    }
+    setCustomerFeedback(data);
+  }
   return (
     <div>
       <div class="w3-top">
@@ -78,38 +94,17 @@ const Home2 = () => {
         <h3 class="w3-center">CUSTOMER REVIEWS</h3>
         <p class="w3-center w3-large">See what other people think about us.</p>
         <div class="w3-row-padding w3-grayscale w3-margintop-64">
-          <div class="w3-col l3 m6 w3-margin-bottom">
-          <div class="w3-card">
-            <div class="w3-container">
-              <h3>Daniel Popescu</h3>
-              <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
+          {customerFeedback.length && customerFeedback.map((feedback)=>(
+            <div class="w3-col l3 m6 w3-margin-bottom">
+            <div class="w3-card">
+              <div class="w3-container">
+                <h3>{feedback.firstName+", "+feedback.lastName}</h3>
+                <p>{feedback.description}</p>
+                <p>{feedback.rating}/5</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="w3-col l3 m6 w3-margin-bottom">
-          <div class="w3-card">
-            <div class="w3-container">
-              <h3>Andreea Maria</h3>
-              <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-            </div>
-          </div>
-        </div>
-        <div class="w3-col l3 m6 w3-margin-bottom">
-          <div class="w3-card">
-            <div class="w3-container">
-              <h3>George Marin</h3>
-              <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-            </div>
-          </div>
-        </div>
-        <div class="w3-col l3 m6 w3-margin-bottom">
-          <div class="w3-card">
-            <div class="w3-container">
-              <h3>Cristian Stefan</h3>
-              <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-            </div>
-          </div>
-        </div>
+          )) }
       </div>
     </div>
     <div class="w3-container w3-row w3-center w3-dark-grey w3-padding-64">
