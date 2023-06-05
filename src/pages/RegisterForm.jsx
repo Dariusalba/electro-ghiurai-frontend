@@ -101,7 +101,7 @@ const RegisterForm = () => {
 
   const notifyUserExists = () =>
     toast.error('❌ Username already exists!', {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -118,7 +118,7 @@ const RegisterForm = () => {
 
   const emailNotValid = () =>
     toast.error('❌ Please enter a valid email address!', {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -130,7 +130,7 @@ const RegisterForm = () => {
 
   const passwordsNotMatching = () =>
     toast.error('❌ Passwords do not match!', {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
