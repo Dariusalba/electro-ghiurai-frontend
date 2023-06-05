@@ -609,15 +609,15 @@ const ManagerDashboard = () => {
               <tbody>
                 <tr>
                   <td>Order ID</td>
-                  <td>{selectedOrderDetails.orderId}</td>
+                  <td>{selectedOrder.orderId}</td>
                 </tr>
                 <tr>
                   <td>Title</td>
-                  <td>{selectedOrderDetails.title}</td>
+                  <td>{selectedOrder.title}</td>
                 </tr>
                 <tr>
                   <td>Description</td>
-                  <td>{selectedOrderDetails.description}</td>
+                  <td>{selectedOrder.description}</td>
                 </tr>
               </tbody>
             </table>
