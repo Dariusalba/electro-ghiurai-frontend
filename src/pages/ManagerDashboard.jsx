@@ -415,7 +415,7 @@ const ManagerDashboard = () => {
               window.location.href = '/manager/dashboard';
             }, 2000);
       const response = await fetch(`
-      http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/review/${selectedReviewer}`,
+      http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/reviewer/${selectedReviewer}`,
         {
           method: 'POST',
           headers: {
@@ -424,7 +424,7 @@ const ManagerDashboard = () => {
           body: JSON.stringify({ deadline }),
         }
       );
-
+        console.log(response);
       if (response.ok) {
         const responseData = await response.json();
         console.log('Reviewer assigned successfully');
