@@ -153,7 +153,7 @@ function AccountInfo() {
                   <td>{order.description}</td>
                   <td>
                     <button
-                      className="w3-button w3-black app-button"
+                      className="w3-button w3-black app-button-simple4"
                       onClick={() => handleOrderSelection(order.orderId)}
                     >
                       View
@@ -202,7 +202,7 @@ function AccountInfo() {
                   </button>
                   <br />
                   <br />
-                  <button className="w3-button w3-black app-button-simple4" onClick={openFeedbackModal}>
+                  <button className="w3-button w3-black app-button" onClick={openFeedbackModal}>
                     Feedback
                   </button>
                 </div>
