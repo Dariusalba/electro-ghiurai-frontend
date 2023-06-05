@@ -9,8 +9,6 @@ import EmployeeAccountCreation from './pages/EmployeeAccountCreation'
 import EmployeeDashboard from './pages/EmployeeDashboard';
 import DocEditorPage from './pages/DocEditorPage';
 import ReportPage from './pages/ReportPage';
-import EmployeeReport from './pages/EmployeeReport';
-import Feedback from './pages/Feedback';
 
 function App() {
   return (
@@ -26,7 +24,6 @@ function App() {
         <Route path="/manager/employee/account" element={<EmployeeAccountCreation />} />
         <Route path="/employee/dashboard" element={<EmployeeDashboard />} />
         <Route path="/manager/report" element={<ReportPage />} />
-        <Route path="/manager/employee/report" element={<EmployeeReport />} />
         <Route path="*" element={<h1 className='not-found'>Not Found</h1>} />
       </Routes>
     </Router>

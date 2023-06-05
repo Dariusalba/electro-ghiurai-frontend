@@ -220,13 +220,13 @@ function EmployeeDashboard() {
 
     return (
         <div>
-            <div className="welcome2">
-                <Link to="/">
-                    <h1 className='welcome-h1'>ElectroGhiurai</h1>
-                </Link>
-                <Link to="/login">
-                    <button className="welcome-button">Sign Out</button>
-                </Link>
+            <div class="w3-top">
+                <div class="w3-bar w3-white w3-card" id="myNavbar">
+                    <a href="/" class="w3-bar-item w3-button w3-wide">ELECTROGHIURAI</a>
+                    <div class="w3-right w3-hide-small">
+                        <a href="/login" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i> SIGN OUT</a>
+                    </div>
+                </div>
             </div>
             <div className='app'>
                 <h1>Employee Dashboard</h1>
@@ -248,7 +248,7 @@ function EmployeeDashboard() {
                                 <td>{getTaskTypeName(task.taskType)}</td>
                                 <td>{task.deadline}</td>
                                 <td>
-                                    <button className='app-button' onClick={() => openModal(task)}>View</button>
+                                    <button className='w3-button w3-black app-button' onClick={() => openModal(task)}>View</button>
                                 </td>
                             </tr>
                         ))}
@@ -273,14 +273,14 @@ function EmployeeDashboard() {
                                     ) : (
                                         <p>No remarks available</p>
                                     )}
-                                    <button className='app-button' onClick={() => window.open('/doceditor','mywin','width=1200,height=800')}>Open SpecDoc</button>
+                                    <button className='w3-button w3-black app-button' onClick={() => window.open('/doceditor','mywin','width=1200,height=800')}>Open SpecDoc</button>
                                     <input type="file" accept=".pdf" onChange={handleFileChange} />
-                                    <button className='app-button' onClick={uploadSpecDoc}>Upload Spec</button>
+                                    <button className='w3-button w3-black app-button' onClick={uploadSpecDoc}>Upload Spec</button>
                                 </div>
                             ) : (
                                 <p>Failed to load order details</p>
                             )}
-                            <button className='app-button' onClick={closeModal}>Close</button>
+                            <button className='w3-button w3-black app-button' onClick={closeModal}>Close</button>
                         </div>
                     </div>
                 )}
@@ -302,15 +302,15 @@ function EmployeeDashboard() {
                                     ) : (
                                         <p>No remarks available</p>
                                     )}
-                                    <button className="app-button" onClick={handleDownloadSpec}>Download Spec</button>
-                                    <button className="app-button" onClick={redirectToVSCDev}>Open in VSCode</button>
+                                    <button className="w3-button w3-black app-button" onClick={handleDownloadSpec}>Download Spec</button>
+                                    <button className="w3-button w3-black app-button" onClick={redirectToVSCDev}>Open in VSCode</button>
                                     <input type="file" accept=".zip" onChange={handleFileChange} />
-                                    <button className="app-button" onClick={uploadCode}>Upload Code</button>
+                                    <button className="w3-button w3-black app-button" onClick={uploadCode}>Upload Code</button>
                                 </div>
                             ) : (
                                 <p>Failed to load order details</p>
                             )}
-                            <button className='app-button' onClick={closeModal}>Close</button>
+                            <button className='w3-button w3-black app-button' onClick={closeModal}>Close</button>
                         </div>
                     </div>
                 )}
@@ -331,16 +331,16 @@ function EmployeeDashboard() {
                                     ) : (
                                         <p>No remarks available</p>
                                     )}
-                                    <button className="app-button" onClick={handleDownloadSpec}>Download Spec</button>
-                                    <button className="app-button" onClick={handleDownloadCode}>Download Code</button>
-                                    <button className="app-button" onClick={handleDeclareDefect}>Declare Spec Defect</button>
-                                    <button className="app-button" onClick={handleDeclareCodeDefect}>Declare Code Defect</button>
-                                    <button className="app-button" onClick={handleDeclareNoDefect}>Declare No Defect</button>
+                                    <button className="w3-button w3-black app-button" onClick={handleDownloadSpec}>Download Spec</button>
+                                    <button className="w3-button w3-black app-button" onClick={handleDownloadCode}>Download Code</button>
+                                    <button className="w3-button w3-black app-button" onClick={handleDeclareDefect}>Declare Spec Defect</button>
+                                    <button className="w3-button w3-black app-button" onClick={handleDeclareCodeDefect}>Declare Code Defect</button>
+                                    <button className="w3-button w3-black app-button" onClick={handleDeclareNoDefect}>Declare No Defect</button>
                                 </div>
                             ) : (
                                 <p>Failed to load order details</p>
                             )}
-                            <button className='app-button' onClick={closeModal}>Close</button>
+                            <button className='w3-button w3-black app-button' onClick={closeModal}>Close</button>
                         </div>
                     </div>
                 )}
