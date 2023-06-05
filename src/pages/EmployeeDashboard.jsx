@@ -262,6 +262,9 @@ function EmployeeDashboard() {
                 {selectedTask && !codeModalVisible && (
                     <div className="modal">
                         <div className="modal-content">
+                        <button className="w3-button w3-black close-button" onClick={onClose}>
+                        &times;
+                        </button>
                             <h2>Task #{selectedTask.taskNr}</h2>
                             {orderDetails ? (
                                 <div>
@@ -311,11 +314,13 @@ function EmployeeDashboard() {
                             ) : (
                                 <p>Failed to load order details</p>
                             )}
-                            <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
-                            <button className="w3-button w3-black" onClick={redirectToVSCDev}>Open VSCode</button>
-                            <input type="file" accept=".zip" onChange={handleFileChange} />
-                            <button className="w3-button w3-black" onClick={uploadCode}>Upload Code</button>
-                            <button className='w3-button w3-black' onClick={closeModal}>Close</button>
+                            <div className='dev-func'>
+                                <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
+                                <button className="w3-button w3-black" onClick={redirectToVSCDev}>Open VSCode</button>
+                                <input type="file" accept=".zip" onChange={handleFileChange} />
+                                <button className="w3-button w3-black" onClick={uploadCode}>Upload Code</button>
+                                <button className='w3-button w3-black' onClick={closeModal}>Close</button>
+                            </div>
                         </div>
                     </div>
                 )}
