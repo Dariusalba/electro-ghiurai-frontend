@@ -34,16 +34,16 @@ const ManagerDashboard = () => {
 
 
   const specAccepted = () =>
-        toast.success('✅ Order Accepted', {
-            position: "bottom-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-        });
+    toast.success('✅ Order Accepted', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
 
   const handleButtonClick1 = async () => {
     try {
@@ -295,9 +295,6 @@ const ManagerDashboard = () => {
   const handleAssignFunction = async () => {
     try {
       employeeAssigned();
-          setTimeout(() => {
-            window.location.href = '/manager/dashboard';
-          }, 2000);
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedJuniorDeveloper}`,
         {
@@ -314,7 +311,7 @@ const ManagerDashboard = () => {
         console.log('Junior developer assigned successfully');
         setShowDevelopers(false);
         setFunctionName(responseData.firstName + ' ' + responseData.lastName);
-        
+        handleCloseAcceptedOrderModal(true);
       } else {
         console.error('Failed to assign junior developer');
       }
@@ -326,10 +323,7 @@ const ManagerDashboard = () => {
 
   const handleAssignDeveloper = async () => {
     try {
-        employeeAssigned();
-            setTimeout(() => {
-              window.location.href = '/manager/dashboard';
-            }, 2000);
+      employeeAssigned();
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/software/${selectedSeniorDeveloper}`,
         {
@@ -346,6 +340,7 @@ const ManagerDashboard = () => {
         console.log('Senior developer assigned successfully');
         setShowDevelopers(false);
         setDeveloperName(responseData.firstName + ' ' + responseData.lastName);
+        handleCloseAcceptedOrderModal(true);
       } else {
         console.error('Failed to assign senior developer');
       }
@@ -357,9 +352,6 @@ const ManagerDashboard = () => {
   const handleReAssignFunction = async () => {
     try {
       employeeAssigned();
-            setTimeout(() => {
-              window.location.href = '/manager/dashboard';
-            }, 2000);
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedJuniorDeveloper}`,
         {
@@ -378,6 +370,7 @@ const ManagerDashboard = () => {
         console.log('Junior developer assigned successfully');
         setShowDevelopers(false);
         setFunctionName(responseData.firstName + ' ' + responseData.lastName);
+        handleCloseAcceptedOrderModal(true);
       } else {
         console.error('Failed to assign junior developer');
       }
@@ -390,10 +383,6 @@ const ManagerDashboard = () => {
   const handleReAssignDeveloper = async () => {
     try {
       employeeAssigned();
-            setTimeout(() => {
-              window.location.href = '/manager/dashboard';
-            }, 2000);
-
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/software/${selectedSeniorDeveloper}`,
         {
@@ -412,6 +401,7 @@ const ManagerDashboard = () => {
         console.log('Senior developer assigned successfully');
         setShowDevelopers(false);
         setDeveloperName(responseData.firstName + ' ' + responseData.lastName);
+        handleCloseAcceptedOrderModal(true);
       } else {
         console.error('Failed to assign senior developer');
       }
@@ -424,9 +414,6 @@ const ManagerDashboard = () => {
   const handleAssignReviewer = async () => {
     try {
       employeeAssigned();
-            setTimeout(() => {
-              window.location.href = '/manager/dashboard';
-            }, 2000);
       const response = await fetch(`
       http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/reviewer/${selectedReviewer}`,
         {
@@ -437,12 +424,13 @@ const ManagerDashboard = () => {
           body: JSON.stringify({ deadline }),
         }
       );
-        console.log(response);
+      console.log(response);
       if (response.ok) {
         const responseData = await response.json();
         console.log('Reviewer assigned successfully');
         setShowReviewers(false);
         setReviewerName(responseData.firstName + ' ' + responseData.lastName);
+        handleCloseAcceptedOrderModal(true);
       } else {
         console.error('Failed to assign Reviewer');
       }
@@ -459,41 +447,41 @@ const ManagerDashboard = () => {
         },
         body: JSON.stringify(selectedOrderDetails),
       });
-      if(response.ok){
+      if (response.ok) {
         setFinishedOrders([...finishedOrders, selectedOrderDetails]);
         setAcceptedOrders(acceptedOrders.filter((order) => order.orderId !== selectedOrderDetails.orderId));
         handleCloseAcceptedOrderModal(true);
         finishedOrder();
       }
-      
+
     } catch (error) {
       console.error(error);
     }
   };
 
-  const addDevelopers = async(statusData) => {
-    try{
-      if(statusData.functionDev != null){
+  const addDevelopers = async (statusData) => {
+    try {
+      if (statusData.functionDev != null) {
         const response = await fetch(`http://localhost:9191/mng/get/employee/${statusData.functionDev}`);
         const functionDev = await response.json();
         setFunctionName(`${functionDev.firstName}, ${functionDev.lastName}`);
       }
-      if(statusData.softwareDev != null){
+      if (statusData.softwareDev != null) {
         const response2 = await fetch(`http://localhost:9191/mng/get/employee/${statusData.softwareDev}`);
         const softwareDev = await response2.json();
         setDeveloperName(`${softwareDev.firstName}, ${softwareDev.lastName}`);
       }
-      if(statusData.reviewer != null){
+      if (statusData.reviewer != null) {
         const response3 = await fetch(`http://localhost:9191/mng/get/employee/${statusData.reviewer}`);
         const reviewer = await response3.json();
         setReviewerName(`${reviewer.firstName}, ${reviewer.lastName}`);
       }
-      
-    }catch(error){
+
+    } catch (error) {
       console.error(error);
     }
   }
-  const employeeAssigned = () => 
+  const employeeAssigned = () =>
     toast.success('✅ Employee was Assigned Successfully', {
       position: "bottom-right",
       autoClose: 2000,
@@ -503,8 +491,8 @@ const ManagerDashboard = () => {
       draggable: true,
       progress: undefined,
       theme: "dark",
-      });
-  const finishedOrder = () => 
+    });
+  const finishedOrder = () =>
     toast.success('✅ Order Finished Successfully', {
       position: "bottom-right",
       autoClose: 2000,
@@ -514,7 +502,7 @@ const ManagerDashboard = () => {
       draggable: true,
       progress: undefined,
       theme: "dark",
-      });
+    });
   const handleViewAcceptedOrder = async (orderId) => {
     try {
       const remarks = await fetchOrderRemarks(orderId);
@@ -864,14 +852,14 @@ const ManagerDashboard = () => {
         <div className='slogo'></div>
         <div class="scontainer2">
           <div className='wrapper'>
-              <img class="w3-image w3-round-large" src="https://blog.velsoft.com/wp-content/uploads/2018/03/happiness.jpg" alt="img1" width="800"></img>
-              <img class="w3-image w3-round-large" src="https://content.fortune.com/wp-content/uploads/2017/01/gettyimages-533979847.jpg" alt="img2" width="800"></img>
-              <img class="w3-image w3-round-large" src="https://ggsc.s3.amazonaws.com/images/uploads/How_Happy_Are_People_at_Work.jpg" alt="img3" width="800"></img>
-              <img class="w3-image w3-round-large" src="https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg" alt="img4" width="800"></img>
-              </div>
-            </div>
+            <img class="w3-image w3-round-large" src="https://blog.velsoft.com/wp-content/uploads/2018/03/happiness.jpg" alt="img1" width="800"></img>
+            <img class="w3-image w3-round-large" src="https://content.fortune.com/wp-content/uploads/2017/01/gettyimages-533979847.jpg" alt="img2" width="800"></img>
+            <img class="w3-image w3-round-large" src="https://ggsc.s3.amazonaws.com/images/uploads/How_Happy_Are_People_at_Work.jpg" alt="img3" width="800"></img>
+            <img class="w3-image w3-round-large" src="https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg" alt="img4" width="800"></img>
+          </div>
         </div>
-        <ToastContainer />
+      </div>
+      <ToastContainer />
     </div >
   );
 };
