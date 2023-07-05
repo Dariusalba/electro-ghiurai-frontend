@@ -295,7 +295,7 @@ const ManagerDashboard = () => {
 
   const handleAssignFunction = async () => {
     try {
-      employeeAssigned();
+
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedJuniorDeveloper}`,
         {
@@ -313,6 +313,7 @@ const ManagerDashboard = () => {
         setShowDevelopers(false);
         setFunctionName(responseData.firstName + ' ' + responseData.lastName);
         handleCloseAcceptedOrderModal(true);
+        employeeAssigned();
       } else {
         console.error('Failed to assign junior developer');
       }
@@ -324,7 +325,7 @@ const ManagerDashboard = () => {
 
   const handleAssignDeveloper = async () => {
     try {
-      employeeAssigned();
+
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/software/${selectedSeniorDeveloper}`,
         {
@@ -342,6 +343,7 @@ const ManagerDashboard = () => {
         setShowDevelopers(false);
         setDeveloperName(responseData.firstName + ' ' + responseData.lastName);
         handleCloseAcceptedOrderModal(true);
+        employeeAssigned();
       } else {
         console.error('Failed to assign senior developer');
       }
@@ -352,7 +354,7 @@ const ManagerDashboard = () => {
 
   const handleReAssignFunction = async () => {
     try {
-      employeeAssigned();
+
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedJuniorDeveloper}`,
         {
@@ -372,6 +374,7 @@ const ManagerDashboard = () => {
         setShowDevelopers(false);
         setFunctionName(responseData.firstName + ' ' + responseData.lastName);
         handleCloseAcceptedOrderModal(true);
+        employeeAssigned();
       } else {
         console.error('Failed to assign junior developer');
       }
@@ -383,7 +386,7 @@ const ManagerDashboard = () => {
 
   const handleReAssignDeveloper = async () => {
     try {
-      employeeAssigned();
+
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/software/${selectedSeniorDeveloper}`,
         {
@@ -403,6 +406,7 @@ const ManagerDashboard = () => {
         setShowDevelopers(false);
         setDeveloperName(responseData.firstName + ' ' + responseData.lastName);
         handleCloseAcceptedOrderModal(true);
+        employeeAssigned();
       } else {
         console.error('Failed to assign senior developer');
       }
@@ -414,7 +418,7 @@ const ManagerDashboard = () => {
 
   const handleAssignReviewer = async () => {
     try {
-      employeeAssigned();
+
       const response = await fetch(`
       http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/reviewer/${selectedReviewer}`,
         {
@@ -432,6 +436,7 @@ const ManagerDashboard = () => {
         setShowReviewers(false);
         setReviewerName(responseData.firstName + ' ' + responseData.lastName);
         handleCloseAcceptedOrderModal(true);
+        employeeAssigned();
       } else {
         console.error('Failed to assign Reviewer');
       }
@@ -705,7 +710,7 @@ const ManagerDashboard = () => {
                 ) : (
                   <div className='dev-func'>
                     <select value={selectedJuniorDeveloper} onChange={handleSelectJuniorDeveloper}>
-                      <option disabled value="">
+                      <option value="default" disabled>
                         Select an employee...
                       </option>
                       {juniorDevelopers.map((juniorDeveloper, index) => (
@@ -738,7 +743,7 @@ const ManagerDashboard = () => {
                   <div className='dev-func'>
                     <button className="w3-button w3-black app-button-simple" onClick={handleDownloadSpec}>Download Spec</button>
                     <select value={selectedSeniorDeveloper} onChange={handleSelectSeniorDeveloper}>
-                      <option disabled value="">
+                      <option value="default" disabled>
                         Select an employee...
                       </option>
                       {seniorDevelopers.map((seniorDeveloper, index) => (
@@ -772,7 +777,7 @@ const ManagerDashboard = () => {
                 ) : (
                   <div className='dev-func'>
                     <select value={selectedReviewer} onChange={handleSelectReviewer}>
-                      <option disabled value="">
+                      <option value="default" disabled>
                         Select a reviewer...
                       </option>
                       {reviewers.map((reviewer, index) => (
@@ -820,7 +825,7 @@ const ManagerDashboard = () => {
                 ) : (
                   <div className='dev-func'>
                     <select value={selectedJuniorDeveloper} onChange={handleSelectJuniorDeveloper}>
-                      <option disabled value="">
+                    <option value="default" disabled>
                         Select an employee...
                       </option>
                       {juniorDevelopers.map((juniorDeveloper, index) => (
@@ -849,7 +854,7 @@ const ManagerDashboard = () => {
                 ) : (
                   <div className='dev-func'>
                     <select value={selectedSeniorDeveloper} onChange={handleSelectSeniorDeveloper}>
-                      <option disabled value="">
+                    <option value="default" disabled>
                         Select an employee...
                       </option>
                       {seniorDevelopers.map((seniorDeveloper, index) => (
