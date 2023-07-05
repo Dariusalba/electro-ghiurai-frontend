@@ -705,12 +705,16 @@ const ManagerDashboard = () => {
                 ) : (
                   <div className='dev-func'>
                     <select value={selectedJuniorDeveloper} onChange={handleSelectJuniorDeveloper}>
+                      <option disabled value="">
+                        Select an employee...
+                      </option>
                       {juniorDevelopers.map((juniorDeveloper, index) => (
                         <option key={index} value={juniorDeveloper.userId}>
                           {juniorDeveloper.firstName}, {juniorDeveloper.lastName}
                         </option>
                       ))}
                     </select>
+
                     <input className="dev-date" type="date" value={deadline} onChange={handleDeadlineChange} />
                     <button className="w3-button w3-black" onClick={handleAssignFunction}>Assign Function</button>
                   </div>
@@ -734,6 +738,9 @@ const ManagerDashboard = () => {
                   <div className='dev-func'>
                     <button className="w3-button w3-black app-button-simple" onClick={handleDownloadSpec}>Download Spec</button>
                     <select value={selectedSeniorDeveloper} onChange={handleSelectSeniorDeveloper}>
+                      <option disabled value="">
+                        Select an employee...
+                      </option>
                       {seniorDevelopers.map((seniorDeveloper, index) => (
                         <option key={index} value={seniorDeveloper.userId}>
                           {seniorDeveloper.firstName}, {seniorDeveloper.lastName}
@@ -765,12 +772,16 @@ const ManagerDashboard = () => {
                 ) : (
                   <div className='dev-func'>
                     <select value={selectedReviewer} onChange={handleSelectReviewer}>
+                      <option disabled value="">
+                        Select a reviewer...
+                      </option>
                       {reviewers.map((reviewer, index) => (
                         <option key={index} value={reviewer.userId}>
                           {reviewer.firstName}, {reviewer.lastName}
                         </option>
                       ))}
                     </select>
+
                     <input className="dev-date" type="date" value={deadline} onChange={handleDeadlineChange} />
                     <button className="w3-button w3-black app-button-simple" onClick={handleAssignReviewer}>Assign Reviewer</button>
                   </div>
@@ -809,12 +820,16 @@ const ManagerDashboard = () => {
                 ) : (
                   <div className='dev-func'>
                     <select value={selectedJuniorDeveloper} onChange={handleSelectJuniorDeveloper}>
+                      <option disabled value="">
+                        Select an employee...
+                      </option>
                       {juniorDevelopers.map((juniorDeveloper, index) => (
                         <option key={index} value={juniorDeveloper.userId}>
                           {juniorDeveloper.firstName}, {juniorDeveloper.lastName}
                         </option>
                       ))}
                     </select>
+
                     <input className="dev-date" type="date" value={deadline} onChange={handleDeadlineChange} />
                     <button className="w3-button w3-black app-button-simple" onClick={handleReAssignFunction}>Reassign Function</button>
                   </div>
@@ -834,12 +849,16 @@ const ManagerDashboard = () => {
                 ) : (
                   <div className='dev-func'>
                     <select value={selectedSeniorDeveloper} onChange={handleSelectSeniorDeveloper}>
+                      <option disabled value="">
+                        Select an employee...
+                      </option>
                       {seniorDevelopers.map((seniorDeveloper, index) => (
                         <option key={index} value={seniorDeveloper.userId}>
                           {seniorDeveloper.firstName}, {seniorDeveloper.lastName}
                         </option>
                       ))}
                     </select>
+
                     <input className="dev-date" type="date" value={deadline} onChange={handleDeadlineChange} />
                     <button className="w3-button w3-black app-button-simple" onClick={handleReAssignDeveloper}>Reassign Developer</button>
                   </div>
