@@ -29,7 +29,6 @@ const ManagerDashboard = () => {
   const [developerName, setDeveloperName] = useState('');
   const [reviewerName, setReviewerName] = useState('');
   const [finishedOrders, setFinishedOrders] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
 
 
@@ -91,8 +90,9 @@ const ManagerDashboard = () => {
   const handleCloseOrderModal = () => {
     setSelectedOrder(null);
   };
+
   const handleCloseAcceptedOrderModal = () => {
-    setShowSecondModal(null);
+    setShowSecondModal(false);
   };
 
   const handleDeadlineChange = (event) => {
@@ -312,7 +312,7 @@ const ManagerDashboard = () => {
         console.log('Junior developer assigned successfully');
         setShowDevelopers(false);
         setFunctionName(responseData.firstName + ' ' + responseData.lastName);
-        setIsModalOpen(false);
+        handleCloseAcceptedOrderModal(true);
       } else {
         console.error('Failed to assign junior developer');
       }
@@ -697,7 +697,7 @@ const ManagerDashboard = () => {
                 </tr>
               </tbody>
             </table>
-            {selectedOrderDetails.internalStatus === 1 && showDevelopers && isModalOpen && (
+            {selectedOrderDetails.internalStatus === 1 && showDevelopers && (
               <div>
                 <h3>Add Function</h3>
                 {juniorDevelopers.length === 0 ? (
