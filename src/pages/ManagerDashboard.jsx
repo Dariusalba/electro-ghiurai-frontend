@@ -295,7 +295,9 @@ const ManagerDashboard = () => {
 
   const handleAssignFunction = async () => {
     try {
-
+      setTimeout(() => {
+        window.location.href = '/manager/dashboard';
+      }, 2000);
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedJuniorDeveloper}`,
         {
@@ -325,7 +327,9 @@ const ManagerDashboard = () => {
 
   const handleAssignDeveloper = async () => {
     try {
-
+      setTimeout(() => {
+        window.location.href = '/manager/dashboard';
+      }, 2000);
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/software/${selectedSeniorDeveloper}`,
         {
@@ -354,7 +358,9 @@ const ManagerDashboard = () => {
 
   const handleReAssignFunction = async () => {
     try {
-
+      setTimeout(() => {
+        window.location.href = '/manager/dashboard';
+      }, 2000);
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedJuniorDeveloper}`,
         {
@@ -386,7 +392,9 @@ const ManagerDashboard = () => {
 
   const handleReAssignDeveloper = async () => {
     try {
-
+      setTimeout(() => {
+        window.location.href = '/manager/dashboard';
+      }, 2000);
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/software/${selectedSeniorDeveloper}`,
         {
@@ -418,7 +426,9 @@ const ManagerDashboard = () => {
 
   const handleAssignReviewer = async () => {
     try {
-
+      setTimeout(() => {
+        window.location.href = '/manager/dashboard';
+      }, 2000);
       const response = await fetch(`
       http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/reviewer/${selectedReviewer}`,
         {
@@ -446,6 +456,9 @@ const ManagerDashboard = () => {
   };
   const handleFinishOrder = async () => {
     try {
+      setTimeout(() => {
+        window.location.href = '/manager/dashboard';
+      }, 2000);
       const response = await fetch(`http://localhost:9191/mng/finish/order/${selectedOrderDetails.orderId}`, {
         method: 'POST',
         headers: {
