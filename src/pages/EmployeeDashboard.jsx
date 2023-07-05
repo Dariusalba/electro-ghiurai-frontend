@@ -11,6 +11,7 @@ function EmployeeDashboard() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [codeModalVisible, setCodeModalVisible] = useState(false);
     const [reviewModalVisible, setReviewModalVisible] = useState(false);
+    const [completedTasks, setCompletedTasks] = useState([]);
 
     useEffect(() => {
         fetch(`http://localhost:9191/emp/tasks/${userId}`)
@@ -36,6 +37,9 @@ function EmployeeDashboard() {
 
     const openModal = (task) => {
         setSelectedTask(task);
+        if (completedTasks.includes(task.taskNr)) {
+            return;
+        }
         if (task.taskType === 1) {
             setCodeModalVisible(false);
             setReviewModalVisible(false);
@@ -81,7 +85,7 @@ function EmployeeDashboard() {
             progress: undefined,
             theme: "dark",
         });
-        
+
 
     const uploadSpecDoc = () => {
         if (selectedFile && selectedTask) {
@@ -100,6 +104,7 @@ function EmployeeDashboard() {
             specUploaded();
             closeModal();
         }
+        setCompletedTasks([...completedTasks, selectedTask.taskNr]);
     };
 
     const handleDownloadSpec = async () => {
@@ -138,7 +143,7 @@ function EmployeeDashboard() {
         }
     };
     const formatDeadline = (deadline) => {
-        return deadline.substring(0,10);
+        return deadline.substring(0, 10);
     }
 
     const uploadCode = () => {
@@ -158,6 +163,7 @@ function EmployeeDashboard() {
             specUploaded();
             closeModal();
         }
+        setCompletedTasks([...completedTasks, selectedTask.taskNr]);
     };
 
     const handleDeclareDefect = () => {
@@ -179,6 +185,8 @@ function EmployeeDashboard() {
                 closeModal();
             })
             .catch(error => console.log(error));
+
+        setCompletedTasks([...completedTasks, selectedTask.taskNr]);
     };
 
     const handleDeclareNoDefect = () => {
@@ -200,6 +208,8 @@ function EmployeeDashboard() {
                 closeModal();
             })
             .catch(error => console.log(error));
+
+        setCompletedTasks([...completedTasks, selectedTask.taskNr]);
     };
 
     const handleDeclareCodeDefect = () => {
@@ -221,6 +231,8 @@ function EmployeeDashboard() {
                 closeModal();
             })
             .catch(error => console.log(error));
+
+        setCompletedTasks([...completedTasks, selectedTask.taskNr]);
     };
 
 
@@ -235,150 +247,156 @@ function EmployeeDashboard() {
                 </div>
             </div>
             <div className='employee-bg'>
-            <div className='app'>
-                <h1>Employee Dashboard</h1>
-                <table className='order-table'>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Task Number</th>
-                            <th>Task Type</th>
-                            <th>Deadline</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {tasks.map((task, index) => (
-                            <tr key={task.taskNr}>
-                                <td>{index + 1}</td>
-                                <td>{task.taskNr}</td>
-                                <td>{getTaskTypeName(task.taskType)}</td>
-                                <td>{formatDeadline(task.deadline)}</td>
-                                <td>
-                                    <button className='w3-button w3-black app-button-simple3' onClick={() => openModal(task)}>View</button>
-                                </td>
+                <div className='app'>
+                    <h1>Employee Dashboard</h1>
+                    <table className='order-table'>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Task Number</th>
+                                <th>Task Type</th>
+                                <th>Deadline</th>
+                                <th>Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-                {selectedTask && !codeModalVisible && (
-                    <div className="modal">
-                        <div className="modal-content">
-                            <button className="w3-button w3-black close-button" onClick={closeModal}>
-                            &times;
-                            </button>
-                            <h2>Task #{selectedTask.taskNr} - SPEC</h2>
-                            {orderDetails ? (
-                                <div>
-                                    <table className='order-table'>
-                                        <tbody>
-                                            <tr>
-                                                <td>Order</td>
-                                                <td>#{selectedTask.internalOrder}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Order title</td>
-                                                <td>{orderDetails.title}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Order description</td>
-                                                <td>{orderDetails.description}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <p>Remarks:</p>
-                                    {orderRemarks ? (
-                                        <ul>
-                                            {orderRemarks.map(remark => (
-                                                <li key={remark.remarkId}>{remark.description}</li>
-                                            ))}
-                                        </ul>
-                                    ) : (
-                                        <p>No remarks available</p>
-                                    )}
-                                    <div className='dev-func'>
-                                        <button className='w3-button w3-black app-button-simple2' onClick={() => window.open('/doceditor','mywin','width=1200,height=800')}>Open SpecDoc</button>
-                                        <input type="file" accept=".pdf" onChange={handleFileChange} />
-                                        <button className='w3-button w3-black app-button-simple2' onClick={uploadSpecDoc}>Upload Spec</button>
+                        </thead>
+                        <tbody>
+                            {tasks.map((task, index) => {
+                                if (completedTasks.includes(task.taskNr)) {
+                                    return null;
+                                }
+                                return (
+                                    <tr key={task.taskNr}>
+                                        <td>{index + 1}</td>
+                                        <td>{task.taskNr}</td>
+                                        <td>{getTaskTypeName(task.taskType)}</td>
+                                        <td>{formatDeadline(task.deadline)}</td>
+                                        <td>
+                                            <button className='w3-button w3-black app-button-simple3' onClick={() => openModal(task)}>View</button>
+                                        </td>
+                                    </tr>
+                                )
+                            }
+                            )}
+                        </tbody>
+                    </table>
+                    {selectedTask && !codeModalVisible && (
+                        <div className="modal">
+                            <div className="modal-content">
+                                <button className="w3-button w3-black close-button" onClick={closeModal}>
+                                    &times;
+                                </button>
+                                <h2>Task #{selectedTask.taskNr} - SPEC</h2>
+                                {orderDetails ? (
+                                    <div>
+                                        <table className='order-table'>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Order</td>
+                                                    <td>#{selectedTask.internalOrder}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Order title</td>
+                                                    <td>{orderDetails.title}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Order description</td>
+                                                    <td>{orderDetails.description}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p>Remarks:</p>
+                                        {orderRemarks ? (
+                                            <ul>
+                                                {orderRemarks.map(remark => (
+                                                    <li key={remark.remarkId}>{remark.description}</li>
+                                                ))}
+                                            </ul>
+                                        ) : (
+                                            <p>No remarks available</p>
+                                        )}
+                                        <div className='dev-func'>
+                                            <button className='w3-button w3-black app-button-simple2' onClick={() => window.open('/doceditor', 'mywin', 'width=1200,height=800')}>Open SpecDoc</button>
+                                            <input type="file" accept=".pdf" onChange={handleFileChange} />
+                                            <button className='w3-button w3-black app-button-simple2' onClick={uploadSpecDoc}>Upload Spec</button>
+                                        </div>
                                     </div>
-                                </div>
-                            ) : (
-                                <p>Failed to load order details</p>
-                            )}
-                        </div>
-                    </div>
-                )}
-
-                {selectedTask && codeModalVisible && (
-                    <div className="modal">
-                        <div className="modal-content">
-                            <button className="w3-button w3-black close-button" onClick={closeModal}>
-                            &times;
-                            </button>
-                            <h2>Task #{selectedTask.taskNr} - CODE</h2>
-                            {orderDetails ? (
-                                <div>
-                                    <p>Order title: {orderDetails.title}</p>
-                                    <p>Remarks:</p>
-                                    {orderRemarks ? (
-                                        <ul>
-                                            {orderRemarks.map(remark => (
-                                                <li key={remark.remarkId}>{remark.description}</li>
-                                            ))}
-                                        </ul>
-                                    ) : (
-                                        <p>No remarks available</p>
-                                    )}
-                                </div>
-                            ) : (
-                                <p>Failed to load order details</p>
-                            )}
-                            <div className='dev-func'>
-                                <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadSpec}>Download Spec</button>
-                                <button className="w3-button w3-black app-button-simple2" onClick={redirectToVSCDev}>Open VSCode</button>
-                                <input type="file" accept=".zip" onChange={handleFileChange} />
-                                <button className="w3-button w3-black app-button-simple2" onClick={uploadCode}>Upload Code</button>
+                                ) : (
+                                    <p>Failed to load order details</p>
+                                )}
                             </div>
                         </div>
-                    </div>
-                )}
-                {reviewModalVisible && (
-                    <div className="modal">
-                        <div className="modal-content2">
-                            <button className="w3-button w3-black close-button" onClick={closeModal}>
-                            &times;
-                            </button>
-                            <h2>Task #{selectedTask.taskNr} - REVIEW</h2>
-                            {orderDetails ? (
-                                <div>
-                                    <p>Order title: {orderDetails.title}</p>
-                                    <p>Remarks:</p>
-                                    {orderRemarks ? (
-                                        <ul>
-                                            {orderRemarks.map(remark => (
-                                                <li key={remark.remarkId}>{remark.description}</li>
-                                            ))}
-                                        </ul>
-                                    ) : (
-                                        <p>No remarks available</p>
-                                    )}
-                                    <div className='dev-func'>
-                                        <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadSpec}>Download Spec</button>
-                                        <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadCode}>Download Code</button>
-                                        <h2>Declare Verdict</h2>
-                                        <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareDefect}>Spec Defect</button>
-                                        <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareCodeDefect}>Code Defect</button>
-                                        <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareNoDefect}>No Defect</button>
+                    )}
+
+                    {selectedTask && codeModalVisible && (
+                        <div className="modal">
+                            <div className="modal-content">
+                                <button className="w3-button w3-black close-button" onClick={closeModal}>
+                                    &times;
+                                </button>
+                                <h2>Task #{selectedTask.taskNr} - CODE</h2>
+                                {orderDetails ? (
+                                    <div>
+                                        <p>Order title: {orderDetails.title}</p>
+                                        <p>Remarks:</p>
+                                        {orderRemarks ? (
+                                            <ul>
+                                                {orderRemarks.map(remark => (
+                                                    <li key={remark.remarkId}>{remark.description}</li>
+                                                ))}
+                                            </ul>
+                                        ) : (
+                                            <p>No remarks available</p>
+                                        )}
                                     </div>
+                                ) : (
+                                    <p>Failed to load order details</p>
+                                )}
+                                <div className='dev-func'>
+                                    <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadSpec}>Download Spec</button>
+                                    <button className="w3-button w3-black app-button-simple2" onClick={redirectToVSCDev}>Open VSCode</button>
+                                    <input type="file" accept=".zip" onChange={handleFileChange} />
+                                    <button className="w3-button w3-black app-button-simple2" onClick={uploadCode}>Upload Code</button>
                                 </div>
-                            ) : (
-                                <p>Failed to load order details</p>
-                            )}
+                            </div>
                         </div>
-                    </div>
-                )}
-                <ToastContainer />
-            </div>
+                    )}
+                    {reviewModalVisible && (
+                        <div className="modal">
+                            <div className="modal-content2">
+                                <button className="w3-button w3-black close-button" onClick={closeModal}>
+                                    &times;
+                                </button>
+                                <h2>Task #{selectedTask.taskNr} - REVIEW</h2>
+                                {orderDetails ? (
+                                    <div>
+                                        <p>Order title: {orderDetails.title}</p>
+                                        <p>Remarks:</p>
+                                        {orderRemarks ? (
+                                            <ul>
+                                                {orderRemarks.map(remark => (
+                                                    <li key={remark.remarkId}>{remark.description}</li>
+                                                ))}
+                                            </ul>
+                                        ) : (
+                                            <p>No remarks available</p>
+                                        )}
+                                        <div className='dev-func'>
+                                            <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadSpec}>Download Spec</button>
+                                            <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadCode}>Download Code</button>
+                                            <h2>Declare Verdict</h2>
+                                            <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareDefect}>Spec Defect</button>
+                                            <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareCodeDefect}>Code Defect</button>
+                                            <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareNoDefect}>No Defect</button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <p>Failed to load order details</p>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                    <ToastContainer />
+                </div>
             </div>
         </div>
     );
