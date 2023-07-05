@@ -28,6 +28,7 @@ const ManagerDashboard = () => {
   const [functionName, setFunctionName] = useState('');
   const [developerName, setDeveloperName] = useState('');
   const [reviewerName, setReviewerName] = useState('');
+  const [finishedOrders, setFinishedOrders] = useState([]);
 
 
 
@@ -89,7 +90,6 @@ const ManagerDashboard = () => {
   const handleCloseOrderModal = () => {
     setSelectedOrder(null);
   };
-
   const handleCloseAcceptedOrderModal = () => {
     setShowSecondModal(null);
   };
@@ -450,13 +450,8 @@ const ManagerDashboard = () => {
       console.error(error);
     }
   };
-
   const handleFinishOrder = async () => {
     try {
-      finishedOrder();
-            setTimeout(() => {
-              window.location.href = '/manager/dashboard';
-            }, 2000);
       const response = await fetch(`http://localhost:9191/mng/finish/order/${selectedOrderDetails.orderId}`, {
         method: 'POST',
         headers: {
@@ -464,12 +459,13 @@ const ManagerDashboard = () => {
         },
         body: JSON.stringify(selectedOrderDetails),
       });
-
-      if (response.ok) {
-        console.log('Order finished successfully');
-      } else {
-        console.error('Failed to finish the order');
+      if(response.ok){
+        setFinishedOrders([...finishedOrders, selectedOrderDetails]);
+        setAcceptedOrders(acceptedOrders.filter((order) => order.orderId !== selectedOrderDetails.orderId));
+        handleCloseAcceptedOrderModal(true);
+        finishedOrder();
       }
+      
     } catch (error) {
       console.error(error);
     }
@@ -508,7 +504,7 @@ const ManagerDashboard = () => {
       progress: undefined,
       theme: "dark",
       });
-      const finishedOrder = () => 
+  const finishedOrder = () => 
     toast.success('✅ Order Finished Successfully', {
       position: "bottom-right",
       autoClose: 2000,
