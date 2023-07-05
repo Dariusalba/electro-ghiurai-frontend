@@ -33,7 +33,7 @@ const ManagerDashboard = () => {
 
 
   const specAccepted = () =>
-        toast.success('✅ Task Completed successfully', {
+        toast.success('✅ Order Accepted', {
             position: "bottom-right",
             autoClose: 2000,
             hideProgressBar: false,
@@ -144,7 +144,7 @@ const ManagerDashboard = () => {
 
       const link = document.createElement('a');
       link.href = url;
-      link.download = `spec-${selectedOrderDetails.orderId}.zip`;
+      link.download = `code-${selectedOrderDetails.orderId}.zip`;
 
       link.click();
 
@@ -773,7 +773,7 @@ const ManagerDashboard = () => {
                 <h3>Function: {functionName}</h3>
                 <button className="w3-button w3-black" onClick={handleDownloadSpec}>Download Spec</button>
                 <h3>Developer: {developerName}</h3>
-                <button className="w3-button w3-black" onclick={handleDownloadCode}>Download Code</button>
+                <button className="w3-button w3-black" onClick={handleDownloadCode}>Download Code</button>
                 <h3>Add Reviewer</h3>
                 {reviewers.length === 0 ? (
                   <p>No reviewers available</p>
