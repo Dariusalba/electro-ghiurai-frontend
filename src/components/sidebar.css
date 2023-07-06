@@ -1,15 +1,11 @@
-.sidebar-tabs {
+.task {
     display: flex;
-  }
-  
-  .sidebar-tab {
+    justify-content: space-between;
+    align-items: center;
     padding: 10px;
-    margin-right: 10px;
-    background-color: lightgray;
-    border: 1px solid black;
-    cursor: pointer;
+    border-bottom: 1px solid lightgray;
   }
   
-  .sidebar-tab.active {
-    background-color: gray;
+  .task > div {
+    margin-right: 10px;
   }

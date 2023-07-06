@@ -301,7 +301,7 @@ function EmployeeDashboard() {
                                             return null;
                                         }
                                         return (
-                                            <div key={task.taskNr}>
+                                            <div key={task.taskNr} className='task'>
                                                 <div>{index + 1}</div>
                                                 <div>
                                                     <div>
