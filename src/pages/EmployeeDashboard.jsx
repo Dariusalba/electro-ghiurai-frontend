@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import '../components/sidebar.css';
+import '../components/tasks.css';
 
 const userId = sessionStorage.getItem('userId');
 
@@ -270,21 +270,21 @@ function EmployeeDashboard() {
                                         }
                                         return (
                                             <div key={task.taskNr} className='task'>
-                                                <div className='task-number'>{index + 1}</div>
-                                                <div className='task-details'>
-                                                    <div className='task-property'>
-                                                        <span className='property-label'>Task Number: </span>
-                                                        <span className='property-value'>{task.taskNr}</span>
+                                                <div>{index + 1}</div>
+                                                <div>
+                                                    <div>
+                                                        <span>Task Number: </span>
+                                                        <span>{task.taskNr}</span>
                                                     </div>
-                                                    <div className='task-property'>
-                                                        <span className='property-label'>Task Type: </span>
-                                                        <span className='property-value'>{getTaskTypeName(task.taskType)}</span>
+                                                    <div>
+                                                        <span>Task Type: </span>
+                                                        <span>{getTaskTypeName(task.taskType)}</span>
                                                     </div>
-                                                    <div className='task-property'>
-                                                        <span className='property-label'>Deadline: </span>
-                                                        <span className='property-value'>{formatDeadline(task.deadline)}</span>
+                                                    <div>
+                                                        <span>Deadline: </span>
+                                                        <span>{formatDeadline(task.deadline)}</span>
                                                     </div>
-                                                    <div className='task-actions'>
+                                                    <div>
                                                         <button className='w3-button w3-black app-button-simple3' onClick={() => openModal(task)}>View</button>
                                                     </div>
                                                 </div>
@@ -300,40 +300,28 @@ function EmployeeDashboard() {
                                         if (!completedTasks.includes(task.taskNr)) {
                                             return null;
                                         }
-                                        <div className='employee-bg'>
-                                            <div className='app'>
-                                                <h1>Employee Dashboard</h1>
-                                                <div className='task-container'>
-                                                    {tasks.map((task, index) => {
-                                                        if (completedTasks.includes(task.taskNr)) {
-                                                            return null;
-                                                        }
-                                                        return (
-                                                            <div key={task.taskNr} className='task'>
-                                                                <div>{index + 1}</div>
-                                                                <div>
-                                                                    <div>
-                                                                        <span>Task Number: </span>
-                                                                        <span>{task.taskNr}</span>
-                                                                    </div>
-                                                                    <div>
-                                                                        <span>Task Type: </span>
-                                                                        <span>{getTaskTypeName(task.taskType)}</span>
-                                                                    </div>
-                                                                    <div>
-                                                                        <span>Deadline: </span>
-                                                                        <span>{formatDeadline(task.deadline)}</span>
-                                                                    </div>
-                                                                    <div>
-                                                                        <button className='w3-button w3-black app-button-simple3' onClick={() => openModal(task)}>View</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        );
-                                                    })}
+                                        return (
+                                            <div key={task.taskNr} className='task'>
+                                                <div>{index + 1}</div>
+                                                <div>
+                                                    <div>
+                                                        <span>Task Number: </span>
+                                                        <span>{task.taskNr}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span>Task Type: </span>
+                                                        <span>{getTaskTypeName(task.taskType)}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span>Deadline: </span>
+                                                        <span>{formatDeadline(task.deadline)}</span>
+                                                    </div>
+                                                    <div>
+                                                        <button className='w3-button w3-black app-button-simple3' onClick={() => openModal(task)}>View</button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        );
                                     })}
                                 </div>
                             )}
