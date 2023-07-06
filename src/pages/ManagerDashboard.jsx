@@ -295,9 +295,6 @@ const ManagerDashboard = () => {
 
   const handleAssignFunction = async () => {
     try {
-      setTimeout(() => {
-        window.location.href = '/manager/dashboard';
-      }, 2000);
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedJuniorDeveloper}`,
         {
@@ -308,17 +305,13 @@ const ManagerDashboard = () => {
           body: JSON.stringify({ deadline }),
         }
       );
-
-      if (response.ok) {
-        const responseData = await response.json();
-        console.log('Junior developer assigned successfully');
+      if(response.ok){
         setShowDevelopers(false);
-        setFunctionName(responseData.firstName + ' ' + responseData.lastName);
         handleCloseAcceptedOrderModal(true);
+        setShowSecondModal(false);
         employeeAssigned();
-      } else {
-        console.error('Failed to assign junior developer');
       }
+      
     } catch (error) {
       console.error(error);
     }
@@ -327,9 +320,6 @@ const ManagerDashboard = () => {
 
   const handleAssignDeveloper = async () => {
     try {
-      setTimeout(() => {
-        window.location.href = '/manager/dashboard';
-      }, 2000);
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/software/${selectedSeniorDeveloper}`,
         {
@@ -342,14 +332,10 @@ const ManagerDashboard = () => {
       );
 
       if (response.ok) {
-        const responseData = await response.json();
-        console.log('Senior developer assigned successfully');
         setShowDevelopers(false);
-        setDeveloperName(responseData.firstName + ' ' + responseData.lastName);
         handleCloseAcceptedOrderModal(true);
+        setShowSecondModal(false);
         employeeAssigned();
-      } else {
-        console.error('Failed to assign senior developer');
       }
     } catch (error) {
       console.error(error);
@@ -358,9 +344,6 @@ const ManagerDashboard = () => {
 
   const handleReAssignFunction = async () => {
     try {
-      setTimeout(() => {
-        window.location.href = '/manager/dashboard';
-      }, 2000);
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/function/${selectedJuniorDeveloper}`,
         {
@@ -375,14 +358,10 @@ const ManagerDashboard = () => {
       );
 
       if (response.ok) {
-        const responseData = await response.json();
-        console.log('Junior developer assigned successfully');
         setShowDevelopers(false);
-        setFunctionName(responseData.firstName + ' ' + responseData.lastName);
         handleCloseAcceptedOrderModal(true);
+        setShowSecondModal(false);
         employeeAssigned();
-      } else {
-        console.error('Failed to assign junior developer');
       }
     } catch (error) {
       console.error(error);
@@ -392,9 +371,6 @@ const ManagerDashboard = () => {
 
   const handleReAssignDeveloper = async () => {
     try {
-      setTimeout(() => {
-        window.location.href = '/manager/dashboard';
-      }, 2000);
       const response = await fetch(
         `http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/software/${selectedSeniorDeveloper}`,
         {
@@ -407,16 +383,11 @@ const ManagerDashboard = () => {
           }),
         }
       );
-
       if (response.ok) {
-        const responseData = await response.json();
-        console.log('Senior developer assigned successfully');
-        setShowDevelopers(false);
-        setDeveloperName(responseData.firstName + ' ' + responseData.lastName);
-        handleCloseAcceptedOrderModal(true);
         employeeAssigned();
-      } else {
-        console.error('Failed to assign senior developer');
+        setShowDevelopers(false);
+        handleCloseAcceptedOrderModal(true);
+        setShowSecondModal(false);
       }
     } catch (error) {
       console.error(error);
@@ -426,9 +397,6 @@ const ManagerDashboard = () => {
 
   const handleAssignReviewer = async () => {
     try {
-      setTimeout(() => {
-        window.location.href = '/manager/dashboard';
-      }, 2000);
       const response = await fetch(`
       http://localhost:9191/mng/order/${selectedOrderDetails.internalOrder}/assign/reviewer/${selectedReviewer}`,
         {
@@ -439,16 +407,11 @@ const ManagerDashboard = () => {
           body: JSON.stringify({ deadline }),
         }
       );
-      console.log(response);
       if (response.ok) {
-        const responseData = await response.json();
-        console.log('Reviewer assigned successfully');
-        setShowReviewers(false);
-        setReviewerName(responseData.firstName + ' ' + responseData.lastName);
-        handleCloseAcceptedOrderModal(true);
         employeeAssigned();
-      } else {
-        console.error('Failed to assign Reviewer');
+        setShowReviewers(false);
+        handleCloseAcceptedOrderModal(true);
+        setShowSecondModal(false);
       }
     } catch (error) {
       console.error(error);
@@ -456,9 +419,6 @@ const ManagerDashboard = () => {
   };
   const handleFinishOrder = async () => {
     try {
-      setTimeout(() => {
-        window.location.href = '/manager/dashboard';
-      }, 2000);
       const response = await fetch(`http://localhost:9191/mng/finish/order/${selectedOrderDetails.orderId}`, {
         method: 'POST',
         headers: {
@@ -624,31 +584,6 @@ const ManagerDashboard = () => {
                 ))}
               </tbody>
             </table>
-            {/* {showSecondModal && (
-              <div>
-                <h2>Order Details</h2>
-                <h3>Order ID: {selectedOrderDetails.orderId}</h3>
-                <h3>Title: {selectedOrderDetails.title}</h3>
-                <h3>Description: {selectedOrderDetails.description}</h3>
-                <h3>Status: {formatString(selectedOrderDetails.internalStatus)}</h3>
-
-                <h3>Remarks:</h3>
-                {orderRemarks.length === 0 ? (
-                  <p>No remarks added</p>
-                ) : (
-                  <ul>
-                    {orderRemarks.map((remark) => (
-                      <li key={remark.remarkId}>{remark.description}</li>
-                    ))}
-                  </ul>
-                )}
-                <button>Assign Function</button>
-                <button>Assign Developer</button>
-                <button>Assign Reviewer</button>
-                <button>Download Code</button>
-                <button>Finish Order</button>
-              </div>
-            )} */}
           </Modal>
         )}
         {showModal3 && (
