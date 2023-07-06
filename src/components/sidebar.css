@@ -1,0 +1,15 @@
+.sidebar-tabs {
+    display: flex;
+  }
+  
+  .sidebar-tab {
+    padding: 10px;
+    margin-right: 10px;
+    background-color: lightgray;
+    border: 1px solid black;
+    cursor: pointer;
+  }
+  
+  .sidebar-tab.active {
+    background-color: gray;
+  }

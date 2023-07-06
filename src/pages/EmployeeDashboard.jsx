@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
+import '../components/sidebar.css';
 
 const userId = sessionStorage.getItem('userId');
 
