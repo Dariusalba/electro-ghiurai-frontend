@@ -1,0 +1,25 @@
+.task-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 10px;
+  }
+  
+  .task {
+    border: 1px solid lightgray;
+    padding: 10px;
+  }
+  
+  .task > div {
+    margin-bottom: 5px;
+  }
+  
+  .task > div > div {
+    display: flex;
+    align-items: center;
+  }
+  
+  .task > div > div span:first-child {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  

@@ -300,28 +300,40 @@ function EmployeeDashboard() {
                                         if (!completedTasks.includes(task.taskNr)) {
                                             return null;
                                         }
-                                        return (
-                                            <div key={task.taskNr} className='task'>
-                                                <div>{index + 1}</div>
-                                                <div>
-                                                    <div>
-                                                        <span>Task Number: </span>
-                                                        <span>{task.taskNr}</span>
-                                                    </div>
-                                                    <div>
-                                                        <span>Task Type: </span>
-                                                        <span>{getTaskTypeName(task.taskType)}</span>
-                                                    </div>
-                                                    <div>
-                                                        <span>Deadline: </span>
-                                                        <span>{formatDeadline(task.deadline)}</span>
-                                                    </div>
-                                                    <div>
-                                                        <button className='w3-button w3-black app-button-simple3' onClick={() => openModal(task)}>View</button>
-                                                    </div>
+                                        <div className='employee-bg'>
+                                            <div className='app'>
+                                                <h1>Employee Dashboard</h1>
+                                                <div className='task-container'>
+                                                    {tasks.map((task, index) => {
+                                                        if (completedTasks.includes(task.taskNr)) {
+                                                            return null;
+                                                        }
+                                                        return (
+                                                            <div key={task.taskNr} className='task'>
+                                                                <div>{index + 1}</div>
+                                                                <div>
+                                                                    <div>
+                                                                        <span>Task Number: </span>
+                                                                        <span>{task.taskNr}</span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <span>Task Type: </span>
+                                                                        <span>{getTaskTypeName(task.taskType)}</span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <span>Deadline: </span>
+                                                                        <span>{formatDeadline(task.deadline)}</span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <button className='w3-button w3-black app-button-simple3' onClick={() => openModal(task)}>View</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })}
                                                 </div>
                                             </div>
-                                        );
+                                        </div>
                                     })}
                                 </div>
                             )}
