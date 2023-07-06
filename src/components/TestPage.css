@@ -6,7 +6,7 @@
 
 .testpage_mitem {
     color: white;
-    font-size: clamp(3rem, 8vw, 8rem);
+    font-size: clamp(3rem, 3vw, 8rem);
     font-family: "Ibarra Real Nova", serif;
     display: block;
     text-decoration: none;
