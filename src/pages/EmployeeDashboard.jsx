@@ -12,6 +12,7 @@ function EmployeeDashboard() {
     const [codeModalVisible, setCodeModalVisible] = useState(false);
     const [reviewModalVisible, setReviewModalVisible] = useState(false);
     const [completedTasks, setCompletedTasks] = useState([]);
+    const [activeTab, setActiveTab] = useState('assigned');
 
     useEffect(() => {
         fetch(`http://localhost:9191/emp/tasks/${userId}`)
@@ -19,6 +20,10 @@ function EmployeeDashboard() {
             .then(data => setTasks(data))
             .catch(error => console.log(error));
     }, []);
+
+    const handleSetActiveTab = (tab) => {
+        setActiveTab(tab);
+    };
 
     const getTaskTypeName = (taskType) => {
         switch (taskType) {
@@ -249,155 +254,197 @@ function EmployeeDashboard() {
             <div className='employee-bg'>
                 <div className='app'>
                     <h1>Employee Dashboard</h1>
-                    <table className='order-table'>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Task Number</th>
-                                <th>Task Type</th>
-                                <th>Deadline</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {tasks.map((task, index) => {
-                                if (completedTasks.includes(task.taskNr)) {
-                                    return null;
-                                }
-                                return (
-                                    <tr key={task.taskNr}>
-                                        <td>{index + 1}</td>
-                                        <td>{task.taskNr}</td>
-                                        <td>{getTaskTypeName(task.taskType)}</td>
-                                        <td>{formatDeadline(task.deadline)}</td>
-                                        <td>
-                                            <button className='w3-button w3-black app-button-simple3' onClick={() => openModal(task)}>View</button>
-                                        </td>
-                                    </tr>
-                                )
-                            }
+                    <div className='sidebar'>
+                        <div className='sidebar-tabs'>
+                            <button className={activeTab === 'assigned' ? 'sidebar-tab active' : 'sidebar-tab'} onClick={() => handleSetActiveTab('assigned')}>Assigned Tasks</button>
+                            <button className={activeTab === 'completed' ? 'sidebar-tab active' : 'sidebar-tab'} onClick={() => handleSetActiveTab('completed')}>Completed Tasks</button>
+                        </div>
+                        <div className='task-list'>
+                            {activeTab === 'assigned' && (
+                                <div>
+                                    <h2>Assigned Tasks</h2>
+                                    {tasks.map((task, index) => {
+                                        if (completedTasks.includes(task.taskNr)) {
+                                            return null;
+                                        }
+                                        return (
+                                            <div key={task.taskNr} className='task'>
+                                                <div className='task-number'>{index + 1}</div>
+                                                <div className='task-details'>
+                                                    <div className='task-property'>
+                                                        <span className='property-label'>Task Number: </span>
+                                                        <span className='property-value'>{task.taskNr}</span>
+                                                    </div>
+                                                    <div className='task-property'>
+                                                        <span className='property-label'>Task Type: </span>
+                                                        <span className='property-value'>{getTaskTypeName(task.taskType)}</span>
+                                                    </div>
+                                                    <div className='task-property'>
+                                                        <span className='property-label'>Deadline: </span>
+                                                        <span className='property-value'>{formatDeadline(task.deadline)}</span>
+                                                    </div>
+                                                    <div className='task-actions'>
+                                                        <button className='w3-button w3-black app-button-simple3' onClick={() => openModal(task)}>View</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             )}
-                        </tbody>
-                    </table>
-                    {selectedTask && !codeModalVisible && (
-                        <div className="modal">
-                            <div className="modal-content">
-                                <button className="w3-button w3-black close-button" onClick={closeModal}>
-                                    &times;
-                                </button>
-                                <h2>Task #{selectedTask.taskNr} - SPEC</h2>
-                                {orderDetails ? (
-                                    <div>
-                                        <table className='order-table'>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Order</td>
-                                                    <td>#{selectedTask.internalOrder}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Order title</td>
-                                                    <td>{orderDetails.title}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Order description</td>
-                                                    <td>{orderDetails.description}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <p>Remarks:</p>
-                                        {orderRemarks ? (
-                                            <ul>
-                                                {orderRemarks.map(remark => (
-                                                    <li key={remark.remarkId}>{remark.description}</li>
-                                                ))}
-                                            </ul>
-                                        ) : (
-                                            <p>No remarks available</p>
-                                        )}
-                                        <div className='dev-func'>
-                                            <button className='w3-button w3-black app-button-simple2' onClick={() => window.open('/doceditor', 'mywin', 'width=1200,height=800')}>Open SpecDoc</button>
-                                            <input type="file" accept=".pdf" onChange={handleFileChange} />
-                                            <button className='w3-button w3-black app-button-simple2' onClick={uploadSpecDoc}>Upload Spec</button>
-                                        </div>
-                                    </div>
+                            {activeTab === 'completed' && (
+                                <div>
+                                    <h2>Completed Tasks</h2>
+                                    {tasks.map((task, index) => {
+                                        if (!completedTasks.includes(task.taskNr)) {
+                                            return null;
+                                        }
+                                        return (
+                                            <div key={task.taskNr}>
+                                                <div>{index + 1}</div>
+                                                <div>
+                                                    <div>
+                                                        <span>Task Number: </span>
+                                                        <span>{task.taskNr}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span>Task Type: </span>
+                                                        <span>{getTaskTypeName(task.taskType)}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span>Deadline: </span>
+                                                        <span>{formatDeadline(task.deadline)}</span>
+                                                    </div>
+                                                    <div>
+                                                        <button className='w3-button w3-black app-button-simple3' onClick={() => openModal(task)}>View</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {selectedTask && !codeModalVisible && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <button className="w3-button w3-black close-button" onClick={closeModal}>
+                            &times;
+                        </button>
+                        <h2>Task #{selectedTask.taskNr} - SPEC</h2>
+                        {orderDetails ? (
+                            <div>
+                                <table className='order-table'>
+                                    <tbody>
+                                        <tr>
+                                            <td>Order</td>
+                                            <td>#{selectedTask.internalOrder}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Order title</td>
+                                            <td>{orderDetails.title}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Order description</td>
+                                            <td>{orderDetails.description}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p>Remarks:</p>
+                                {orderRemarks ? (
+                                    <ul>
+                                        {orderRemarks.map(remark => (
+                                            <li key={remark.remarkId}>{remark.description}</li>
+                                        ))}
+                                    </ul>
                                 ) : (
-                                    <p>Failed to load order details</p>
+                                    <p>No remarks available</p>
+                                )}
+                                <div className='dev-func'>
+                                    <button className='w3-button w3-black app-button-simple2' onClick={() => window.open('/doceditor', 'mywin', 'width=1200,height=800')}>Open SpecDoc</button>
+                                    <input type="file" accept=".pdf" onChange={handleFileChange} />
+                                    <button className='w3-button w3-black app-button-simple2' onClick={uploadSpecDoc}>Upload Spec</button>
+                                </div>
+                            </div>
+                        ) : (
+                            <p>Failed to load order details</p>
+                        )}
+                    </div>
+                </div>
+            )}
+
+            {selectedTask && codeModalVisible && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <button className="w3-button w3-black close-button" onClick={closeModal}>
+                            &times;
+                        </button>
+                        <h2>Task #{selectedTask.taskNr} - CODE</h2>
+                        {orderDetails ? (
+                            <div>
+                                <p>Order title: {orderDetails.title}</p>
+                                <p>Remarks:</p>
+                                {orderRemarks ? (
+                                    <ul>
+                                        {orderRemarks.map(remark => (
+                                            <li key={remark.remarkId}>{remark.description}</li>
+                                        ))}
+                                    </ul>
+                                ) : (
+                                    <p>No remarks available</p>
                                 )}
                             </div>
+                        ) : (
+                            <p>Failed to load order details</p>
+                        )}
+                        <div className='dev-func'>
+                            <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadSpec}>Download Spec</button>
+                            <button className="w3-button w3-black app-button-simple2" onClick={redirectToVSCDev}>Open VSCode</button>
+                            <input type="file" accept=".zip" onChange={handleFileChange} />
+                            <button className="w3-button w3-black app-button-simple2" onClick={uploadCode}>Upload Code</button>
                         </div>
-                    )}
-
-                    {selectedTask && codeModalVisible && (
-                        <div className="modal">
-                            <div className="modal-content">
-                                <button className="w3-button w3-black close-button" onClick={closeModal}>
-                                    &times;
-                                </button>
-                                <h2>Task #{selectedTask.taskNr} - CODE</h2>
-                                {orderDetails ? (
-                                    <div>
-                                        <p>Order title: {orderDetails.title}</p>
-                                        <p>Remarks:</p>
-                                        {orderRemarks ? (
-                                            <ul>
-                                                {orderRemarks.map(remark => (
-                                                    <li key={remark.remarkId}>{remark.description}</li>
-                                                ))}
-                                            </ul>
-                                        ) : (
-                                            <p>No remarks available</p>
-                                        )}
-                                    </div>
+                    </div>
+                </div>
+            )}
+            {reviewModalVisible && (
+                <div className="modal">
+                    <div className="modal-content2">
+                        <button className="w3-button w3-black close-button" onClick={closeModal}>
+                            &times;
+                        </button>
+                        <h2>Task #{selectedTask.taskNr} - REVIEW</h2>
+                        {orderDetails ? (
+                            <div>
+                                <p>Order title: {orderDetails.title}</p>
+                                <p>Remarks:</p>
+                                {orderRemarks ? (
+                                    <ul>
+                                        {orderRemarks.map(remark => (
+                                            <li key={remark.remarkId}>{remark.description}</li>
+                                        ))}
+                                    </ul>
                                 ) : (
-                                    <p>Failed to load order details</p>
+                                    <p>No remarks available</p>
                                 )}
                                 <div className='dev-func'>
                                     <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadSpec}>Download Spec</button>
-                                    <button className="w3-button w3-black app-button-simple2" onClick={redirectToVSCDev}>Open VSCode</button>
-                                    <input type="file" accept=".zip" onChange={handleFileChange} />
-                                    <button className="w3-button w3-black app-button-simple2" onClick={uploadCode}>Upload Code</button>
+                                    <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadCode}>Download Code</button>
+                                    <h2>Declare Verdict</h2>
+                                    <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareDefect}>Spec Defect</button>
+                                    <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareCodeDefect}>Code Defect</button>
+                                    <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareNoDefect}>No Defect</button>
                                 </div>
                             </div>
-                        </div>
-                    )}
-                    {reviewModalVisible && (
-                        <div className="modal">
-                            <div className="modal-content2">
-                                <button className="w3-button w3-black close-button" onClick={closeModal}>
-                                    &times;
-                                </button>
-                                <h2>Task #{selectedTask.taskNr} - REVIEW</h2>
-                                {orderDetails ? (
-                                    <div>
-                                        <p>Order title: {orderDetails.title}</p>
-                                        <p>Remarks:</p>
-                                        {orderRemarks ? (
-                                            <ul>
-                                                {orderRemarks.map(remark => (
-                                                    <li key={remark.remarkId}>{remark.description}</li>
-                                                ))}
-                                            </ul>
-                                        ) : (
-                                            <p>No remarks available</p>
-                                        )}
-                                        <div className='dev-func'>
-                                            <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadSpec}>Download Spec</button>
-                                            <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadCode}>Download Code</button>
-                                            <h2>Declare Verdict</h2>
-                                            <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareDefect}>Spec Defect</button>
-                                            <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareCodeDefect}>Code Defect</button>
-                                            <button className="w3-button w3-black app-button-simple2" onClick={handleDeclareNoDefect}>No Defect</button>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <p>Failed to load order details</p>
-                                )}
-                            </div>
-                        </div>
-                    )}
-                    <ToastContainer />
+                        ) : (
+                            <p>Failed to load order details</p>
+                        )}
+                    </div>
                 </div>
-            </div>
+            )}
+            <ToastContainer />
         </div>
     );
 }
