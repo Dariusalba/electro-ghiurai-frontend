@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Feedback from "./Feedback";
-import "../components/TestPage.css";
+import "../components/Account.css";
 import { ToastContainer } from 'react-toastify';
 import TestPage from "./Test";
 
@@ -13,7 +13,25 @@ function AccountInfo() {
   const [modalOpen, setModalOpen] = useState(false);
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
 
+  const menuRef = useRef(null);
+  const menuItemsRef = useRef([]);
+
   useEffect(() => {
+    const menuElement = menuRef.current;
+        const menuItems = Array.from(menuItemsRef.current);
+
+        menuItems.forEach((item, index) => {
+            item.addEventListener('mouseover', () => {
+                menuElement.dataset.activeIndex = index;
+            });
+
+            return () => {
+                item.removeEventListener('mouseover', () => {
+                    menuElement.dataset.activeIndex = index;
+                });
+            };
+        });
+
     const fetchUserInfo = async () => {
       try {
         const response = await fetch(`http://localhost:9191/customer/${userId}`);
@@ -97,7 +115,15 @@ function AccountInfo() {
           </div>
         </div>
       </div>
-      <TestPage></TestPage>
+      <div className="testpage-m" ref={menuRef}>
+            <div className="testpage_mitems">
+                <a href="" className="testpage_mitem" ref={(el) => (menuItemsRef.current[0] = el)}>View Account Details</a>
+                <a href="" className="testpage_mitem" ref={(el) => (menuItemsRef.current[1] = el)}>View Current Orders</a>
+                <a href="/order" className="testpage_mitem" ref={(el) => (menuItemsRef.current[2] = el)}>Create an order</a>
+            </div>
+            <div className="testpage_mpattern"></div>
+            <div className="testpage_mimage"></div>
+      </div>
       {/*
       <div className="account-bg">
       <div className="app account-op">
