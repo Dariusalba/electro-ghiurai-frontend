@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Feedback from "./Feedback";
 import "../components/Account.css";
 import { ToastContainer } from 'react-toastify';
-import TestPage from "./Test";
 
 function AccountInfo() {
   const userId = sessionStorage.getItem("userId");
