@@ -271,7 +271,8 @@ function EmployeeDashboard() {
                         <div className='task-list'>
                             {activeTab === 'assigned' && (
                                 <div>
-                                    <h2>Assigned Tasks</h2>
+                                <h2>Assigned Tasks</h2>
+                                <div className='task-container'>
                                     {tasks.map((task, index) => {
                                         if (completedTasks.includes(task.taskNr)) {
                                             return null;
@@ -300,10 +301,12 @@ function EmployeeDashboard() {
                                         );
                                     })}
                                 </div>
+                                </div>
                             )}
                             {activeTab === 'completed' && (
                                 <div>
                                     <h2>Completed Tasks</h2>
+                                <div className='task-container'>
                                     {taskComplete.map((task, index) => (
                                         <div key={task.taskNr} className='task'>
                                             <div>{index + 1}</div>
@@ -326,6 +329,7 @@ function EmployeeDashboard() {
                                             </div>
                                         </div>
                                     ))}
+                                </div>
                                 </div>
                             )}
                         </div>

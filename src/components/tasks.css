@@ -23,3 +23,8 @@
     margin-right: 5px;
   }
   
+  .task-container{
+    display:flex;
+    flex-direction: space-evenly;
+    flex-wrap:wrap;
+  }
