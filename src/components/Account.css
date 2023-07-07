@@ -32,11 +32,16 @@
 
 .testpage_mitems {
     width: 30%;
-    margin-top: 100px;
-    margin-left: clamp(4rem, 10vw, 48rem);
-    position: relative;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 2;
-}
+    text-align: center;
+  }
+  
+  
 
 .testpage_mitems:hover > .testpage_mitem {
     opacity: 0.3;

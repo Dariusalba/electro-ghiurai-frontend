@@ -126,8 +126,8 @@ function AccountInfo() {
       </div>
       <div className="testpage-m" ref={menuRef}>
         <div className="testpage_mitems">
-          <a href="#" className="testpage_mitem" ref={(el) => (menuItemsRef.current[0] = el)} onClick={openAccountInfoModal}>View Account Details</a>
-          <a href="#" className="testpage_mitem" ref={(el) => (menuItemsRef.current[1] = el)} onClick={openOrderInfoModal}>View Current Orders</a>
+          <a href="#" className="testpage_mitem" ref={(el) => (menuItemsRef.current[0] = el)} onClick={openAccountInfoModal}>Account Overview</a>
+          <a href="#" className="testpage_mitem" ref={(el) => (menuItemsRef.current[1] = el)} onClick={openOrderInfoModal}>Current Orders</a>
           <a href="/order" className="testpage_mitem" ref={(el) => (menuItemsRef.current[2] = el)}>Create an order</a>
         </div>
         <div className="testpage_mpattern"></div>
