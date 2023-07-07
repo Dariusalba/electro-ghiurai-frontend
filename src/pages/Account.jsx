@@ -185,7 +185,7 @@ function AccountInfo() {
         <div className="modal">
           <div className="modal-content">
             <span className="w3-button w3-black close" onClick={() => setOrderInfoModalOpen(false)}>&times;</span>
-            <div className="account-bg">
+            <div>
               <div className="app account-op">
                 <h2>Current Orders:</h2>
                 {orders.length > 0 ? (
