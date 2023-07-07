@@ -4,6 +4,22 @@
     align-items: center;
 }
 
+.testpage_m[data-active-index = "0"] > .testpage_mpattern {
+    background-position: 0% -25%;
+}
+
+.testpage_m[data-active-index = "1"] > .testpage_mpattern {
+    background-position: 0% -50%;
+}
+
+.testpage_m[data-active-index = "2"] > .testpage_mpattern {
+    background-position: 0% -75%;
+}
+
+.testpage_m[data-active-index = "3"] > .testpage_mpattern {
+    background-position: 0% -100%;
+}
+
 .testpage_mitem {
     color: white;
     font-size: clamp(3rem, 3vw, 8rem);
