@@ -23,16 +23,15 @@ function TestPage() {
     }, []);
 
     return (
-        <div className="testpage_m" ref={menuRef}>
+        <div className="testpage-m" ref={menuRef}>
             <div className="testpage_mitems">
-                <a href="/" className="testpage_mitem" ref={(el) => (menuItemsRef.current[0] = el)}>Home</a>
-                <a href="/" className="testpage_mitem" ref={(el) => (menuItemsRef.current[1] = el)}>Shop</a>
-                <a href="/" className="testpage_mitem" ref={(el) => (menuItemsRef.current[2] = el)}>About</a>
-                <a href="/" className="testpage_mitem" ref={(el) => (menuItemsRef.current[3] = el)}>Contact Us</a>
+                <a href="" className="testpage_mitem" ref={(el) => (menuItemsRef.current[0] = el)}>View Account Details</a>
+                <a href="" className="testpage_mitem" ref={(el) => (menuItemsRef.current[1] = el)}>View Current Orders</a>
+                <a href="/order" className="testpage_mitem" ref={(el) => (menuItemsRef.current[2] = el)}>Create an order</a>
             </div>
             <div className="testpage_mpattern"></div>
             <div className="testpage_mimage"></div>
-        </div>
+      </div>
     );
 }
 

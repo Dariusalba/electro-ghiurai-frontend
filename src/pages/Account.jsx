@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Feedback from "./Feedback";
 import "../components/TestPage.css";
 import { ToastContainer } from 'react-toastify';
+import TestPage from "./Test";
 
 function AccountInfo() {
   const userId = sessionStorage.getItem("userId");
@@ -88,23 +89,15 @@ function AccountInfo() {
 
   return (
     <div>
-      <div class="w3-top">
-        <div class="w3-bar w3-white w3-card" id="myNavbar">
-          <a href="/" class="w3-bar-item w3-button w3-wide">ELECTROGHIURAI</a>
-          <div class="w3-right w3-hide-small">
-            <a href="/login" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i> SIGN OUT</a>
+      <div className="w3-top z-index10">
+        <div className="w3-bar w3-white w3-card" id="myNavbar">
+          <a href="/" className="w3-bar-item w3-button w3-wide">ELECTROGHIURAI</a>
+          <div className="w3-right w3-hide-small">
+            <a href="/login" className="w3-bar-item w3-button"><i className="fa fa-sign-out"></i> SIGN OUT</a>
           </div>
         </div>
       </div>
-      <div className="testpage-m">
-        <div className="testpage_mitems">
-            <a href="" className="testpage_mitem">View Account Details</a>
-            <a href="" className="testpage_mitem">View Current Orders</a>
-            <a href="/order" className="testpage_mitem">Create an order</a>
-        </div>
-        <div className="testpage_mpattern"></div>
-        <div className="testpage-mimage"></div>
-      </div>
+      <TestPage></TestPage>
       {/*
       <div className="account-bg">
       <div className="app account-op">
