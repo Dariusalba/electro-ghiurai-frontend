@@ -137,7 +137,7 @@ function AccountInfo() {
         <div className="modal">
           <div className="modal-content">
             <span className="w3-button w3-black close" onClick={() => setAccountInfoModalOpen(false)}>&times;</span>
-            <div className="account-bg">
+            <div>
               <div className="app account-op">
                 <h2>User Information:</h2>
                 {Object.keys(userInfo).length > 0 ? (

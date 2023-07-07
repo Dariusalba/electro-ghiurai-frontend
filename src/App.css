@@ -57,7 +57,7 @@ body {
 .app {
 	width: 600px;
     margin: auto;
-    margin-top: 150px;
+    margin-top: 50px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
