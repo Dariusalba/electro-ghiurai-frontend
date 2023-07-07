@@ -9,9 +9,8 @@ function TestPage() {
                 <a href="/" className="testpage_mitem">About</a>
                 <a href="/" className="testpage_mitem">Contact Us</a>
             </div>
-            <div className="testpage_mpattern">
-                
-            </div>
+            <div className="testpage_mpattern"></div>
+            <div className="testpage_mimage"></div>
         </div>
     );
 }

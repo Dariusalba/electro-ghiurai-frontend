@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Feedback from "./Feedback";
+import "../components/TestPage.css";
 import { ToastContainer } from 'react-toastify';
 
 function AccountInfo() {
@@ -95,6 +96,16 @@ function AccountInfo() {
           </div>
         </div>
       </div>
+      <div className="testpage-m">
+        <div className="testpage_mitems">
+            <a href="" className="testpage_mitem">View Account Details</a>
+            <a href="" className="testpage_mitem">View Current Orders</a>
+            <a href="/order" className="testpage_mitem">Create an order</a>
+        </div>
+        <div className="testpage_mpattern"></div>
+        <div className="testpage-mimage"></div>
+      </div>
+      {/*
       <div className="account-bg">
       <div className="app account-op">
         <h2>User Information:</h2>
@@ -224,6 +235,7 @@ function AccountInfo() {
         </Link>
       </div>
       </div>
+        */}
       <ToastContainer />
     </div>
   );
