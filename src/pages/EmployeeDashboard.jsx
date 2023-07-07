@@ -14,11 +14,19 @@ function EmployeeDashboard() {
     const [reviewModalVisible, setReviewModalVisible] = useState(false);
     const [completedTasks, setCompletedTasks] = useState([]);
     const [activeTab, setActiveTab] = useState('assigned');
+    const [taskComplete, setTaskComplete] = useState([]);
 
     useEffect(() => {
         fetch(`http://localhost:9191/emp/tasks/${userId}`)
             .then(response => response.json())
             .then(data => setTasks(data))
+            .catch(error => console.log(error));
+    }, []);
+
+    useEffect(() => {
+        fetch(`http://localhost:9191/emp/completed-tasks/${userId}`)
+            .then(response => response.json())
+            .then(data => setTaskComplete(data))
             .catch(error => console.log(error));
     }, []);
 
@@ -296,33 +304,28 @@ function EmployeeDashboard() {
                             {activeTab === 'completed' && (
                                 <div>
                                     <h2>Completed Tasks</h2>
-                                    {tasks.map((task, index) => {
-                                        if (!completedTasks.includes(task.taskNr)) {
-                                            return null;
-                                        }
-                                        return (
-                                            <div key={task.taskNr} className='task'>
-                                                <div>{index + 1}</div>
+                                    {taskComplete.map((task, index) => (
+                                        <div key={task.taskNr} className='task'>
+                                            <div>{index + 1}</div>
+                                            <div>
                                                 <div>
-                                                    <div>
-                                                        <span>Task Number: </span>
-                                                        <span>{task.taskNr}</span>
-                                                    </div>
-                                                    <div>
-                                                        <span>Task Type: </span>
-                                                        <span>{getTaskTypeName(task.taskType)}</span>
-                                                    </div>
-                                                    <div>
-                                                        <span>Deadline: </span>
-                                                        <span>{formatDeadline(task.deadline)}</span>
-                                                    </div>
-                                                    <div>
-                                                        <button className='w3-button w3-black app-button-simple3' onClick={() => openModal(task)}>View</button>
-                                                    </div>
+                                                    <span>Task Number: </span>
+                                                    <span>{task.taskNr}</span>
+                                                </div>
+                                                <div>
+                                                    <span>Task Type: </span>
+                                                    <span>{getTaskTypeName(task.taskType)}</span>
+                                                </div>
+                                                <div>
+                                                    <span>Deadline: </span>
+                                                    <span>{formatDeadline(task.deadline)}</span>
+                                                </div>
+                                                <div>
+                                                    <button className='w3-button w3-black app-button-simple3' onClick={() => openModal(task)}>View</button>
                                                 </div>
                                             </div>
-                                        );
-                                    })}
+                                        </div>
+                                    ))}
                                 </div>
                             )}
                         </div>
