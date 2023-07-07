@@ -9,61 +9,114 @@ function DocEditor() {
       <Editor
         onInit={(evt, editor) => (editorRef.current = editor)}
         initialValue="
-        <div>
-          <h2>Sport Analysis App</h2>
-          <h4>Description: </h4>
-          <p>This app will have to analyze from various databases how much people do sports. It will have info about Football, Jogging, Cycling, etc.</p>
-          <br/>
-          <h4>Data Dictionary:</h4>
-          <table>
-            <tbody c>
-              <tr>
-                <td>Pui ceva lung aici, raule</td>
-                <td>Pui ceva lung aici, raule</td>
-                <td>Pui ceva lung aici, raule</td>
-              </tr>
-              <tr>
-                <td>Pui ceva lung aici, raule</td>
-                <td>Pui ceva lung aici, raule</td>
-                <td>Pui ceva lung aici, raule</td>
-              </tr>
-              <tr>
-                <td>Pui ceva lung aici, raule</td>
-                <td>Pui ceva lung aici, raule</td>
-                <td>Pui ceva lung aici, raule</td>
-              </tr>
-            </tbody>
-          </table>
-          <br/>
-          <h4>Function Declarations:</h4>
-          <table>
-            <tbody c>
-              <tr>
-                <td>Pui ceva lung aici, raule</td>
-                <td>Pui ceva lung aici, raule</td>
-                <td>Pui ceva lung aici, raule</td>
-              </tr>
-              <tr>
-                <td>Pui ceva lung aici, raule</td>
-                <td>Pui ceva lung aici, raule</td>
-                <td>Pui ceva lung aici, raule</td>
-              </tr>
-              <tr>
-                <td>Pui ceva lung aici, raule</td>
-                <td>Pui ceva lung aici, raule</td>
-                <td>Pui ceva lung aici, raule</td>
-              </tr>
-            </tbody>
-          </table>
-          <br/>
-          <h4>Algorithm implementation:</h4>
-          <p><code>#include&lt;iostream&gt;</code></p>
-          <p><code>using namespace std;</code></p>
-          <p><code>int main() {</code></p>
-          <p><code>&nbsp; &nbsp; &nbsp;cout&lt;&lt;Pui ceva lung aici, raule&lt;&lt;endl;</code></p>
-          <p><code>&nbsp; &nbsp; &nbsp;return 0;</code></p>
-          <p><code>}</code></p>
-        </div>
+        <h1 style = text-align:center>{Order Title}</h1>
+        </br>
+        <p style = text-align:center>{Enter Order Description}</p>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        <h2 style = text-align:center>Data Dictionary</h2>
+        <table style = width:100%>
+          <tr>
+            <td>
+            <b>Name</b>
+            </td>
+            <td>
+            <b>Description</b>
+            </td>
+            <td>
+            <b>Type</b>
+            </td>
+            <td>
+            <b>Other</b>
+            </td>
+          </tr>
+          <tr>
+            <td>
+            {Insert Name}
+            </td>
+            <td>
+            {Insert Description}
+            </td>
+            <td>
+            {Insert Type}
+            </td>
+            <td>
+            {Other}
+            </td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td><td></td>
+          </tr>
+        </table>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        <h2 style = text-align:center>Function Interfaces</h2>
+        <table style = width:100%>
+          <tr>
+            <td>
+            <b>Name</b>
+            </td>
+            <td>
+            <b>Description</b>
+            </td>
+            <td>
+            <b>Return</b>
+            </td>
+            <td>
+            <b>Other</b>
+            </td>
+          </tr>
+          <tr>
+            <td>
+            {Insert Name}
+            </td>
+            <td>
+            {Insert Description}
+            </td>
+            <td>
+            {Insert Return Type}
+            </td>
+            <td>
+            {Other}
+            </td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td><td></td>
+          </tr>
+        </table>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        <h2 style = text-align:center>Algorithm Implementation</h2>
+        <h3 style = text-align:center>{Algorithm description}</h3>
+        </br>
+        </br>
+        <code>
+          Insert your algorithm implementation/pseudocode.
+        </code>
         "
         init={{
           min_height: 712,
