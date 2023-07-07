@@ -57,6 +57,26 @@ body {
 .app {
 	width: 600px;
     margin: auto;
+    margin-top: 150px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+    align-items: center;
+	background-color: #fff;
+	border-radius: 30px;
+	box-shadow: 5px 20px 50px #000;
+	padding: 20px;
+	box-sizing: border-box;
+	overflow-y: scroll;
+	overflow: hidden;
+	opacity: 0%;
+	animation: appear 0.5s both;
+	transition: 0.5s all ease;
+  }
+
+  .account-modal {
+	width: 600px;
+    margin: auto;
     margin-top: 50px;
 	display: flex;
 	flex-direction: column;

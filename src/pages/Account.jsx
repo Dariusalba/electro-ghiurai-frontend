@@ -138,7 +138,7 @@ function AccountInfo() {
           <div className="modal-content">
             <span className="w3-button w3-black close" onClick={() => setAccountInfoModalOpen(false)}>&times;</span>
             <div>
-              <div className="app account-op">
+              <div className="account-modal account-op">
                 <h2>User Information:</h2>
                 {Object.keys(userInfo).length > 0 ? (
                   <>
@@ -186,7 +186,7 @@ function AccountInfo() {
           <div className="modal-content">
             <span className="w3-button w3-black close" onClick={() => setOrderInfoModalOpen(false)}>&times;</span>
             <div>
-              <div className="app account-op">
+              <div className="account-modal account-op">
                 <h2>Current Orders:</h2>
                 {orders.length > 0 ? (
                   <table className="order-table">
