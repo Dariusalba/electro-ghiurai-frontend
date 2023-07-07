@@ -11,25 +11,27 @@ function AccountInfo() {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
+  const [accountInfoModalOpen, setAccountInfoModalOpen] = useState(false);
+  const [orderInfoModalOpen, setOrderInfoModalOpen] = useState(false);
 
   const menuRef = useRef(null);
   const menuItemsRef = useRef([]);
 
   useEffect(() => {
     const menuElement = menuRef.current;
-        const menuItems = Array.from(menuItemsRef.current);
+    const menuItems = Array.from(menuItemsRef.current);
 
-        menuItems.forEach((item, index) => {
-            item.addEventListener('mouseover', () => {
-                menuElement.dataset.activeIndex = index;
-            });
+    menuItems.forEach((item, index) => {
+      item.addEventListener('mouseover', () => {
+        menuElement.dataset.activeIndex = index;
+      });
 
-            return () => {
-                item.removeEventListener('mouseover', () => {
-                    menuElement.dataset.activeIndex = index;
-                });
-            };
+      return () => {
+        item.removeEventListener('mouseover', () => {
+          menuElement.dataset.activeIndex = index;
         });
+      };
+    });
 
     const fetchUserInfo = async () => {
       try {
@@ -87,6 +89,14 @@ function AccountInfo() {
     setFeedbackModalOpen(true);
   };
 
+  const openAccountInfoModal = () => {
+    setAccountInfoModalOpen(true);
+  };
+
+  const openOrderInfoModal = () => {
+    setOrderInfoModalOpen(true);
+  };
+
   const closeFeedbackModal = () => {
     setFeedbackModalOpen(false);
   };
@@ -115,145 +125,162 @@ function AccountInfo() {
         </div>
       </div>
       <div className="testpage-m" ref={menuRef}>
-            <div className="testpage_mitems">
-                <a href="" className="testpage_mitem" ref={(el) => (menuItemsRef.current[0] = el)}>View Account Details</a>
-                <a href="" className="testpage_mitem" ref={(el) => (menuItemsRef.current[1] = el)}>View Current Orders</a>
-                <a href="/order" className="testpage_mitem" ref={(el) => (menuItemsRef.current[2] = el)}>Create an order</a>
-            </div>
-            <div className="testpage_mpattern"></div>
-            <div className="testpage_mimage"></div>
+        <div className="testpage_mitems">
+          <a href="#" className="testpage_mitem" ref={(el) => (menuItemsRef.current[0] = el)} onClick={openAccountInfoModal}>View Account Details</a>
+          <a href="#" className="testpage_mitem" ref={(el) => (menuItemsRef.current[1] = el)} onClick={openOrderInfoModal}>View Current Orders</a>
+          <a href="/order" className="testpage_mitem" ref={(el) => (menuItemsRef.current[2] = el)}>Create an order</a>
+        </div>
+        <div className="testpage_mpattern"></div>
+        <div className="testpage_mimage"></div>
       </div>
-      {/*
-      <div className="account-bg">
-      <div className="app account-op">
-        <h2>User Information:</h2>
-        {Object.keys(userInfo).length > 0 ? (
-          <>
+      {accountInfoModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="w3-button w3-black close" onClick={() => setAccountInfoModalOpen(false)}>&times;</span>
+            <div className="account-bg">
+              <div className="app account-op">
+                <h2>User Information:</h2>
+                {Object.keys(userInfo).length > 0 ? (
+                  <>
+                    <table className="order-table">
+                      <thead>
+                        <tr>
+                          <th>Info</th>
+                          <th>Data</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Username</td>
+                          <td>{userInfo.username}</td>
+                        </tr>
+                        <tr>
+                          <td>First Name</td>
+                          <td>{userInfo.firstName}</td>
+                        </tr>
+                        <tr>
+                          <td>Last Name</td>
+                          <td>{userInfo.lastName}</td>
+                        </tr>
+                        <tr>
+                          <td>Email</td>
+                          <td>{userInfo.email}</td>
+                        </tr>
+                        <tr>
+                          <td>Country of Origin</td>
+                          <td>{userInfo.country}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </>
+                ) : (
+                  <p>Failed to load user information.</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {orderInfoModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="w3-button w3-black close" onClick={() => setOrderInfoModalOpen(false)}>&times;</span>
+            <div className="account-bg">
+              <div className="app account-op">
+                <h2>Current Orders:</h2>
+                {orders.length > 0 ? (
+                  <table className="order-table">
+                    <thead>
+                      <tr>
+                        <th>Order ID</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {orders.map((order) => (
+                        <tr key={order.orderId}>
+                          <td>{order.orderId}</td>
+                          <td>{order.title}</td>
+                          <td>{order.description}</td>
+                          <td>
+                            <button
+                              className="w3-button w3-black app-button-simple4"
+                              onClick={() => handleOrderSelection(order.orderId)}
+                            >
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <p>No orders found.</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {modalOpen && selectedOrder && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="w3-button w3-black close" onClick={closeModal}>&times;</span>
+            <h2>Selected Order Details</h2>
             <table className="order-table">
-              <thead>
-                <tr>
-                  <th>Info</th>
-                  <th>Data</th>
-                </tr>
-              </thead>
               <tbody>
                 <tr>
-                  <td>Username</td>
-                  <td>{userInfo.username}</td>
+                  <td>Order ID</td>
+                  <td>{selectedOrder.orderId}</td>
                 </tr>
                 <tr>
-                  <td>First Name</td>
-                  <td>{userInfo.firstName}</td>
+                  <td>Title</td>
+                  <td>{selectedOrder.title}</td>
                 </tr>
                 <tr>
-                  <td>Last Name</td>
-                  <td>{userInfo.lastName}</td>
+                  <td>Description</td>
+                  <td>{selectedOrder.description}</td>
                 </tr>
                 <tr>
-                  <td>Email</td>
-                  <td>{userInfo.email}</td>
-                </tr>
-                <tr>
-                  <td>Country of Origin</td>
-                  <td>{userInfo.country}</td>
+                  <td>Status</td>
+                  <td>{getOrderStatusName(selectedOrder.orderStatus)}</td>
                 </tr>
               </tbody>
-            </table> 
-          </>
-        ) : (
-          <p>Failed to load user information.</p>
-        )}
-        <h2>Current Orders:</h2>
-        {orders.length > 0 ? (
-          <table className="order-table">
-            <thead>
-              <tr>
-                <th>Order ID</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order.orderId}>
-                  <td>{order.orderId}</td>
-                  <td>{order.title}</td>
-                  <td>{order.description}</td>
-                  <td>
-                    <button
-                      className="w3-button w3-black app-button-simple4"
-                      onClick={() => handleOrderSelection(order.orderId)}
-                    >
-                      View
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p>No orders found.</p>
-        )}
-        {modalOpen && selectedOrder && (
-          <div className="modal">
-            <div className="modal-content">
-              <span className="w3-button w3-black close" onClick={closeModal}>&times;</span>
-              <h2>Selected Order Details</h2>
-              <table className="order-table">
-                <tbody>
-                  <tr>
-                    <td>Order ID</td>
-                    <td>{selectedOrder.orderId}</td>
-                  </tr>
-                  <tr>
-                    <td>Title</td>
-                    <td>{selectedOrder.title}</td>
-                  </tr>
-                  <tr>
-                    <td>Description</td>
-                    <td>{selectedOrder.description}</td>
-                  </tr>
-                  <tr>
-                    <td>Status</td>
-                    <td>{getOrderStatusName(selectedOrder.orderStatus)}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <br />
-              {selectedOrder.orderStatus === 3 && (
-                <div>
-                  <button
-                    className="w3-button w3-black app-button"
-                    onClick={() => handleDownloadCode(selectedOrder.orderId)}
-                  >
-                    Download Code
-                  </button>
-                  <br />
-                  <br />
-                  <button className="w3-button w3-black app-button" onClick={openFeedbackModal}>
-                    Feedback
-                  </button>
-                </div>
-              )}
-            </div>
+            </table>
+            <br />
+            {selectedOrder.orderStatus === 3 && (
+              <div>
+                <button
+                  className="w3-button w3-black app-button"
+                  onClick={() => handleDownloadCode(selectedOrder.orderId)}
+                >
+                  Download Code
+                </button>
+                <br />
+                <br />
+                <button className="w3-button w3-black app-button" onClick={openFeedbackModal}>
+                  Feedback
+                </button>
+              </div>
+            )}
           </div>
-        )}
-        {feedbackModalOpen && (
-          <div className="modal">
-            <div className="modal-content">
-              <span className="w3-button w3-black close" onClick={closeFeedbackModal}>&times;</span>
-              <Feedback />
-            </div>
+        </div>
+      )}
+
+      {feedbackModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="w3-button w3-black close" onClick={closeFeedbackModal}>&times;</span>
+            <Feedback />
           </div>
-        )}
-        <br />
-        <Link to="/order">
-          <button className="w3-button w3-black app-button">Create Order</button>
-        </Link>
-      </div>
-      </div>
-        */}
+        </div>
+      )}
+      <br />
+      <Link to="/order">
+        <button className="w3-button w3-black app-button">Create Order</button>
+      </Link>
       <ToastContainer />
     </div>
   );
