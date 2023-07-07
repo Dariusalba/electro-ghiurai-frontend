@@ -278,9 +278,6 @@ function AccountInfo() {
         </div>
       )}
       <br />
-      <Link to="/order">
-        <button className="w3-button w3-black app-button">Create Order</button>
-      </Link>
       <ToastContainer />
     </div>
   );
