@@ -126,6 +126,7 @@ function EmployeeDashboard() {
         }
         setCompletedTasks([...completedTasks, selectedTask.taskNr]);
         setTaskComplete([...taskComplete,selectedTask]);
+        window.location.reload();
     };
 
     const handleDownloadSpec = async () => {
@@ -204,6 +205,7 @@ function EmployeeDashboard() {
         }
         setCompletedTasks([...completedTasks, selectedTask.taskNr]);
         setTaskComplete([...taskComplete,selectedTask]);
+        window.location.reload();
     };
 
     const handleDeclareDefect = () => {
