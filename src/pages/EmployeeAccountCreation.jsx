@@ -181,9 +181,9 @@ const EmployeeAccountCreation = () => {
 
   return (
     <div>
-      <div class="w3-top">
-        <div class="w3-bar w3-white w3-card" id="myNavbar">
-          <a href="/manager/dashboard" class="w3-bar-item w3-button w3-wide">ELECTROGHIURAI</a>
+      <div className="w3-top">
+        <div className="w3-bar w3-white w3-card" id="myNavbar">
+          <a href="/manager/dashboard" className="w3-bar-item w3-button w3-wide">ELECTROGHIURAI</a>
         </div>
       </div>
       <div className="app">
