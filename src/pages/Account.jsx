@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Feedback from "./Feedback";
 import "../components/Account.css";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 function AccountInfo() {
   const userId = sessionStorage.getItem("userId");
@@ -128,12 +128,33 @@ function AccountInfo() {
     }
   };
 
+  const invalidProfilePictureSize = () =>
+    toast.error('❌ The profile picture must be 128x128 or smaller.', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
   const handleProfilePictureChange = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
 
     reader.onload = function (e) {
-      setImageSrc(e.target.result);
+      const img = new Image();
+      img.src = e.target.result;
+
+      img.onload = function () {
+        if (img.width > 128 || img.height > 128) {
+          invalidProfilePictureSize();
+        } else {
+          setImageSrc(img.src);
+        }
+      };
     };
 
     reader.readAsDataURL(file);

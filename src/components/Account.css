@@ -94,6 +94,7 @@
     height: 40px;
     border-radius: 50%;
     overflow: hidden;
+    margin-top: 10px;
   }
   
   .profile-picture-nav img {
