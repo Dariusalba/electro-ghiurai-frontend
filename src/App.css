@@ -206,16 +206,6 @@ body {
 	background-size: cover;
 }
 
-.manager-bg2 {
-	width: 1320px;
-	height: 686px;
-	position: absolute;
-	top: 59px;
-	left: 600px;
-	padding-top: 1px;
-	background-color: rgb(167, 167, 167);
-}
-
 .report-bg {
 	width: auto;
 	min-height: 900px;
