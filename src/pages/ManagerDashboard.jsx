@@ -274,8 +274,8 @@ const ManagerDashboard = () => {
 
   };
 
-  const formatPosition = (position) =>{
-    if(position === 2){
+  const formatPosition = (position) => {
+    if (position === 2) {
       return "Junior Developer";
     }
     return "Senior Developer";
@@ -447,6 +447,7 @@ const ManagerDashboard = () => {
       console.error(error);
     }
   };
+
   const handleFinishOrder = async () => {
     try {
       const response = await fetch(`http://localhost:9191/mng/finish/order/${selectedOrderDetails.orderId}`, {
@@ -490,6 +491,7 @@ const ManagerDashboard = () => {
       console.error(error);
     }
   }
+
   const employeeAssigned = () =>
     toast.success('✅ Employee was Assigned Successfully', {
       position: "bottom-right",
@@ -501,6 +503,7 @@ const ManagerDashboard = () => {
       progress: undefined,
       theme: "dark",
     });
+
   const finishedOrder = () =>
     toast.success('✅ Order Finished Successfully', {
       position: "bottom-right",
@@ -512,6 +515,31 @@ const ManagerDashboard = () => {
       progress: undefined,
       theme: "dark",
     });
+
+    const employeePromoted = () =>
+    toast.success('✅ Employee Promoted', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
+    const employeeDemoted = () =>
+    toast.success('✅ Employee Demoted', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
   const handleViewAcceptedOrder = async (orderId) => {
     try {
       const remarks = await fetchOrderRemarks(orderId);
@@ -545,19 +573,54 @@ const ManagerDashboard = () => {
     }
   };
 
-  const promoteEngineer = engineer => {
-    engineer.position = 3;
+  const promoteEngineer = async engineer => {
+    try {
+      engineer.position = 3;
   
-    const updatedEngineer = engineerData.map(e => (e.userId === engineer.userId ? engineer : e));
-    setEngineerData(updatedEngineer);
+      const response = await fetch(`http://localhost:9191/mng/promote/employee/${engineer.employeeId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ position: engineer.position })
+      });
+  
+      if (response.ok) {
+        const updatedEngineer = engineerData.map(e => (e.userId === engineer.userId ? engineer : e));
+        setEngineerData(updatedEngineer);
+        employeePromoted();
+      } else {
+        console.error('Failed to update engineer position');
+      }
+    } catch (error) {
+      console.error('Error occurred while promoting engineer:', error);
+    }
+  };
+
+  const demoteEngineer = async engineer => {
+    try {
+      engineer.position = 2;
+  
+      const response = await fetch(`http://localhost:9191/mng/demote/employee/${engineer.employeeId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ position: engineer.position })
+      });
+  
+      if (response.ok) {
+        const updatedEngineer = engineerData.map(e => (e.userId === engineer.userId ? engineer : e));
+        setEngineerData(updatedEngineer);
+        employeeDemoted();
+      } else {
+        console.error('Failed to update engineer position');
+      }
+    } catch (error) {
+      console.error('Error occurred while demoting engineer:', error);
+    }
   };
   
-  const demoteEngineer = engineer => {
-    engineer.position = 2;
-  
-    const updatedEngineer = engineerData.map(e => (e.userId === engineer.userId ? engineer : e));
-    setEngineerData(updatedEngineer);
-  };
 
   return (
     <div>
@@ -934,7 +997,7 @@ const ManagerDashboard = () => {
         */}
       </div>
       <div className='manager-bg2'>
-        
+
       </div>
       <ToastContainer />
     </div >
