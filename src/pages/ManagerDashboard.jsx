@@ -1073,6 +1073,7 @@ const ManagerDashboard = () => {
       </div>
       <div className='manager-bg'>
         <div className='chart-disp'>
+          <div>
           <h2 className='chart-h2'>Order Chart</h2>
           <PieChart width={400} height={400}>
             <Pie
@@ -1090,6 +1091,8 @@ const ManagerDashboard = () => {
             <Legend />
             <Tooltip />
           </PieChart>
+          </div>
+          <div>
           <h2 className='chart-h2'>User Chart</h2>
           <PieChart width={400} height={400}>
             <Pie
@@ -1107,6 +1110,7 @@ const ManagerDashboard = () => {
             <Legend />
             <Tooltip />
           </PieChart>
+        </div>
         </div>
       </div>
       <div className='manager-bg2'>

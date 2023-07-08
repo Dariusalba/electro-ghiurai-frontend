@@ -165,9 +165,8 @@ body {
 
 .chart-disp {
 	display: flex;
+	margin-left: 40px;
 	flex-direction: row;
-	justify-content: center;
-	overflow-x: scroll;
 }
 
 @keyframes appear {
