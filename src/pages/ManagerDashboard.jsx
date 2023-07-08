@@ -122,6 +122,10 @@ const ManagerDashboard = () => {
     setSelectedOrder(null);
   };
 
+  const handleCloseEmployee = () => {
+    setSelectedEngineer(null);
+  };
+
   const handleCloseAcceptedOrderModal = () => {
     setShowSecondModal(false);
   };
@@ -739,7 +743,150 @@ const ManagerDashboard = () => {
         </Modal>
         )}
         {selectedEngineer && (
-          <Modal onClose={setSelectedEngineer(null)}>
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          ba
+          <Modal onClose={handleCloseEmployee()}>
               <h2>Employee Details</h2>
               <table className='order-table'>
                 <tbody>
