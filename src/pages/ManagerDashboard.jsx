@@ -529,6 +529,7 @@ const ManagerDashboard = () => {
         <h1 className=''>Manager Dashboard</h1>
         <button className='w3-button w3-black app-button-first' onClick={handleButtonClick1}>Pending Orders</button>
         <button className='w3-button w3-black app-button' onClick={handleButtonClick2}>Current Orders</button>
+        <button className='w3-button w3-black app-button' onClick={handleButtonClick2}>Employee Management</button>
         <button className='w3-button w3-black app-button' onClick={handleButtonClick3}>Other Services</button>
         <p className='app-p'>©2023 ElectroGhiurai. All rights reserved.</p>
         {showModal1 && (
@@ -822,6 +823,8 @@ const ManagerDashboard = () => {
         )}
       </div>
       <div className='manager-bg'>
+        <div className='app-p'>Trebe pus un chart!</div>
+        {/*
         <div className='slogo'></div>
         <div class="scontainer2">
           <div className='wrapper'>
@@ -831,6 +834,7 @@ const ManagerDashboard = () => {
             <img class="w3-image w3-round-large" src="https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg" alt="img4" width="800"></img>
           </div>
         </div>
+        */}
       </div>
       <ToastContainer />
     </div >
