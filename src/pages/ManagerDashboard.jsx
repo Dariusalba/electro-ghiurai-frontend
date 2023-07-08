@@ -122,10 +122,6 @@ const ManagerDashboard = () => {
     setSelectedOrder(null);
   };
 
-  const handleCloseEmployeeModal = () => {
-    setEmpPerformance(null);
-  };
-
   const handleCloseAcceptedOrderModal = () => {
     setShowSecondModal(false);
   };
@@ -743,7 +739,7 @@ const ManagerDashboard = () => {
         </Modal>
         )}
         {selectedEngineer && (
-          <Modal onClose={handleCloseEmployeeModal}>
+          <Modal onClose={setSelectedEngineer(null)}>
               <h2>Employee Details</h2>
               <table className='order-table'>
                 <tbody>
@@ -769,17 +765,42 @@ const ManagerDashboard = () => {
                   </tr>
                 </tbody>
               </table>
-              <br/>
-              <p>Tasks Completed In Time: {selectedEngineer.tasksCompletedInTime}</p>
-              <p>Tasks Completed Late: {selectedEngineer.tasksCompletedLate}</p>
-              <p>Total Tasks: {selectedEngineer.totalTasks}</p>
-              <p>Total Tasks Assigned: {selectedEngineer.totalTasksAssigned}</p>
-              <p>Total Tasks Completed: {selectedEngineer.totalTasksCompleted}</p>
-              <h3>Performance: {selectedEngineer.performancePoints} PP</h3>
+              <h2>Performance Details</h2>
+              <h3>Tasks</h3>
+              <table className='order-table'>
+                <tbody>
+                  <tr>
+                    <td>Completed In Time</td>
+                    <td>{selectedEngineer.tasksCompletedInTime}</td>
+                  </tr>
+                  <tr>
+                    <td>Completed Late</td>
+                    <td>{selectedEngineer.tasksCompletedLate}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3>Total Tasks</h3>
+              <table className='order-table'>
+                <tbody>
+                  <tr>
+                    <td>Total Tasks</td>
+                    <td>{selectedEngineer.totalTasks}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Tasks Assigned</td>
+                    <td>{selectedEngineer.totalTasksAssigned}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Tasks Completed</td>
+                    <td>{selectedEngineer.totalTasksCompleted}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h2>Performance: {selectedEngineer.performancePoints} PP</h2>
               {selectedEngineer.position === 2 ? (
-                <button className="w3-button w3-black app-button-simple" onClick={() => promoteEngineer(selectedEngineer)}>Promote</button>
+                <button className="w3-button w3-black" onClick={() => promoteEngineer(selectedEngineer)}>Promote</button>
               ) : (
-                <button className="w3-button w3-black app-button-simple" onClick={() => demoteEngineer(selectedEngineer)}>Demote</button>
+                <button className="w3-button w3-black" onClick={() => demoteEngineer(selectedEngineer)}>Demote</button>
               )}
           </Modal>
         )}
