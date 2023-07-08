@@ -632,11 +632,11 @@ const ManagerDashboard = () => {
 
   return (
     <div>
-      <div class="w3-top">
-        <div class="w3-bar w3-white w3-card" id="myNavbar">
-          <a href="/" class="w3-bar-item w3-button w3-wide">ELECTROGHIURAI</a>
-          <div class="w3-right w3-hide-small">
-            <a href="/login" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i> SIGN OUT</a>
+      <div className="w3-top">
+        <div className="w3-bar w3-white w3-card" id="myNavbar">
+          <a href="/" className="w3-bar-item w3-button w3-wide">ELECTROGHIURAI</a>
+          <div className="w3-right w3-hide-small">
+            <a href="/login" className="w3-bar-item w3-button"><i className="fa fa-sign-out"></i> SIGN OUT</a>
           </div>
         </div>
       </div>
@@ -990,17 +990,6 @@ const ManagerDashboard = () => {
       </div>
       <div className='manager-bg'>
         <div className='app-p'>Trebe pus un chart!</div>
-        {/*
-        <div className='slogo'></div>
-        <div class="scontainer2">
-          <div className='wrapper'>
-            <img class="w3-image w3-round-large" src="https://blog.velsoft.com/wp-content/uploads/2018/03/happiness.jpg" alt="img1" width="800"></img>
-            <img class="w3-image w3-round-large" src="https://content.fortune.com/wp-content/uploads/2017/01/gettyimages-533979847.jpg" alt="img2" width="800"></img>
-            <img class="w3-image w3-round-large" src="https://ggsc.s3.amazonaws.com/images/uploads/How_Happy_Are_People_at_Work.jpg" alt="img3" width="800"></img>
-            <img class="w3-image w3-round-large" src="https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg" alt="img4" width="800"></img>
-          </div>
-        </div>
-        */}
       </div>
       <div className='manager-bg2'>
 
