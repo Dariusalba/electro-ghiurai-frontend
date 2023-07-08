@@ -704,8 +704,7 @@ const ManagerDashboard = () => {
           </Modal>
         )}
         {showModal4 && (
-          <div className="modal">
-            <div className="modal-content">
+          <Modal onClose={handleModalClose4}>
               <table className="order-table">
                 <thead>
                   <tr>
@@ -728,9 +727,7 @@ const ManagerDashboard = () => {
                   ))}
                 </tbody>
               </table>
-              <button onClick={() => handleModalClose4(true)}>Close</button>
-            </div>
-          </div>
+        </Modal>
         )}
         {selectedEngineer && (
           <div className="modal">
