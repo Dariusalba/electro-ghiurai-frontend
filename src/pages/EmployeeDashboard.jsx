@@ -16,18 +16,24 @@ function EmployeeDashboard() {
     const [activeTab, setActiveTab] = useState('assigned');
     const [taskComplete, setTaskComplete] = useState([]);
 
-    useEffect(() => {
+    const getTasks = () => {
         fetch(`http://localhost:9191/emp/tasks/${userId}`)
             .then(response => response.json())
             .then(data => setTasks(data))
             .catch(error => console.log(error));
-    }, []);
-
-    useEffect(() => {
+    }
+    const getCompletedTasks = () => {
         fetch(`http://localhost:9191/emp/completed-tasks/${userId}`)
             .then(response => response.json())
             .then(data => setTaskComplete(data))
             .catch(error => console.log(error));
+    }
+    useEffect(() => {
+        getTasks();
+    }, []);
+
+    useEffect(() => {
+        getCompletedTasks();
     }, []);
 
     const handleSetActiveTab = (tab) => {
@@ -73,7 +79,6 @@ function EmployeeDashboard() {
             .then(response => response.json())
             .then(data => setOrderRemarks(data))
             .catch(error => console.log(error));
-        console.log(orderDetails);
     };
 
     const closeModal = () => {
@@ -120,6 +125,9 @@ function EmployeeDashboard() {
             closeModal();
         }
         setCompletedTasks([...completedTasks, selectedTask.taskNr]);
+        setTaskComplete([...taskComplete,selectedTask]);
+        getCompletedTasks();
+        getTasks();
     };
 
     const handleDownloadSpec = async () => {
@@ -158,7 +166,10 @@ function EmployeeDashboard() {
         }
     };
     const formatDeadline = (deadline) => {
-        return deadline.substring(0, 10);
+        if(deadline){
+            return deadline.substring(0, 10);
+        }
+        return "";
     }
 
     const formatVerdict = (status) => {
@@ -194,6 +205,9 @@ function EmployeeDashboard() {
             closeModal();
         }
         setCompletedTasks([...completedTasks, selectedTask.taskNr]);
+        setTaskComplete([...taskComplete,selectedTask]);
+        getCompletedTasks();
+        getTasks();
     };
 
     const handleDeclareDefect = () => {
@@ -217,6 +231,9 @@ function EmployeeDashboard() {
             .catch(error => console.log(error));
 
         setCompletedTasks([...completedTasks, selectedTask.taskNr]);
+        setTaskComplete([...taskComplete,selectedTask]);
+        getCompletedTasks();
+        getTasks();
     };
 
     const handleDeclareNoDefect = () => {
@@ -240,6 +257,9 @@ function EmployeeDashboard() {
             .catch(error => console.log(error));
 
         setCompletedTasks([...completedTasks, selectedTask.taskNr]);
+        setTaskComplete([...taskComplete,selectedTask]);
+        getCompletedTasks();
+        getTasks();
     };
 
     const handleDeclareCodeDefect = () => {
@@ -263,6 +283,9 @@ function EmployeeDashboard() {
             .catch(error => console.log(error));
 
         setCompletedTasks([...completedTasks, selectedTask.taskNr]);
+        setTaskComplete([...taskComplete,selectedTask]);
+        getCompletedTasks();
+        getTasks();
     };
 
 

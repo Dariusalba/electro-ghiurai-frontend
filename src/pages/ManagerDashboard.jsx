@@ -684,12 +684,12 @@ const ManagerDashboard = () => {
                 <div>
                   <h3>Function: {functionName}</h3>
                 </div>
-                <h3>Add Function</h3>
                 {seniorDevelopers.length === 0 ? (
                   <p>No senior developers available</p>
                 ) : (
                   <div className='dev-func'>
                     <button className="w3-button w3-black app-button-simple" onClick={handleDownloadSpec}>Download Spec</button>
+                    <h3>Add Developer</h3>
                     <select value={selectedSeniorDeveloper} onChange={handleSelectSeniorDeveloper}>
                       <option value="default" disabled>
                         Select an employee...
