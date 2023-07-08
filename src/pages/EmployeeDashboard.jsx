@@ -107,6 +107,13 @@ function EmployeeDashboard() {
         });
 
 
+    const fetchOrderDetails = (internalOrder) => {
+        fetch(`http://localhost:9191/emp/order-details/${internalOrder}`)
+            .then(response => response.json())
+            .then(data => setOrderDetails(data))
+            .catch(error => console.log(error));
+    };
+    
     const uploadSpecDoc = () => {
         if (selectedFile && selectedTask) {
             const formData = new FormData();
@@ -119,14 +126,14 @@ function EmployeeDashboard() {
                 .then(response => response.json())
                 .then(data => {
                     console.log('File uploaded:', data);
+                    specUploaded();
+                    closeModal();
+                    setCompletedTasks([...completedTasks, selectedTask.taskNr]);
+                    setTaskComplete([...taskComplete, selectedTask]);
+                    fetchOrderDetails(selectedTask.internalOrder);
                 })
                 .catch(error => console.log(error));
-            specUploaded();
-            closeModal();
         }
-        setCompletedTasks([...completedTasks, selectedTask.taskNr]);
-        setTaskComplete([...taskComplete,selectedTask]);
-        window.location.reload();
     };
 
     const handleDownloadSpec = async () => {
@@ -165,7 +172,7 @@ function EmployeeDashboard() {
         }
     };
     const formatDeadline = (deadline) => {
-        if(deadline){
+        if (deadline) {
             return deadline.substring(0, 10);
         }
         return "";
@@ -173,7 +180,7 @@ function EmployeeDashboard() {
 
     const formatVerdict = (status) => {
         let formatStatus = "No Defect";
-        switch(status){
+        switch (status) {
             case 2:
                 formatStatus = "Spec Defect";
                 break;
@@ -204,7 +211,7 @@ function EmployeeDashboard() {
             closeModal();
         }
         setCompletedTasks([...completedTasks, selectedTask.taskNr]);
-        setTaskComplete([...taskComplete,selectedTask]);
+        setTaskComplete([...taskComplete, selectedTask]);
         window.location.reload();
     };
 
@@ -229,7 +236,7 @@ function EmployeeDashboard() {
             .catch(error => console.log(error));
 
         setCompletedTasks([...completedTasks, selectedTask.taskNr]);
-        setTaskComplete([...taskComplete,selectedTask]);
+        setTaskComplete([...taskComplete, selectedTask]);
     };
 
     const handleDeclareNoDefect = () => {
@@ -253,7 +260,7 @@ function EmployeeDashboard() {
             .catch(error => console.log(error));
 
         setCompletedTasks([...completedTasks, selectedTask.taskNr]);
-        setTaskComplete([...taskComplete,selectedTask]);
+        setTaskComplete([...taskComplete, selectedTask]);
     };
 
     const handleDeclareCodeDefect = () => {
@@ -277,7 +284,7 @@ function EmployeeDashboard() {
             .catch(error => console.log(error));
 
         setCompletedTasks([...completedTasks, selectedTask.taskNr]);
-        setTaskComplete([...taskComplete,selectedTask]);
+        setTaskComplete([...taskComplete, selectedTask]);
     };
 
 
@@ -302,13 +309,43 @@ function EmployeeDashboard() {
                         <div className='task-list'>
                             {activeTab === 'assigned' && (
                                 <div>
-                                <h2>Assigned Tasks</h2>
-                                <div className='task-container'>
-                                    {tasks.map((task, index) => {
-                                        if (completedTasks.includes(task.taskNr)) {
-                                            return null;
-                                        }
-                                        return (
+                                    <h2>Assigned Tasks</h2>
+                                    <div className='task-container'>
+                                        {tasks.map((task, index) => {
+                                            if (completedTasks.includes(task.taskNr)) {
+                                                return null;
+                                            }
+                                            return (
+                                                <div key={task.taskNr} className='task'>
+                                                    <div>{index + 1}</div>
+                                                    <div>
+                                                        <div>
+                                                            <span>Task Number: </span>
+                                                            <span>{task.taskNr}</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>Task Type: </span>
+                                                            <span>{getTaskTypeName(task.taskType)}</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>Deadline: </span>
+                                                            <span>{formatDeadline(task.deadline)}</span>
+                                                        </div>
+                                                        <div>
+                                                            <button className='w3-button w3-black app-button-simple3' onClick={() => openModal(task)}>View</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+                            {activeTab === 'completed' && (
+                                <div>
+                                    <h2>Completed Tasks</h2>
+                                    <div className='task-container'>
+                                        {taskComplete.map((task, index) => (
                                             <div key={task.taskNr} className='task'>
                                                 <div>{index + 1}</div>
                                                 <div>
@@ -329,45 +366,15 @@ function EmployeeDashboard() {
                                                     </div>
                                                 </div>
                                             </div>
-                                        );
-                                    })}
-                                </div>
-                                </div>
-                            )}
-                            {activeTab === 'completed' && (
-                                <div>
-                                    <h2>Completed Tasks</h2>
-                                <div className='task-container'>
-                                    {taskComplete.map((task, index) => (
-                                        <div key={task.taskNr} className='task'>
-                                            <div>{index + 1}</div>
-                                            <div>
-                                                <div>
-                                                    <span>Task Number: </span>
-                                                    <span>{task.taskNr}</span>
-                                                </div>
-                                                <div>
-                                                    <span>Task Type: </span>
-                                                    <span>{getTaskTypeName(task.taskType)}</span>
-                                                </div>
-                                                <div>
-                                                    <span>Deadline: </span>
-                                                    <span>{formatDeadline(task.deadline)}</span>
-                                                </div>
-                                                <div>
-                                                    <button className='w3-button w3-black app-button-simple3' onClick={() => openModal(task)}>View</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
+                                        ))}
+                                    </div>
                                 </div>
                             )}
                         </div>
                     </div>
                 </div>
             </div>
-            {selectedTask && !codeModalVisible && activeTab ==='assigned' && (
+            {selectedTask && !codeModalVisible && activeTab === 'assigned' && (
                 <div className="modal">
                     <div className="modal-content">
                         <button className="w3-button w3-black close-button" onClick={closeModal}>
@@ -483,7 +490,7 @@ function EmployeeDashboard() {
                     </div>
                 </div>
             )}
-            {selectedTask && !codeModalVisible && activeTab ==='completed' && (
+            {selectedTask && !codeModalVisible && activeTab === 'completed' && (
                 <div className="modal">
                     <div className="modal-content">
                         <button className="w3-button w3-black close-button" onClick={closeModal}>
@@ -519,7 +526,7 @@ function EmployeeDashboard() {
                                     <p>No remarks available</p>
                                 )}
                                 <div className='dev-func'>
-                                <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadSpec}>Download Spec</button>
+                                    <button className="w3-button w3-black app-button-simple2" onClick={handleDownloadSpec}>Download Spec</button>
                                 </div>
                             </div>
                         ) : (
