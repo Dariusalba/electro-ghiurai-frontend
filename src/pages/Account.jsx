@@ -118,22 +118,22 @@ function AccountInfo() {
 
   };
 
-  const handleProfilePictureUpload = async (event) => {
-    const file = event.target.files[0];
-
-
+  const uploadProfilePicture = async () => {
+    const fileInput = document.getElementById('profilePictureInput');
+    const file = fileInput.files[0];
+  
+  
     const formData = new FormData();
-    formData.append('profilePicture', file);
-
-    const userId = userInfo.userId;
-
+    formData.append('profilePic', file);
+  
     try {
       const response = await fetch(`http://localhost:9191/user/profile-pic/${userId}`, {
         method: 'POST',
         body: formData
       });
-
+  
       if (response.ok) {
+        console.log('Profile picture uploaded successfully');
       } else {
         console.log('Profile picture upload failed');
       }
@@ -201,8 +201,9 @@ function AccountInfo() {
                       </tbody>
                     </table>
                     <div className="profile-picture-container">
-                      <img src={`data:image/jpeg;base64,${userInfo.profilePic}`} className="profile-picture" />
-                      <input type="file" accept="image/*" onChange={handleProfilePictureUpload} />
+                      <img src={`data:image/jpeg;base64,${userInfo.profilePicture}`} alt="Profile Picture" className="profile-picture" />
+                      <input type="file" id="profilePictureInput" accept="image/*" />
+                      <button onClick={uploadProfilePicture}>Upload Picture</button>
                     </div>
                   </>
                 ) : (
