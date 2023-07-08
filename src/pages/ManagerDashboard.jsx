@@ -692,7 +692,7 @@ const ManagerDashboard = () => {
                     <td>{order.orderId}</td>
                     <td>{order.title}</td>
                     <td>
-                      <button className="w3-button w3-black view-button" onClick={event => {event.preventDefault(); handleViewAcceptedOrder(order.orderId)}}>
+                      <button className="w3-button w3-black view-button" onClick={() => handleViewAcceptedOrder(order.orderId)}>
                         View
                       </button>
                     </td>
