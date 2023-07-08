@@ -114,7 +114,6 @@ body {
 }
 
 .chart-h2 {
-	text-align: center;
 	color:  white;
 }
 
@@ -168,6 +167,7 @@ body {
 	display: flex;
 	margin-left: 40px;
 	flex-direction: row;
+	justify-content: center;
 }
 
 @keyframes appear {
