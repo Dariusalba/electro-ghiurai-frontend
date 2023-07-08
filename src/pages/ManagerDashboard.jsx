@@ -730,8 +730,7 @@ const ManagerDashboard = () => {
         </Modal>
         )}
         {selectedEngineer && (
-          <div className="modal">
-            <div className="modal-content">
+          <Modal>
               <h2>Employee Details</h2>
               <p>Employee ID: {selectedEngineer.employeeId}</p>
               <p>First Name: {selectedEngineer.firstName}</p>
@@ -750,8 +749,7 @@ const ManagerDashboard = () => {
                 <button onClick={() => demoteEngineer(selectedEngineer)}>Demote</button>
               )}
               <button onClick={() => setSelectedEngineer(null)}>Close</button>
-            </div>
-          </div>
+          </Modal>
         )}
         {selectedOrder && (
           <Modal onClose={handleCloseOrderModal}>
