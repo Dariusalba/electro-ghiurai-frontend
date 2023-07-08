@@ -151,15 +151,15 @@ const ManagerDashboard = () => {
         const data = await response.json();
 
         const processedOrderChartData = [
-          { name: 'Completed Orders', value: data.orderChart.completedOrders },
-          { name: 'Orders in Progress', value: data.orderChart.ordersInProgress },
-          { name: 'Pending Orders', value: data.orderChart.pendingOrders },
+          { name: 'Completed Orders', value: data.orderchart.completedorders },
+          { name: 'Orders in Progress', value: data.orderchart.ordersinprogress },
+          { name: 'Pending Orders', value: data.orderchart.pendingOrders },
         ];
 
         const processedUserChartData = [
           { name: 'Customers', value: data.userchart.customers },
-          { name: 'Junior Developers', value: data.userchart.juniorDevelopers },
-          { name: 'Senior Developers', value: data.userchart.seniorDevelopers },
+          { name: 'Junior Developers', value: data.userchart.juniordevelopers },
+          { name: 'Senior Developers', value: data.userchart.seniordevelopers },
         ];
 
         setOrderChartData(processedOrderChartData);
@@ -669,6 +669,8 @@ const ManagerDashboard = () => {
     }
   };
 
+  const orderChartColors = ['#8884d8', '#82ca9d', '#ffc658'];
+  const userChartColors = ['#8884d8', '#82ca9d', '#ffc658'];
 
   return (
     <div>
@@ -1070,6 +1072,8 @@ const ManagerDashboard = () => {
         )}
       </div>
       <div className='manager-bg'>
+        <div className='app-p'>Trebe pus un chart!</div>
+
         <div>
           <h2>Order Chart</h2>
           <PieChart width={400} height={400}>
@@ -1079,7 +1083,7 @@ const ManagerDashboard = () => {
               cx={200}
               cy={200}
               outerRadius={80}
-              fill="#8884d8"
+              fill={orderChartColors}
             />
             <Legend />
             <Tooltip />
@@ -1095,7 +1099,7 @@ const ManagerDashboard = () => {
               cx={200}
               cy={200}
               outerRadius={80}
-              fill="#8884d8"
+              fill={userChartColors}
             />
             <Legend />
             <Tooltip />
