@@ -113,7 +113,7 @@ function EmployeeDashboard() {
             .then(data => setOrderDetails(data))
             .catch(error => console.log(error));
     };
-    
+
     const uploadSpecDoc = () => {
         if (selectedFile && selectedTask) {
             const formData = new FormData();
@@ -171,6 +171,7 @@ function EmployeeDashboard() {
             console.error(error);
         }
     };
+
     const formatDeadline = (deadline) => {
         if (deadline) {
             return deadline.substring(0, 10);
@@ -205,14 +206,14 @@ function EmployeeDashboard() {
                 .then(response => response.json())
                 .then(data => {
                     console.log('File uploaded:', data);
+                    specUploaded();
+                    closeModal();
+                    setCompletedTasks([...completedTasks, selectedTask.taskNr]);
+                    setTaskComplete([...taskComplete, selectedTask]);
+                    fetchOrderDetails(selectedTask.internalOrder);
                 })
                 .catch(error => console.log(error));
-            specUploaded();
-            closeModal();
         }
-        setCompletedTasks([...completedTasks, selectedTask.taskNr]);
-        setTaskComplete([...taskComplete, selectedTask]);
-        window.location.reload();
     };
 
     const handleDeclareDefect = () => {
