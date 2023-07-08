@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "../App.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import { Pie ,PieChart, Tooltip, Legend } from 'recharts';
+import { Pie ,PieChart, Tooltip, Legend, Cell } from 'recharts';
 
 const ManagerDashboard = () => {
   const [showModal1, setShowModal1] = useState(false);
@@ -151,15 +151,15 @@ const ManagerDashboard = () => {
         const data = await response.json();
 
         const processedOrderChartData = [
-          { name: 'Completed Orders', value: data.orderchart.completedorders },
-          { name: 'Orders in Progress', value: data.orderchart.ordersinprogress },
-          { name: 'Pending Orders', value: data.orderchart.pendingOrders },
+          { name: 'Completed Orders', value: data.orderChart.completedOrders },
+          { name: 'Orders in Progress', value: data.orderChart.ordersInProgress },
+          { name: 'Pending Orders', value: data.orderChart.pendingOrders },
         ];
 
         const processedUserChartData = [
           { name: 'Customers', value: data.userchart.customers },
-          { name: 'Junior Developers', value: data.userchart.juniordevelopers },
-          { name: 'Senior Developers', value: data.userchart.seniordevelopers },
+          { name: 'Junior Developers', value: data.userchart.juniorDevelopers },
+          { name: 'Senior Developers', value: data.userchart.seniorDevelopers },
         ];
 
         setOrderChartData(processedOrderChartData);
@@ -1072,8 +1072,6 @@ const ManagerDashboard = () => {
         )}
       </div>
       <div className='manager-bg'>
-        <div className='app-p'>Trebe pus un chart!</div>
-
         <div>
           <h2>Order Chart</h2>
           <PieChart width={400} height={400}>
@@ -1083,8 +1081,12 @@ const ManagerDashboard = () => {
               cx={200}
               cy={200}
               outerRadius={80}
-              fill={orderChartColors}
-            />
+              fill="#8884d8"
+              label
+            >
+              {orderChartData.map((_entry, index) => (
+              <Cell key={`cell-${index}`} fill={orderChartColors[index % orderChartColors.length]} />))}
+              </Pie>
             <Legend />
             <Tooltip />
           </PieChart>
@@ -1099,8 +1101,12 @@ const ManagerDashboard = () => {
               cx={200}
               cy={200}
               outerRadius={80}
-              fill={userChartColors}
-            />
+              fill="#8884d8"
+              label
+            >
+              {userChartData.map((_entry, index) => (
+              <Cell key={`cell-${index}`} fill={userChartColors[index % userChartColors.length]} />))}
+              </Pie>
             <Legend />
             <Tooltip />
           </PieChart>
