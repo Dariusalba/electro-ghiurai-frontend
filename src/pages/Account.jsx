@@ -169,7 +169,7 @@ function AccountInfo() {
           <a href="/" className="w3-bar-item w3-button w3-wide">ELECTROGHIURAI</a>
           <div className="w3-right w3-hide-small">
             {imageSrc && (
-              <div>
+              <div className="profile-picture-nav">
                 <img src={imageSrc} className="profile-picture" alt="Profile Picture" />
               </div>
             )}
