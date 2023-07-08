@@ -801,11 +801,13 @@ const ManagerDashboard = () => {
                 </tbody>
               </table>
               <h2>Performance: {selectedEngineer.performancePoints} PP</h2>
+              <div className='dev-func'>
               {selectedEngineer.position === 2 ? (
                 <button className="w3-button w3-black" onClick={() => promoteEngineer(selectedEngineer)}>Promote</button>
               ) : (
                 <button className="w3-button w3-black" onClick={() => demoteEngineer(selectedEngineer)}>Demote</button>
               )}
+              </div>
           </Modal>
         )}
         {selectedOrder && (
