@@ -13,7 +13,7 @@ const userId = sessionStorage.getItem('userId');
 function Feedback() {
     const [currentValue, setCurrentValue] = useState(0);
     const [hoverValue, setHoverValue] = useState(undefined);
-    const [comment, setComment] = useState(""); 
+    const [comment, setComment] = useState("");
     const stars = Array(5).fill(0);
 
     const handleClick = value => {
@@ -31,24 +31,24 @@ function Feedback() {
     const handleCommentChange = event => {
         setComment(event.target.value);
     };
-    const finishedOrder = () => 
-    toast.success('✅ We Received Your Feedback', {
-      position: "bottom-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-      });
+    const finishedOrder = () =>
+        toast.success('✅ We Received Your Feedback', {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
     const handleSubmit = () => {
         const feedbackData = {
-            userId: userId, 
+            userId: userId,
             rating: currentValue,
             description: comment
         };
-        
+
         fetch(`http://localhost:9191/customer/feedback/${userId}`, {
             method: "POST",
             headers: {
@@ -56,12 +56,12 @@ function Feedback() {
             },
             body: JSON.stringify(feedbackData)
         })
-        .then(response => {
-            finishedOrder();
-        })
-        .catch(error => {
-            console.error(error);
-        });
+            .then(response => {
+                finishedOrder();
+            })
+            .catch(error => {
+                console.error(error);
+            });
     };
 
     return (
