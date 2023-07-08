@@ -115,7 +115,31 @@ function AccountInfo() {
   };
 
   const handleProfilePictureChange = (profilePicture) => {
-    
+
+  };
+
+  const handleProfilePictureUpload = async (event) => {
+    const file = event.target.files[0];
+
+
+    const formData = new FormData();
+    formData.append('profilePicture', file);
+
+    const userId = userInfo.userId;
+
+    try {
+      const response = await fetch(`http://localhost:9191/user/profile-pic/${userId}`, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+      } else {
+        console.log('Profile picture upload failed');
+      }
+    } catch (error) {
+      console.log('An error occurred while uploading the profile picture:', error);
+    }
   };
 
   return (
@@ -177,8 +201,8 @@ function AccountInfo() {
                       </tbody>
                     </table>
                     <div className="profile-picture-container">
-                      <img src={userInfo.profilePicture || 'default-profile-picture.jpg'} alt="Profile Picture" className="profile-picture" />
-                      <button className="change-picture-button" onClick={handleProfilePictureChange}>Change Picture</button>
+                      <img src={`data:image/jpeg;base64,${userInfo.profilePic}`} className="profile-picture" />
+                      <input type="file" accept="image/*" onChange={handleProfilePictureUpload} />
                     </div>
                   </>
                 ) : (
