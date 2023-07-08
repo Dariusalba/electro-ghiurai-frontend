@@ -13,6 +13,7 @@ function AccountInfo() {
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
   const [accountInfoModalOpen, setAccountInfoModalOpen] = useState(false);
   const [orderInfoModalOpen, setOrderInfoModalOpen] = useState(false);
+  const [imageSrc, setImageSrc] = useState('');
 
   const menuRef = useRef(null);
   const menuItemsRef = useRef([]);
@@ -33,6 +34,7 @@ function AccountInfo() {
       };
     });
 
+
     const fetchUserInfo = async () => {
       try {
         const response = await fetch(`http://localhost:9191/customer/${userId}`);
@@ -41,6 +43,17 @@ function AccountInfo() {
         setUserInfo({ username, firstName, lastName, email, country });
       } catch (error) {
         console.error("Error: ", error);
+      }
+    };
+
+    const fetchProfilePicture = async () => {
+      try {
+        const response = await fetch(`http://localhost:9191/user/profile-pic/${userId}`);
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        setImageSrc(url);
+      } catch (error) {
+        console.error("Error fetching profile picture: ", error);
       }
     };
 
@@ -55,6 +68,7 @@ function AccountInfo() {
     };
 
     fetchUserInfo();
+    fetchProfilePicture();
     fetchOrders();
   }, [userId]);
 
@@ -114,24 +128,30 @@ function AccountInfo() {
     }
   };
 
-  const handleProfilePictureChange = (profilePicture) => {
+  const handleProfilePictureChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
 
+    reader.onload = function (e) {
+      setImageSrc(e.target.result);
+    };
+
+    reader.readAsDataURL(file);
   };
 
   const uploadProfilePicture = async () => {
     const fileInput = document.getElementById('profilePictureInput');
     const file = fileInput.files[0];
-  
-  
+
     const formData = new FormData();
     formData.append('profilePic', file);
-  
+
     try {
       const response = await fetch(`http://localhost:9191/user/profile-pic/${userId}`, {
         method: 'POST',
         body: formData
       });
-  
+
       if (response.ok) {
         console.log('Profile picture uploaded successfully');
       } else {
@@ -201,8 +221,8 @@ function AccountInfo() {
                       </tbody>
                     </table>
                     <div className="profile-picture-container">
-                    <img src={userInfo.profilePicture} className="profile-picture" />
-                      <input type="file" id="profilePictureInput" accept="image/*" />
+                      <img src={imageSrc} className="profile-picture" alt="Profile Picture" />
+                      <input type="file" id="profilePictureInput" accept="image/*" onChange={handleProfilePictureChange} />
                       <button onClick={uploadProfilePicture}>Upload Picture</button>
                     </div>
                   </>
