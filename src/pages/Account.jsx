@@ -168,6 +168,11 @@ function AccountInfo() {
         <div className="w3-bar w3-white w3-card" id="myNavbar">
           <a href="/" className="w3-bar-item w3-button w3-wide">ELECTROGHIURAI</a>
           <div className="w3-right w3-hide-small">
+            {imageSrc && (
+              <div>
+                <img src={imageSrc} className="profile-picture" alt="Profile Picture" />
+              </div>
+            )}
             <a href="/login" className="w3-bar-item w3-button"><i className="fa fa-sign-out"></i> SIGN OUT</a>
           </div>
         </div>
