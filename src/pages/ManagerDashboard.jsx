@@ -796,6 +796,7 @@ const ManagerDashboard = () => {
         )}
         {showSecondModal && (
           <Modal onClose={() => handleCloseAcceptedOrderModal(false)}>
+            <h2>Order ID: {selectedOrderDetails.orderId}</h2>
             {selectedOrderDetails.internalStatus === 1 && showDevelopers && (
               <div>
                 <h3>Add Function</h3>
@@ -967,10 +968,6 @@ const ManagerDashboard = () => {
             <h2>Order Details</h2>
             <table className='order-table'>
               <tbody>
-                <tr>
-                  <td>Order ID</td>
-                  <td>{selectedOrderDetails.orderId}</td>
-                </tr>
                 <tr>
                   <td>Title</td>
                   <td>{selectedOrderDetails.title}</td>
