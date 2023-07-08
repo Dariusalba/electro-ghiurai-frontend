@@ -32,6 +32,7 @@ const ManagerDashboard = () => {
   const [reviewerName, setReviewerName] = useState('');
   const [finishedOrders, setFinishedOrders] = useState([]);
   const [engineerData, setEngineerData] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
 
   const specAccepted = () =>
     toast.success('✅ Order Accepted', {
@@ -72,17 +73,17 @@ const ManagerDashboard = () => {
     setShowModal3(true);
   };
 
+  const setEmpPerformance = async (userId) => {
+    const empResponse = await fetch(`http://localhost:9191/mng/get/employee/${userId}/performance`);
+    const data = await empResponse.json();
+    setSelectedEngineer(data);
+  }
+
   const handleButtonClick4 = async () => {
     try {
       const engineerResponse = await fetch('http://localhost:9191/mng/engineer');
       const engineerData = await engineerResponse.json();
-
-      for (const engineer of engineerData) {
-        const response = await fetch(`http://localhost:9191/mng/get/employee/${engineer.userId}/performance/`)
-        const data = await response.json();
-        console.log(data);
-      }
-      setEngineerData(engineerData);
+      setEmployeeList(engineerData);
       setShowModal4(true);
     } catch (error) {
       console.log(error);
@@ -272,6 +273,13 @@ const ManagerDashboard = () => {
     }
 
   };
+
+  const formatPosition = (position) =>{
+    if(position === 2){
+      return "Junior Developer";
+    }
+    return "Senior Developer";
+  }
 
   const fetchJuniorDevelopers = async () => {
     try {
@@ -645,13 +653,13 @@ const ManagerDashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {engineerData.map(engineer => (
+                  {employeeList.map(engineer => (
                     <tr key={engineer.userId}>
                       <td>{engineer.userId}</td>
-                      <td>{engineer.name}</td>
+                      <td>{engineer.firstName + ", " + engineer.lastName}</td>
                       <td>{engineer.email}</td>
                       <td>
-                        <button onClick={() => setSelectedEngineer(engineer)}>View</button>
+                        <button onClick={() => setEmpPerformance(engineer.userId)}>View</button>
                       </td>
                     </tr>
                   ))}
@@ -665,11 +673,12 @@ const ManagerDashboard = () => {
           <div className="modal">
             <div className="modal-content">
               <h2>Employee Details</h2>
-              <p>Employee ID: {selectedEngineer.userId}</p>
+              <p>Employee ID: {selectedEngineer.employeeId}</p>
               <p>First Name: {selectedEngineer.firstName}</p>
               <p>Last Name: {selectedEngineer.lastName}</p>
               <p>Email: {selectedEngineer.email}</p>
-              <p>Performance: {selectedEngineer.performance}</p>
+              <p>Position: {formatPosition(selectedEngineer.position)}</p>
+              <p>Performance: {selectedEngineer.performancePoints}</p>
               <p>Tasks Completed In Time: {selectedEngineer.tasksCompletedInTime}</p>
               <p>Tasks Completed Late: {selectedEngineer.tasksCompletedLate}</p>
               <p>Total Tasks: {selectedEngineer.totalTasks}</p>

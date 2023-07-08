@@ -126,8 +126,6 @@ function EmployeeDashboard() {
         }
         setCompletedTasks([...completedTasks, selectedTask.taskNr]);
         setTaskComplete([...taskComplete,selectedTask]);
-        getCompletedTasks();
-        getTasks();
     };
 
     const handleDownloadSpec = async () => {
@@ -206,8 +204,6 @@ function EmployeeDashboard() {
         }
         setCompletedTasks([...completedTasks, selectedTask.taskNr]);
         setTaskComplete([...taskComplete,selectedTask]);
-        getCompletedTasks();
-        getTasks();
     };
 
     const handleDeclareDefect = () => {
@@ -232,8 +228,6 @@ function EmployeeDashboard() {
 
         setCompletedTasks([...completedTasks, selectedTask.taskNr]);
         setTaskComplete([...taskComplete,selectedTask]);
-        getCompletedTasks();
-        getTasks();
     };
 
     const handleDeclareNoDefect = () => {
@@ -258,8 +252,6 @@ function EmployeeDashboard() {
 
         setCompletedTasks([...completedTasks, selectedTask.taskNr]);
         setTaskComplete([...taskComplete,selectedTask]);
-        getCompletedTasks();
-        getTasks();
     };
 
     const handleDeclareCodeDefect = () => {
@@ -284,8 +276,6 @@ function EmployeeDashboard() {
 
         setCompletedTasks([...completedTasks, selectedTask.taskNr]);
         setTaskComplete([...taskComplete,selectedTask]);
-        getCompletedTasks();
-        getTasks();
     };
 
 
