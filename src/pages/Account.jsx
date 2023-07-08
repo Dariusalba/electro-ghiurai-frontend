@@ -129,7 +129,7 @@ function AccountInfo() {
   };
 
   const invalidProfilePictureSize = () =>
-    toast.error('❌ The profile picture must be 128x128 or smaller.', {
+    toast.error('❌ The profile picture must be 256x256 or smaller.', {
       position: "bottom-right",
       autoClose: 2000,
       hideProgressBar: false,
@@ -149,15 +149,16 @@ function AccountInfo() {
       img.src = e.target.result;
 
       img.onload = function () {
-        if (img.width > 128 || img.height > 128) {
+        if (img.width > 256 || img.height > 256) {
           invalidProfilePictureSize();
         } else {
           setImageSrc(img.src);
         }
       };
     };
-
-    reader.readAsDataURL(file);
+    if(file){
+      reader.readAsDataURL(file);
+    }
   };
 
   const uploadProfilePicture = async () => {
