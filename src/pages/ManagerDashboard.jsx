@@ -151,15 +151,15 @@ const ManagerDashboard = () => {
         const data = await response.json();
 
         const processedOrderChartData = [
-          { name: 'Completed Orders', value: data.orderchart.completedorders },
-          { name: 'Orders in Progress', value: data.orderchart.ordersinprogress },
-          { name: 'Pending Orders', value: data.orderchart.pendingOrders },
+          { name: 'Completed Orders', value: data.orderChart.completedOrders },
+          { name: 'Orders in Progress', value: data.orderChart.ordersInProgress },
+          { name: 'Pending Orders', value: data.orderChart.pendingOrders },
         ];
 
         const processedUserChartData = [
           { name: 'Customers', value: data.userchart.customers },
-          { name: 'Junior Developers', value: data.userchart.juniordevelopers },
-          { name: 'Senior Developers', value: data.userchart.seniordevelopers },
+          { name: 'Junior Developers', value: data.userchart.juniorDevelopers },
+          { name: 'Senior Developers', value: data.userchart.seniorDevelopers },
         ];
 
         setOrderChartData(processedOrderChartData);
@@ -1070,8 +1070,6 @@ const ManagerDashboard = () => {
         )}
       </div>
       <div className='manager-bg'>
-        <div className='app-p'>Trebe pus un chart!</div>
-
         <div>
           <h2>Order Chart</h2>
           <PieChart width={400} height={400}>
