@@ -201,7 +201,7 @@ function AccountInfo() {
                       </tbody>
                     </table>
                     <div className="profile-picture-container">
-                      <img src={`data:image/jpeg;base64,${userInfo.profilePicture}`} alt="Profile Picture" className="profile-picture" />
+                    <img src={userInfo.profilePicture} className="profile-picture" />
                       <input type="file" id="profilePictureInput" accept="image/*" />
                       <button onClick={uploadProfilePicture}>Upload Picture</button>
                     </div>
