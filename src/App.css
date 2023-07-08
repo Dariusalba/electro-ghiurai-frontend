@@ -113,6 +113,10 @@ body {
     text-align: center;
 }
 
+.chart-h2 {
+	color:  white;
+}
+
 .app-button-simple {
 	margin-top: 10px;
 	margin-bottom: 40px;
@@ -157,6 +161,12 @@ body {
 
 .chart-margin{
 	margin-left:75px;
+}
+
+.chart-disp {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 }
 
 @keyframes appear {
