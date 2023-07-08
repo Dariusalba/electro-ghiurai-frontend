@@ -796,27 +796,6 @@ const ManagerDashboard = () => {
         )}
         {showSecondModal && (
           <Modal onClose={() => handleCloseAcceptedOrderModal(false)}>
-            <h2>Order Details</h2>
-            <table className='order-table'>
-              <tbody>
-                <tr>
-                  <td>Order ID</td>
-                  <td>{selectedOrderDetails.orderId}</td>
-                </tr>
-                <tr>
-                  <td>Title</td>
-                  <td>{selectedOrderDetails.title}</td>
-                </tr>
-                <tr>
-                  <td>Description</td>
-                  <td>{selectedOrderDetails.description}</td>
-                </tr>
-                <tr>
-                  <td>Internal Status</td>
-                  <td>{formatString(selectedOrderDetails.internalStatus)}</td>
-                </tr>
-              </tbody>
-            </table>
             {selectedOrderDetails.internalStatus === 1 && showDevelopers && (
               <div>
                 <h3>Add Function</h3>
@@ -985,6 +964,27 @@ const ManagerDashboard = () => {
                 )}
               </div>
             )}
+            <h2>Order Details</h2>
+            <table className='order-table'>
+              <tbody>
+                <tr>
+                  <td>Order ID</td>
+                  <td>{selectedOrderDetails.orderId}</td>
+                </tr>
+                <tr>
+                  <td>Title</td>
+                  <td>{selectedOrderDetails.title}</td>
+                </tr>
+                <tr>
+                  <td>Description</td>
+                  <td>{selectedOrderDetails.description}</td>
+                </tr>
+                <tr>
+                  <td>Internal Status</td>
+                  <td>{formatString(selectedOrderDetails.internalStatus)}</td>
+                </tr>
+              </tbody>
+            </table>
           </Modal>
         )}
       </div>
