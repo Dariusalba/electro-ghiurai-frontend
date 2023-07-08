@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "../App.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import { Pie ,PieChart, Tooltip, Legend } from 'recharts';
 
 const ManagerDashboard = () => {
   const [showModal1, setShowModal1] = useState(false);
@@ -33,6 +34,8 @@ const ManagerDashboard = () => {
   const [finishedOrders, setFinishedOrders] = useState([]);
   const [engineerData, setEngineerData] = useState([]);
   const [employeeList, setEmployeeList] = useState([]);
+  const [orderChartData, setOrderChartData] = useState([]);
+  const [userChartData, setUserChartData] = useState([]);
 
   const specAccepted = () =>
     toast.success('✅ Order Accepted', {
@@ -135,6 +138,39 @@ const ManagerDashboard = () => {
 
     setDeadline(selectedDate);
   };
+
+
+  useEffect(() => {
+    const fetchCharts = async () => {
+      try {
+        const response = await fetch('http://localhost:9191/mng/chart');
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const data = await response.json();
+
+        const processedOrderChartData = [
+          { name: 'Completed Orders', value: data.orderchart.completedorders },
+          { name: 'Orders in Progress', value: data.orderchart.ordersinprogress },
+          { name: 'Pending Orders', value: data.orderchart.pendingOrders },
+        ];
+
+        const processedUserChartData = [
+          { name: 'Customers', value: data.userchart.customers },
+          { name: 'Junior Developers', value: data.userchart.juniordevelopers },
+          { name: 'Senior Developers', value: data.userchart.seniordevelopers },
+        ];
+
+        setOrderChartData(processedOrderChartData);
+        setUserChartData(processedUserChartData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchCharts();
+  }, []);
 
 
   const fetchCustomerDetails = async (orderId) => {
@@ -528,7 +564,7 @@ const ManagerDashboard = () => {
       theme: "dark",
     });
 
-    const employeePromoted = () =>
+  const employeePromoted = () =>
     toast.success('✅ Employee Promoted', {
       position: "bottom-right",
       autoClose: 2000,
@@ -540,7 +576,7 @@ const ManagerDashboard = () => {
       theme: "dark",
     });
 
-    const employeeDemoted = () =>
+  const employeeDemoted = () =>
     toast.success('✅ Employee Demoted', {
       position: "bottom-right",
       autoClose: 2000,
@@ -588,7 +624,7 @@ const ManagerDashboard = () => {
   const promoteEngineer = async engineer => {
     try {
       engineer.position = 3;
-  
+
       const response = await fetch(`http://localhost:9191/mng/promote/employee/${engineer.employeeId}`, {
         method: 'POST',
         headers: {
@@ -596,7 +632,7 @@ const ManagerDashboard = () => {
         },
         body: JSON.stringify({ position: engineer.position })
       });
-  
+
       if (response.ok) {
         const updatedEngineer = engineerData.map(e => (e.userId === engineer.userId ? engineer : e));
         setEngineerData(updatedEngineer);
@@ -612,7 +648,7 @@ const ManagerDashboard = () => {
   const demoteEngineer = async engineer => {
     try {
       engineer.position = 2;
-  
+
       const response = await fetch(`http://localhost:9191/mng/demote/employee/${engineer.employeeId}`, {
         method: 'POST',
         headers: {
@@ -620,7 +656,7 @@ const ManagerDashboard = () => {
         },
         body: JSON.stringify({ position: engineer.position })
       });
-  
+
       if (response.ok) {
         const updatedEngineer = engineerData.map(e => (e.userId === engineer.userId ? engineer : e));
         setEngineerData(updatedEngineer);
@@ -632,7 +668,7 @@ const ManagerDashboard = () => {
       console.error('Error occurred while demoting engineer:', error);
     }
   };
-  
+
 
   return (
     <div>
@@ -718,96 +754,96 @@ const ManagerDashboard = () => {
         {showModal4 && (
           <Modal onClose={handleModalClose4}>
             <h2>Employees Management</h2>
-              <table className="order-table">
-                <thead>
-                  <tr>
-                    <th>Engineer ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Action</th>
+            <table className="order-table">
+              <thead>
+                <tr>
+                  <th>Engineer ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {employeeList.map(engineer => (
+                  <tr key={engineer.userId}>
+                    <td>{engineer.userId}</td>
+                    <td>{engineer.firstName + ", " + engineer.lastName}</td>
+                    <td>{engineer.email}</td>
+                    <td>
+                      <button className="w3-button w3-black view-button" onClick={() => setEmpPerformance(engineer.userId)}>View</button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {employeeList.map(engineer => (
-                    <tr key={engineer.userId}>
-                      <td>{engineer.userId}</td>
-                      <td>{engineer.firstName + ", " + engineer.lastName}</td>
-                      <td>{engineer.email}</td>
-                      <td>
-                        <button className="w3-button w3-black view-button" onClick={() => setEmpPerformance(engineer.userId)}>View</button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-        </Modal>
+                ))}
+              </tbody>
+            </table>
+          </Modal>
         )}
         {selectedEngineer && (
           <Modal onClose={handleCloseEmployee}>
-              <h2>Employee Details</h2>
-              <table className='order-table'>
-                <tbody>
-                  <tr>
-                    <td>Employee ID</td>
-                    <td>{selectedEngineer.employeeId}</td>
-                  </tr>
-                  <tr>
-                    <td>First Name</td>
-                    <td>{selectedEngineer.firstName}</td>
-                  </tr>
-                  <tr>
-                    <td>Last Name</td>
-                    <td>{selectedEngineer.lastName}</td>
-                  </tr>
-                  <tr>
-                    <td>Email</td>
-                    <td>{selectedEngineer.email}</td>
-                  </tr>
-                  <tr>
-                    <td>Position</td>
-                    <td>{formatPosition(selectedEngineer.position)}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h2>Performance Details</h2>
-              <h3>Tasks</h3>
-              <table className='order-table'>
-                <tbody>
-                  <tr>
-                    <td>Completed In Time</td>
-                    <td>{selectedEngineer.tasksCompletedInTime}</td>
-                  </tr>
-                  <tr>
-                    <td>Completed Late</td>
-                    <td>{selectedEngineer.tasksCompletedLate}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h3>Total Tasks</h3>
-              <table className='order-table'>
-                <tbody>
-                  <tr>
-                    <td>Total Tasks</td>
-                    <td>{selectedEngineer.totalTasks}</td>
-                  </tr>
-                  <tr>
-                    <td>Total Tasks Assigned</td>
-                    <td>{selectedEngineer.totalTasksAssigned}</td>
-                  </tr>
-                  <tr>
-                    <td>Total Tasks Completed</td>
-                    <td>{selectedEngineer.totalTasksCompleted}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h2>Performance: {selectedEngineer.performancePoints} PP</h2>
-              <div className='dev-func'>
+            <h2>Employee Details</h2>
+            <table className='order-table'>
+              <tbody>
+                <tr>
+                  <td>Employee ID</td>
+                  <td>{selectedEngineer.employeeId}</td>
+                </tr>
+                <tr>
+                  <td>First Name</td>
+                  <td>{selectedEngineer.firstName}</td>
+                </tr>
+                <tr>
+                  <td>Last Name</td>
+                  <td>{selectedEngineer.lastName}</td>
+                </tr>
+                <tr>
+                  <td>Email</td>
+                  <td>{selectedEngineer.email}</td>
+                </tr>
+                <tr>
+                  <td>Position</td>
+                  <td>{formatPosition(selectedEngineer.position)}</td>
+                </tr>
+              </tbody>
+            </table>
+            <h2>Performance Details</h2>
+            <h3>Tasks</h3>
+            <table className='order-table'>
+              <tbody>
+                <tr>
+                  <td>Completed In Time</td>
+                  <td>{selectedEngineer.tasksCompletedInTime}</td>
+                </tr>
+                <tr>
+                  <td>Completed Late</td>
+                  <td>{selectedEngineer.tasksCompletedLate}</td>
+                </tr>
+              </tbody>
+            </table>
+            <h3>Total Tasks</h3>
+            <table className='order-table'>
+              <tbody>
+                <tr>
+                  <td>Total Tasks</td>
+                  <td>{selectedEngineer.totalTasks}</td>
+                </tr>
+                <tr>
+                  <td>Total Tasks Assigned</td>
+                  <td>{selectedEngineer.totalTasksAssigned}</td>
+                </tr>
+                <tr>
+                  <td>Total Tasks Completed</td>
+                  <td>{selectedEngineer.totalTasksCompleted}</td>
+                </tr>
+              </tbody>
+            </table>
+            <h2>Performance: {selectedEngineer.performancePoints} PP</h2>
+            <div className='dev-func'>
               {selectedEngineer.position === 2 ? (
                 <button className="w3-button w3-black" onClick={() => promoteEngineer(selectedEngineer)}>Promote</button>
               ) : (
                 <button className="w3-button w3-black" onClick={() => demoteEngineer(selectedEngineer)}>Demote</button>
               )}
-              </div>
+            </div>
           </Modal>
         )}
         {selectedOrder && (
@@ -1035,9 +1071,40 @@ const ManagerDashboard = () => {
       </div>
       <div className='manager-bg'>
         <div className='app-p'>Trebe pus un chart!</div>
+
+        <div>
+          <h2>Order Chart</h2>
+          <PieChart width={400} height={400}>
+            <Pie
+              dataKey="value"
+              data={orderChartData}
+              cx={200}
+              cy={200}
+              outerRadius={80}
+              fill="#8884d8"
+            />
+            <Legend />
+            <Tooltip />
+          </PieChart>
+        </div>
+
+        <div>
+          <h2>User Chart</h2>
+          <PieChart width={400} height={400}>
+            <Pie
+              dataKey="value"
+              data={userChartData}
+              cx={200}
+              cy={200}
+              outerRadius={80}
+              fill="#8884d8"
+            />
+            <Legend />
+            <Tooltip />
+          </PieChart>
+        </div>
       </div>
       <div className='manager-bg2'>
-
       </div>
       <ToastContainer />
     </div >
