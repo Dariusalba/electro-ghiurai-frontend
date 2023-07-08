@@ -9,10 +9,12 @@ const ManagerDashboard = () => {
   const [showModal1, setShowModal1] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
   const [showModal3, setShowModal3] = useState(false);
+  const [showModal4, setShowModal4] = useState(false);
   const [pendingOrders, setPendingOrders] = useState([]);
   const [acceptedOrders, setAcceptedOrders] = useState([]);
   const [customerDetails, setCustomerDetails] = useState({});
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [selectedEngineer, setSelectedEngineer] = useState(null);
   const [orderRemarks, setOrderRemarks] = useState([]);
   const [showSecondModal, setShowSecondModal] = useState(false);
   const [selectedOrderDetails, setSelectedOrderDetails] = useState(null);
@@ -29,9 +31,7 @@ const ManagerDashboard = () => {
   const [developerName, setDeveloperName] = useState('');
   const [reviewerName, setReviewerName] = useState('');
   const [finishedOrders, setFinishedOrders] = useState([]);
-
-
-
+  const [engineerData, setEngineerData] = useState([]);
 
   const specAccepted = () =>
     toast.success('✅ Order Accepted', {
@@ -67,8 +67,26 @@ const ManagerDashboard = () => {
     }
   };
 
+
   const handleButtonClick3 = () => {
     setShowModal3(true);
+  };
+
+  const handleButtonClick4 = async () => {
+    try {
+      const engineerResponse = await fetch('http://localhost:9191/mng/engineer');
+      const engineerData = await engineerResponse.json();
+
+      for (const engineer of engineerData) {
+        const response = await fetch(`http://localhost:9191/mng/get/employee/${engineer.userId}/performance/`)
+        const data = await response.json();
+        console.log(data);
+      }
+      setEngineerData(engineerData);
+      setShowModal4(true);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleReportButtonClick = async () => {
@@ -85,6 +103,10 @@ const ManagerDashboard = () => {
 
   const handleModalClose3 = () => {
     setShowModal3(false);
+  };
+
+  const handleModalClose4 = async () => {
+    setShowModal4(false);
   };
 
   const handleCloseOrderModal = () => {
@@ -305,13 +327,13 @@ const ManagerDashboard = () => {
           body: JSON.stringify({ deadline }),
         }
       );
-      if(response.ok){
+      if (response.ok) {
         setShowDevelopers(false);
         handleCloseAcceptedOrderModal(true);
         setShowSecondModal(false);
         employeeAssigned();
       }
-      
+
     } catch (error) {
       console.error(error);
     }
@@ -515,6 +537,20 @@ const ManagerDashboard = () => {
     }
   };
 
+  const promoteEngineer = engineer => {
+    engineer.position = 3;
+  
+    const updatedEngineer = engineerData.map(e => (e.userId === engineer.userId ? engineer : e));
+    setEngineerData(updatedEngineer);
+  };
+  
+  const demoteEngineer = engineer => {
+    engineer.position = 2;
+  
+    const updatedEngineer = engineerData.map(e => (e.userId === engineer.userId ? engineer : e));
+    setEngineerData(updatedEngineer);
+  };
+
   return (
     <div>
       <div class="w3-top">
@@ -529,7 +565,7 @@ const ManagerDashboard = () => {
         <h1 className=''>Manager Dashboard</h1>
         <button className='w3-button w3-black app-button-first' onClick={handleButtonClick1}>Pending Orders</button>
         <button className='w3-button w3-black app-button' onClick={handleButtonClick2}>Current Orders</button>
-        <button className='w3-button w3-black app-button' onClick={handleButtonClick2}>Employee Management</button>
+        <button className='w3-button w3-black app-button' onClick={handleButtonClick4}>Employee Management</button>
         <button className='w3-button w3-black app-button' onClick={handleButtonClick3}>Other Services</button>
         <p className='app-p'>©2023 ElectroGhiurai. All rights reserved.</p>
         {showModal1 && (
@@ -595,6 +631,58 @@ const ManagerDashboard = () => {
               <button className='w3-button w3-black app-button'>Create Employee Account</button>
             </Link>
           </Modal>
+        )}
+        {showModal4 && (
+          <div className="modal">
+            <div className="modal-content">
+              <table className="order-table">
+                <thead>
+                  <tr>
+                    <th>Engineer ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {engineerData.map(engineer => (
+                    <tr key={engineer.userId}>
+                      <td>{engineer.userId}</td>
+                      <td>{engineer.name}</td>
+                      <td>{engineer.email}</td>
+                      <td>
+                        <button onClick={() => setSelectedEngineer(engineer)}>View</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <button onClick={() => handleModalClose4(true)}>Close</button>
+            </div>
+          </div>
+        )}
+        {selectedEngineer && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>Employee Details</h2>
+              <p>Employee ID: {selectedEngineer.userId}</p>
+              <p>First Name: {selectedEngineer.firstName}</p>
+              <p>Last Name: {selectedEngineer.lastName}</p>
+              <p>Email: {selectedEngineer.email}</p>
+              <p>Performance: {selectedEngineer.performance}</p>
+              <p>Tasks Completed In Time: {selectedEngineer.tasksCompletedInTime}</p>
+              <p>Tasks Completed Late: {selectedEngineer.tasksCompletedLate}</p>
+              <p>Total Tasks: {selectedEngineer.totalTasks}</p>
+              <p>Total Tasks Assigned: {selectedEngineer.totalTasksAssigned}</p>
+              <p>Total Tasks Completed: {selectedEngineer.totalTasksCompleted}</p>
+              {selectedEngineer.position === 2 ? (
+                <button onClick={() => promoteEngineer(selectedEngineer)}>Promote</button>
+              ) : (
+                <button onClick={() => demoteEngineer(selectedEngineer)}>Demote</button>
+              )}
+              <button onClick={() => setSelectedEngineer(null)}>Close</button>
+            </div>
+          </div>
         )}
         {selectedOrder && (
           <Modal onClose={handleCloseOrderModal}>
@@ -774,7 +862,7 @@ const ManagerDashboard = () => {
                 ) : (
                   <div className='dev-func'>
                     <select value={selectedJuniorDeveloper} onChange={handleSelectJuniorDeveloper}>
-                    <option value="default" disabled>
+                      <option value="default" disabled>
                         Select an employee...
                       </option>
                       {juniorDevelopers.map((juniorDeveloper, index) => (
@@ -803,7 +891,7 @@ const ManagerDashboard = () => {
                 ) : (
                   <div className='dev-func'>
                     <select value={selectedSeniorDeveloper} onChange={handleSelectSeniorDeveloper}>
-                    <option value="default" disabled>
+                      <option value="default" disabled>
                         Select an employee...
                       </option>
                       {seniorDevelopers.map((seniorDeveloper, index) => (
