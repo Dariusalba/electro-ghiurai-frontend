@@ -170,6 +170,10 @@ body {
 	flex-direction: row;
 }
 
+.chart-down {
+	margin-top: 50px;
+}
+
 @keyframes appear {
 	to {
 		top: 250px;

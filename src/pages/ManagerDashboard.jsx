@@ -1075,7 +1075,7 @@ const ManagerDashboard = () => {
         <div className='chart-disp'>
           <div>
           <h2 className='chart-h2'>Order Chart</h2>
-          <PieChart width={400} height={400}>
+          <PieChart className="chart-down" width={400} height={400}>
             <Pie
               dataKey="value"
               data={orderChartData}
@@ -1094,7 +1094,7 @@ const ManagerDashboard = () => {
           </div>
           <div>
           <h2 className='chart-h2'>User Chart</h2>
-          <PieChart width={400} height={400}>
+          <PieChart className="chart-down" width={400} height={400}>
             <Pie
               dataKey="value"
               data={userChartData}
