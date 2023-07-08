@@ -665,7 +665,7 @@ const ManagerDashboard = () => {
                     <td>{order.title}</td>
                     <td>{customerDetails[order.orderId]}</td>
                     <td>
-                      <button className="w3-button w3-black view-button" onClick={() => handleViewOrder(order.orderId)}>
+                      <button className="w3-button w3-black view-button" onClick={event => {event.preventDefault(); handleViewOrder(order.orderId)}}>
                         View
                       </button>
                     </td>
