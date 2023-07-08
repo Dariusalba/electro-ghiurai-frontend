@@ -924,6 +924,9 @@ const ManagerDashboard = () => {
         </div>
         */}
       </div>
+      <div className='manager-bg2'>
+        
+      </div>
       <ToastContainer />
     </div >
   );
