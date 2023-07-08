@@ -133,6 +133,9 @@ function EmployeeDashboard() {
                     fetchOrderDetails(selectedTask.internalOrder);
                 })
                 .catch(error => console.log(error));
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
         }
     };
 
@@ -213,6 +216,9 @@ function EmployeeDashboard() {
                     fetchOrderDetails(selectedTask.internalOrder);
                 })
                 .catch(error => console.log(error));
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
         }
     };
 
