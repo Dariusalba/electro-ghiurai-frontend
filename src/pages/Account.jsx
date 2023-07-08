@@ -114,6 +114,10 @@ function AccountInfo() {
     }
   };
 
+  const handleProfilePictureChange = (profilePicture) => {
+    
+  };
+
   return (
     <div>
       <div className="w3-top z-index10">
@@ -172,6 +176,10 @@ function AccountInfo() {
                         </tr>
                       </tbody>
                     </table>
+                    <div className="profile-picture-container">
+                      <img src={userInfo.profilePicture || 'default-profile-picture.jpg'} alt="Profile Picture" className="profile-picture" />
+                      <button className="change-picture-button" onClick={handleProfilePictureChange}>Change Picture</button>
+                    </div>
                   </>
                 ) : (
                   <p>Failed to load user information.</p>
