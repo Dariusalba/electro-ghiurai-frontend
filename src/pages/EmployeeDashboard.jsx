@@ -310,13 +310,13 @@ function EmployeeDashboard() {
                     <h1>Employee Dashboard</h1>
                     <div className='sidebar'>
                         <div className='sidebar-tabs'>
-                            <button className={activeTab === 'assigned' ? 'sidebar-tab active' : 'sidebar-tab'} onClick={() => handleSetActiveTab('assigned')}>Assigned Tasks</button>
-                            <button className={activeTab === 'completed' ? 'sidebar-tab active' : 'sidebar-tab'} onClick={() => handleSetActiveTab('completed')}>Completed Tasks</button>
+                            <button className={activeTab === 'assigned' ? 'w3-button w3-black app-button-simple3 sidebar-tab active' : 'w3-button w3-black app-button-simple3 sidebar-tab'} onClick={() => handleSetActiveTab('assigned')}>Assigned Tasks</button>
+                            <button className={activeTab === 'completed' ? 'w3-button w3-black app-button-simple3 sidebar-tab active' : 'w3-button w3-black app-button-simple3 sidebar-tab'} onClick={() => handleSetActiveTab('completed')}>Completed Tasks</button>
                         </div>
                         <div className='task-list'>
                             {activeTab === 'assigned' && (
                                 <div>
-                                    <h2>Assigned Tasks</h2>
+                                    <h2 className='app-h1'>Assigned Tasks</h2>
                                     <div className='task-container'>
                                         {tasks.map((task, index) => {
                                             if (completedTasks.includes(task.taskNr)) {
@@ -350,7 +350,7 @@ function EmployeeDashboard() {
                             )}
                             {activeTab === 'completed' && (
                                 <div>
-                                    <h2>Completed Tasks</h2>
+                                    <h2 className='app-h1'>Completed Tasks</h2>
                                     <div className='task-container'>
                                         {taskComplete.map((task, index) => (
                                             <div key={task.taskNr} className='task'>
